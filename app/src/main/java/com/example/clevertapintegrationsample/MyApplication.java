@@ -117,6 +117,11 @@ public class MyApplication extends Application {
 
     }
 
+
+    public void sendAppInboxTrigger(){
+        clevertapDefaultInstance.pushEvent("App Inbox Trigger");
+    }
+
     public void sendLiveEvent(){
         clevertapDefaultInstance.pushEvent("iamlive");
     }

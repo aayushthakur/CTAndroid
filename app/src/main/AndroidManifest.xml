@@ -41,7 +41,7 @@
 
         <meta-data
             android:name="CLEVERTAP_USE_GOOGLE_AD_ID"
-            android:value="0"/>
+            android:value="1"/>
 
         <service
             android:name=".MyFirebaseMessaging"

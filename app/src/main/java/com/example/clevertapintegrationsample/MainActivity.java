@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.clevertap.android.sdk.CTInboxListener;
+import com.clevertap.android.sdk.CTInboxStyleConfig;
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.clevertap.android.sdk.InAppNotificationButtonListener;
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener;
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
     TextView nativeText;
     ImageView nativeImageView;
     EditText identityEdt, emailEdt;
+    Button inbox;
+    CleverTapAPI cleverTapDefaultInstance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
 
         nativeText = findViewById(R.id.nativeText);
         nativeImageView = findViewById(R.id.nativeImage);
+        inbox = findViewById(R.id.inbox);
 
         /*CleverTapAPI.getDefaultInstance(this).setInAppNotificationButtonListener(new InAppNotificationButtonListener() {
             @Override
@@ -62,6 +67,14 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
 
             }
         });*/
+
+        cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(this);
+        if (cleverTapDefaultInstance != null) {
+            //Set the Notification Inbox Listener
+            cleverTapDefaultInstance.setCTNotificationInboxListener(this);
+            //Initialize the inbox and wait for callbacks on overridden methods
+            cleverTapDefaultInstance.initializeInbox();
+        }
 
         findViewById(R.id.sendData).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +120,13 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
             }
         });
 
-        CleverTapAPI.getDefaultInstance(this).setCTNotificationInboxListener(this);
+        findViewById(R.id.actionInbox).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().sendAppInboxTrigger();
+            }
+        });
+
     }
 
     private void postData() {
@@ -194,9 +213,34 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
         }
     }
 
+
+
     @Override
     public void inboxDidInitialize() {
+        inbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<String> tabs = new ArrayList<>();
+                tabs.add("Promotions");
+                tabs.add("Offers");//We support upto 2 tabs only. Additional tabs will be ignored
 
+                CTInboxStyleConfig styleConfig = new CTInboxStyleConfig();
+                styleConfig.setFirstTabTitle("First Tab");
+                styleConfig.setTabs(tabs);//Do not use this if you don't want to use tabs
+                styleConfig.setTabBackgroundColor("#FF0000");
+                styleConfig.setSelectedTabIndicatorColor("#0000FF");
+                styleConfig.setSelectedTabColor("#0000FF");
+                styleConfig.setUnselectedTabColor("#FFFFFF");
+                styleConfig.setBackButtonColor("#FF0000");
+                styleConfig.setNavBarTitleColor("#FF0000");
+                styleConfig.setNavBarTitle("MY INBOX");
+                styleConfig.setNavBarColor("#FFFFFF");
+                styleConfig.setInboxBackgroundColor("#ADD8E6");
+                if (cleverTapDefaultInstance != null) {
+                    cleverTapDefaultInstance.showAppInbox(styleConfig); //With Tabs
+                }
+            }
+        });
     }
 
     @Override
