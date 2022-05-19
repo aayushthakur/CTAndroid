@@ -1,7 +1,6 @@
 package com.example.clevertapintegrationsample;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -11,11 +10,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.clevertap.android.sdk.CTInboxListener;
 import com.clevertap.android.sdk.CTInboxStyleConfig;
 import com.clevertap.android.sdk.CleverTapAPI;
-import com.clevertap.android.sdk.InAppNotificationButtonListener;
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener;
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit;
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnitContent;
@@ -28,8 +28,11 @@ import com.example.clevertapintegrationsample.notificationAPI.RetrofitAPI;
 import com.example.clevertapintegrationsample.notificationAPI.To;
 import com.google.gson.Gson;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -79,9 +82,9 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
         findViewById(R.id.sendData).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = TextUtils.isEmpty(emailEdt.getText()) ? "":emailEdt.getText().toString();
-                String identity = TextUtils.isEmpty(identityEdt.getText()) ? "14011995":identityEdt.getText().toString();
-                MyApplication.getInstance().sendProfileData(identity,email);
+                String email = TextUtils.isEmpty(emailEdt.getText()) ? "" : emailEdt.getText().toString();
+                String identity = TextUtils.isEmpty(identityEdt.getText()) ? "14011995" : identityEdt.getText().toString();
+                MyApplication.getInstance().sendProfileData(identity, email);
             }
         });
 
@@ -166,20 +169,20 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
         request.setRespectFrequencyCaps(false);
         request.setName("Android Test Campaign API");
 
-        Log.d("TAG", "postData() called"+new Gson().toJson(request));
+        Log.d("TAG", "postData() called" + new Gson().toJson(request));
 
         // calling a method to create a post and passing our modal class.
-        Call<NotificationResponse> call = retrofitAPI.createPost("R9K-Z94-R46Z","ERM-ZUA-MAUL",
+        Call<NotificationResponse> call = retrofitAPI.createPost("R9K-Z94-R46Z", "ERM-ZUA-MAUL",
                 "application/json",
                 request);
         call.enqueue(new Callback<NotificationResponse>() {
             @Override
             public void onResponse(Call<NotificationResponse> call, Response<NotificationResponse> response) {
-                if (response.body() != null){
+                if (response.body() != null) {
                     Log.d("TAG", "onResponse() called with: call = [" + call + "], " +
-                            "response = [" + new Gson().toJson(response.body() )+ "]");
+                            "response = [" + new Gson().toJson(response.body()) + "]");
                 }
-                if (response.errorBody()!=null){
+                if (response.errorBody() != null) {
                     Log.d("TAG", "onResponse() called with: call = [" + call + "]," +
                             " response = [" + new Gson().toJson(response.errorBody()) + "]");
                 }
@@ -196,51 +199,106 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
     @Override
     public void onDisplayUnitsLoaded(ArrayList<CleverTapDisplayUnit> units) {
         Log.d("TAG", "onDisplayUnitsLoaded() called with: units = [" + units.toString() + "]");
-        for (CleverTapDisplayUnit cleverTapDisplayUnit: units) {
+        for (CleverTapDisplayUnit cleverTapDisplayUnit : units) {
             //CUstomKV
-            Map<String,String> customMap = cleverTapDisplayUnit.getCustomExtras();
+            Map<String, String> customMap = cleverTapDisplayUnit.getCustomExtras();
             ArrayList<CleverTapDisplayUnitContent> contents = cleverTapDisplayUnit.getContents();
-            for (CleverTapDisplayUnitContent content: contents) {
+            for (CleverTapDisplayUnitContent content : contents) {
                 String title = content.getTitle();
                 String message = content.getMessage();
                 String mediaUrl = content.getMedia();
                 Log.d("TAG", "onDisplayUnitsLoaded() called with: units = [" + title + "]");
-                Log.d("TAG", "onDisplayUnitsLoaded() called with: units = [" + message+ "]");
-                Log.d("TAG", "onDisplayUnitsLoaded() called with: units = [" + mediaUrl+ "]");
+                Log.d("TAG", "onDisplayUnitsLoaded() called with: units = [" + message + "]");
+                Log.d("TAG", "onDisplayUnitsLoaded() called with: units = [" + mediaUrl + "]");
 
-                nativeText.setText(title+" "+message);
+                nativeText.setText(title + " " + message);
             }
         }
     }
 
 
-
     @Override
     public void inboxDidInitialize() {
+        //dismiss open
         inbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<String> tabs = new ArrayList<>();
-                tabs.add("Promotions");
-                tabs.add("Offers");//We support upto 2 tabs only. Additional tabs will be ignored
-
-                CTInboxStyleConfig styleConfig = new CTInboxStyleConfig();
-                styleConfig.setFirstTabTitle("First Tab");
-                styleConfig.setTabs(tabs);//Do not use this if you don't want to use tabs
-                styleConfig.setTabBackgroundColor("#FF0000");
-                styleConfig.setSelectedTabIndicatorColor("#0000FF");
-                styleConfig.setSelectedTabColor("#0000FF");
-                styleConfig.setUnselectedTabColor("#FFFFFF");
-                styleConfig.setBackButtonColor("#FF0000");
-                styleConfig.setNavBarTitleColor("#FF0000");
-                styleConfig.setNavBarTitle("MY INBOX");
-                styleConfig.setNavBarColor("#FFFFFF");
-                styleConfig.setInboxBackgroundColor("#ADD8E6");
-                if (cleverTapDefaultInstance != null) {
-                    cleverTapDefaultInstance.showAppInbox(styleConfig); //With Tabs
-                }
+              showAppInbox();
             }
         });
+    }
+
+    private void showAppInbox(){
+        ArrayList<String> tabs = new ArrayList<>();
+        tabs.add("Promotions");
+        tabs.add("Offers");//We support upto 2 tabs only. Additional tabs will be ignored
+
+        CTInboxStyleConfig styleConfig = new CTInboxStyleConfig();
+        styleConfig.setFirstTabTitle("First Tab");
+        styleConfig.setTabs(tabs);//Do not use this if you don't want to use tabs
+        styleConfig.setTabBackgroundColor("#FF0000");
+        styleConfig.setSelectedTabIndicatorColor("#0000FF");
+        styleConfig.setSelectedTabColor("#0000FF");
+        styleConfig.setUnselectedTabColor("#FFFFFF");
+        styleConfig.setBackButtonColor("#FF0000");
+        styleConfig.setNavBarTitleColor("#FF0000");
+        styleConfig.setNavBarTitle("MY INBOX");
+        styleConfig.setNavBarColor("#FFFFFF");
+        styleConfig.setInboxBackgroundColor("#ADD8E6");
+        if (cleverTapDefaultInstance != null) {
+            cleverTapDefaultInstance.showAppInbox(styleConfig); //With Tabs
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent event) {
+        // Do something
+        showAlertDialogButtonClicked(event.title,event.messge);
+    }
+
+    public void showAlertDialogButtonClicked(String title,String message) {
+
+        // Create an alert builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("App Inbox Alert");
+
+        // set the custom layout
+        final View customLayout = getLayoutInflater().inflate(R.layout.activity_custom_dialog, null);
+        builder.setView(customLayout);
+        AlertDialog dialog = builder.create();
+        TextView tvTitle = customLayout.findViewById(R.id.title);
+        tvTitle.setText(title);
+        TextView tvMessage = customLayout.findViewById(R.id.message);
+        tvMessage.setText(message);
+
+        customLayout.findViewById(R.id.okButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAppInbox();
+                dialog.dismiss();
+            }
+        });
+
+        customLayout.findViewById(R.id.dismissButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+             dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

@@ -117,6 +117,14 @@ public class MyApplication extends Application {
 
     }
 
+    public void sendNotificationAppInbox(String title,String message){
+        Map<String,Object> data = new HashMap<>();
+        data.put("title", title);
+        data.put("message", message);
+        clevertapDefaultInstance.pushEvent("Notification App Inbox",data);
+
+    }
+
 
     public void sendAppInboxTrigger(){
         clevertapDefaultInstance.pushEvent("App Inbox Trigger");
