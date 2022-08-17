@@ -1,6 +1,8 @@
 package com.example.clevertapintegrationsample;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -10,15 +12,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.clevertap.android.sdk.CTInboxListener;
 import com.clevertap.android.sdk.CTInboxStyleConfig;
 import com.clevertap.android.sdk.CleverTapAPI;
+import com.clevertap.android.sdk.InAppNotificationButtonListener;
+import com.clevertap.android.sdk.InAppNotificationListener;
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener;
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit;
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnitContent;
+import com.clevertap.android.sdk.inapp.CTInAppNotification;
+import com.clevertap.android.sdk.inapp.InAppListener;
 import com.example.clevertapintegrationsample.notificationAPI.Android;
 import com.example.clevertapintegrationsample.notificationAPI.Content;
 import com.example.clevertapintegrationsample.notificationAPI.NotificationRequest;
@@ -33,6 +40,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -43,8 +51,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity implements DisplayUnitListener, CTInboxListener {
+public class MainActivity extends AppCompatActivity implements /*DisplayUnitListener,*/ CTInboxListener, InAppNotificationButtonListener, InAppListener {
 
+    private static final String TAG = MainActivity.class.getName();
     TextView nativeText;
     ImageView nativeImageView;
     EditText identityEdt, emailEdt;
@@ -55,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Objects.requireNonNull(CleverTapAPI.getDefaultInstance(this)).setDisplayUnitListener(this);
+//        Objects.requireNonNull(CleverTapAPI.getDefaultInstance(this)).setDisplayUnitListener(this);
 
         identityEdt = findViewById(R.id.identityEdt);
         emailEdt = findViewById(R.id.emailEdt);
@@ -64,12 +73,7 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
         nativeImageView = findViewById(R.id.nativeImage);
         inbox = findViewById(R.id.inbox);
 
-        /*CleverTapAPI.getDefaultInstance(this).setInAppNotificationButtonListener(new InAppNotificationButtonListener() {
-            @Override
-            public void onInAppButtonClick(HashMap<String, String> payload) {
 
-            }
-        });*/
 
         cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(this);
         if (cleverTapDefaultInstance != null) {
@@ -77,6 +81,41 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
             cleverTapDefaultInstance.setCTNotificationInboxListener(this);
             //Initialize the inbox and wait for callbacks on overridden methods
             cleverTapDefaultInstance.initializeInbox();
+        }
+
+
+        if (cleverTapDefaultInstance!=null) {
+
+            cleverTapDefaultInstance.setInAppNotificationButtonListener(payload -> {
+                Log.d(TAG, "In App onInAppButtonClick() called with: payload = [" + payload + "]");
+                if (payload!=null && !payload.isEmpty()){
+                    if (payload.containsKey("title")){
+                        String inAppTitle = (String) payload.get("title");
+                        Log.d(TAG, "In App called inAppTitle = [" + inAppTitle + "]");
+                    }
+                    if (payload.containsKey("inapp_deeplink")){
+                        String deepLink = (String) payload.get("inapp_deeplink");
+                        Log.d(TAG, "In App called with: deepLink = [" + deepLink + "]");
+
+                    }
+                    if (payload.containsKey("extra_key")){
+                        String extraValue = (String) payload.get("extra_key");
+                        Log.d(TAG, "In App called with: extraValue = [" + extraValue + "]");
+                    }
+                }
+            });
+            cleverTapDefaultInstance.setInAppNotificationListener(new InAppNotificationListener() {
+                @Override
+                public boolean beforeShow(Map<String, Object> extras) {
+                    Log.d(TAG, "In App beforeShow() called with: extras = [" + extras + "]");
+                    return true;                    //return true to show the inApp notification, if false then inapp wont show
+                }
+
+                @Override
+                public void onDismissed(Map<String, Object> extras, @Nullable Map<String, Object> actionExtras) {
+                    Log.d(TAG, "In App onDismissed() called with: extras = [" + extras + "], actionExtras = [" + actionExtras + "]");
+                }
+            });
         }
 
         findViewById(R.id.sendData).setOnClickListener(new View.OnClickListener() {
@@ -127,6 +166,14 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
             @Override
             public void onClick(View view) {
                 MyApplication.getInstance().sendAppInboxTrigger();
+            }
+        });
+
+        findViewById(R.id.nativeDisplayTrigger).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),NativeDisplayActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -196,7 +243,7 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
 
     }
 
-    @Override
+    /*@Override
     public void onDisplayUnitsLoaded(ArrayList<CleverTapDisplayUnit> units) {
         Log.d("TAG", "onDisplayUnitsLoaded() called with: units = [" + units.toString() + "]");
         for (CleverTapDisplayUnit cleverTapDisplayUnit : units) {
@@ -214,11 +261,13 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
                 nativeText.setText(title + " " + message);
             }
         }
-    }
+    }*/
 
 
     @Override
     public void inboxDidInitialize() {
+        Log.d("TAG", "inboxDidInitialize() called "+cleverTapDefaultInstance.getInboxMessageCount());
+        Log.d("TAG", "inboxDidInitialize() called "+new Gson().toJson(cleverTapDefaultInstance.getAllInboxMessages()));
         //dismiss open
         inbox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -303,6 +352,38 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
 
     @Override
     public void inboxMessagesDidUpdate() {
+        Log.d("TAG", "inboxMessagesDidUpdate() called "+cleverTapDefaultInstance.getInboxMessageCount());
+        Log.d("TAG", "inboxMessagesDidUpdate() called "+new Gson().toJson(cleverTapDefaultInstance.getAllInboxMessages()));
+    }
 
+   /* @Override
+    public boolean beforeShow(Map<String, Object> extras) {
+        Log.d(TAG, "beforeShow() called with: extras = [" + extras + "]");
+        return false;
+    }
+
+    @Override
+    public void onDismissed(Map<String, Object> extras, @Nullable Map<String, Object> actionExtras) {
+        Log.d(TAG, "onDismissed() called with: extras = [" + extras + "], actionExtras = [" + actionExtras + "]");
+    }*/
+
+    @Override
+    public void inAppNotificationDidClick(CTInAppNotification inAppNotification, Bundle formData, HashMap<String, String> keyValueMap) {
+        Log.d(TAG, "inAppNotificationDidClick() called with: inAppNotification = [" + inAppNotification + "], formData = [" + formData + "], keyValueMap = [" + keyValueMap + "]");
+    }
+
+    @Override
+    public void inAppNotificationDidDismiss(Context context, CTInAppNotification inAppNotification, Bundle formData) {
+        Log.d(TAG, "inAppNotificationDidDismiss() called with: context = [" + context + "], inAppNotification = [" + inAppNotification + "], formData = [" + formData + "]");
+    }
+
+    @Override
+    public void inAppNotificationDidShow(CTInAppNotification inAppNotification, Bundle formData) {
+        Log.d(TAG, "inAppNotificationDidShow() called with: inAppNotification = [" + inAppNotification + "], formData = [" + new Gson().toJson(formData) + "]");
+    }
+
+    @Override
+    public void onInAppButtonClick(HashMap<String, String> payload) {
+        Log.d(TAG, "onInAppButtonClick() called with: payload = [" + payload + "]");
     }
 }

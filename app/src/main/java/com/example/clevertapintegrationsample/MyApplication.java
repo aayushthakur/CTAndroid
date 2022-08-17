@@ -4,6 +4,7 @@ import android.app.Application;
 import android.app.NotificationManager;
 import android.content.res.Configuration;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.Log;
 
@@ -15,6 +16,7 @@ import com.clevertap.android.sdk.CleverTapAPI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,7 +36,7 @@ public class MyApplication extends Application {
         singleton = this;
         // Required initialization logic here!
         clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
-        CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.DEBUG);
+        CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE);
         clevertapDefaultInstance.pushEvent("Aayush App Open");
 //        String fcmRegId;
         FirebaseMessaging.getInstance().getToken()
@@ -69,10 +71,10 @@ public class MyApplication extends Application {
         // each of the below mentioned fields are optional
         HashMap<String, Object> profileUpdate = new HashMap<String, Object>();
         profileUpdate.put("Name", "Aayush Thakur");    // String
-        profileUpdate.put("Identity", identity);      // String or number
-        profileUpdate.put("Email", email); // Email address of the user
+            profileUpdate.put("Identity", identity);      // String or number
+            profileUpdate.put("Email", email); // Email address of the user
         profileUpdate.put("Phone", "+917737388313");   // Phone (with the country code, starting with +)
-        profileUpdate.put("Gender", "M");             // Can be either M or F
+        profileUpdate.put("Gender", "Others");             // Can be either M or F
         profileUpdate.put("DOB", new Date(1995,0,14));         // Date of Birth. Set the Date object to the appropriate value first
 
         clevertapDefaultInstance.onUserLogin(profileUpdate);
@@ -90,6 +92,7 @@ public class MyApplication extends Application {
         profileUpdate.put("Custom Score Double", 100.10 );
         profileUpdate.put("Custom Score Double Var", d );
         profileUpdate.put("Custom Score Float", 100.89f );
+        profileUpdate.put("Gender","Custom Gender");
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("tn:2");
         arrayList.add("tn:24454");
@@ -97,6 +100,10 @@ public class MyApplication extends Application {
         arrayList.add("pl:4898896464");
         profileUpdate.put("pn_scores",arrayList);
         clevertapDefaultInstance.pushProfile(profileUpdate);
+    }
+
+    public CleverTapAPI getClevertapDefaultInstance(){
+        return clevertapDefaultInstance;
     }
 
     public void sendInApp(){
@@ -122,7 +129,6 @@ public class MyApplication extends Application {
         data.put("title", title);
         data.put("message", message);
         clevertapDefaultInstance.pushEvent("Notification App Inbox",data);
-
     }
 
 

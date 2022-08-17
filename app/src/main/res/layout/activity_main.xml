@@ -78,6 +78,12 @@
         android:layout_height="wrap_content"
         android:text="Open App Inbox"/>
 
+    <Button
+        android:id="@+id/nativeDisplayTrigger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Native Display TRIGGER"/>
+
     <TextView
         android:id="@+id/nativeText"
         android:padding="10dp"
