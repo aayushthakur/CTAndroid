@@ -84,6 +84,12 @@
         android:layout_height="wrap_content"
         android:text="Native Display TRIGGER"/>
 
+    <Button
+        android:id="@+id/pushTemplateSamples"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Push Template Samples"/>
+
     <TextView
         android:id="@+id/nativeText"
         android:padding="10dp"

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.app.NotificationManager;
 import android.content.res.Configuration;
 import android.os.Build;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.Log;
@@ -11,20 +12,31 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.bumptech.glide.signature.ObjectKey;
+import com.clevertap.android.geofence.CTGeofenceAPI;
+import com.clevertap.android.geofence.CTGeofenceSettings;
+import com.clevertap.android.geofence.Logger;
+import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler;
+import com.clevertap.android.pushtemplates.TemplateRenderer;
 import com.clevertap.android.sdk.ActivityLifecycleCallback;
 import com.clevertap.android.sdk.CleverTapAPI;
+import com.clevertap.android.sdk.interfaces.NotificationHandler;
+import com.clevertap.android.sdk.pushnotification.amp.CTPushAmpListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.JsonObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MyApplication extends Application {
+public class MyApplication extends Application /*implements CTPushAmpListener*/ {
 
+    private static final String TAG = MyApplication.class.getName();
     private CleverTapAPI clevertapDefaultInstance;
 
     // Called when the application is starting, before any other application objects have been created.
@@ -37,6 +49,8 @@ public class MyApplication extends Application {
         // Required initialization logic here!
         clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE);
+        TemplateRenderer.setDebugLevel(3);
+        CleverTapAPI.setNotificationHandler((NotificationHandler)new PushTemplateNotificationHandler());
         clevertapDefaultInstance.pushEvent("Aayush App Open");
 //        String fcmRegId;
         FirebaseMessaging.getInstance().getToken()
@@ -65,6 +79,27 @@ public class MyApplication extends Application {
                     NotificationManager.IMPORTANCE_MAX,true);
         }
 
+        /*CleverTapAPI cleverTapAPI = CleverTapAPI.getDefaultInstance(getApplicationContext());
+        cleverTapAPI.setCTPushAmpListener(this);*/
+        /*CTGeofenceSettings ctGeofenceSettings = new CTGeofenceSettings.Builder()
+                .enableBackgroundLocationUpdates(true)//boolean to enable background location updates
+                .setLogLevel(Logger.VERBOSE)//Log Level
+                .setLocationAccuracy(CTGeofenceSettings.ACCURACY_HIGH)//byte value for Location Accuracy
+                .setLocationFetchMode(CTGeofenceSettings.FETCH_CURRENT_LOCATION_PERIODIC)//byte value for Fetch Mode
+                .setGeofenceMonitoringCount(CTGeofenceSettings.DEFAULT_GEO_MONITOR_COUNT)//int value for number of Geofences CleverTap can monitor
+//                .setInterval(interval)//long value for interval in milliseconds
+//                .setFastestInterval(fastestInterval)//long value for fastest interval in milliseconds
+//                .setSmallestDisplacement(displacement)//float value for smallest Displacement in meters
+//                .setGeofenceNotificationResponsiveness(geofenceNotificationResponsiveness)// int value for geofence notification responsiveness in milliseconds
+                .build();
+        CTGeofenceAPI.getInstance(getApplicationContext()).init(ctGeofenceSettings,clevertapDefaultInstance);
+        try {
+            CTGeofenceAPI.getInstance(getApplicationContext()).triggerLocation();
+        } catch (IllegalStateException e){
+            // thrown when this method is called before geofence SDK initialization
+        }*/
+
+
     }
 
     public void sendProfileData(String identity, String email){
@@ -75,8 +110,14 @@ public class MyApplication extends Application {
             profileUpdate.put("Email", email); // Email address of the user
         profileUpdate.put("Phone", "+917737388313");   // Phone (with the country code, starting with +)
         profileUpdate.put("Gender", "Others");             // Can be either M or F
-        profileUpdate.put("DOB", new Date(1995,0,14));         // Date of Birth. Set the Date object to the appropriate value first
-
+        DateFormat sourceFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = null;
+        try {
+            date = sourceFormat.parse("14/01/1995");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        profileUpdate.put("DOB", date);         // Date of Birth. Set the Date object to the appropriate value first
         clevertapDefaultInstance.onUserLogin(profileUpdate);
     }
 
@@ -160,4 +201,9 @@ public class MyApplication extends Application {
     public void onLowMemory() {
         super.onLowMemory();
     }
+
+   /* @Override
+    public void onPushAmpPayloadReceived(Bundle extras) {
+        Log.d(TAG, "onPushAmpPayloadReceived() called with: extras = [" + extras + "]");
+    }*/
 }

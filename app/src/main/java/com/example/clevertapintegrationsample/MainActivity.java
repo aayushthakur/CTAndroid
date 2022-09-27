@@ -3,6 +3,7 @@ package com.example.clevertapintegrationsample;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,6 +17,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.clevertap.android.geofence.CTGeofenceAPI;
+import com.clevertap.android.geofence.interfaces.CTGeofenceEventsListener;
+import com.clevertap.android.geofence.interfaces.CTLocationUpdatesListener;
 import com.clevertap.android.sdk.CTInboxListener;
 import com.clevertap.android.sdk.CTInboxStyleConfig;
 import com.clevertap.android.sdk.CleverTapAPI;
@@ -38,6 +42,7 @@ import com.google.gson.Gson;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -118,6 +123,40 @@ public class MainActivity extends AppCompatActivity implements /*DisplayUnitList
             });
         }
 
+       /* CTGeofenceAPI.getInstance(getApplicationContext())
+                .setOnGeofenceApiInitializedListener(new CTGeofenceAPI.OnGeofenceApiInitializedListener() {
+                    @Override
+                    public void OnGeofenceApiInitialized() {
+                        //App is notified on the main thread that CTGeofenceAPI is initialized
+                        Log.d(TAG, "OnGeofenceApiInitialized() called");
+                    }
+                });*/
+
+       /* CTGeofenceAPI.getInstance(getApplicationContext())
+                .setCtGeofenceEventsListener(new CTGeofenceEventsListener() {
+                    @Override
+                    public void onGeofenceEnteredEvent(JSONObject jsonObject) {
+                        //Callback on the main thread when the user enters Geofence with info in jsonObject
+                        Log.d(TAG, "onGeofenceEnteredEvent() called with: jsonObject = [" + new Gson().toJson(jsonObject) + "]");
+                    }
+
+                    @Override
+                    public void onGeofenceExitedEvent(JSONObject jsonObject) {
+                        //Callback on the main thread when user exits Geofence with info in jsonObject
+                        Log.d(TAG, "onGeofenceExitedEvent() called with: jsonObject = [" + new Gson().toJson(jsonObject) + "]");
+
+                    }
+                });*/
+
+       /* CTGeofenceAPI.getInstance(getApplicationContext())
+                .setCtLocationUpdatesListener(new CTLocationUpdatesListener() {
+                    @Override
+                    public void onLocationUpdates(Location location) {
+                        //New location on the main thread as provided by the Android OS
+                        Log.d(TAG, "onLocationUpdates() called with: location = [" + location.toString() + "]");
+                    }
+                });*/
+
         findViewById(R.id.sendData).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -173,6 +212,13 @@ public class MainActivity extends AppCompatActivity implements /*DisplayUnitList
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),NativeDisplayActivity.class);
+                startActivity(intent);
+            }
+        });
+        findViewById(R.id.pushTemplateSamples).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),PushTemplateActivity.class);
                 startActivity(intent);
             }
         });
@@ -279,21 +325,21 @@ public class MainActivity extends AppCompatActivity implements /*DisplayUnitList
 
     private void showAppInbox(){
         ArrayList<String> tabs = new ArrayList<>();
-        tabs.add("Promotions");
-        tabs.add("Offers");//We support upto 2 tabs only. Additional tabs will be ignored
+        tabs.add("Promotions");//We support upto 2 tabs only. Additional tabs will be ignored
+//        tabs.add("Promotions");
 
         CTInboxStyleConfig styleConfig = new CTInboxStyleConfig();
-        styleConfig.setFirstTabTitle("First Tab");
+        styleConfig.setFirstTabTitle("TestFilterTag");
         styleConfig.setTabs(tabs);//Do not use this if you don't want to use tabs
-        styleConfig.setTabBackgroundColor("#FF0000");
-        styleConfig.setSelectedTabIndicatorColor("#0000FF");
-        styleConfig.setSelectedTabColor("#0000FF");
-        styleConfig.setUnselectedTabColor("#FFFFFF");
-        styleConfig.setBackButtonColor("#FF0000");
-        styleConfig.setNavBarTitleColor("#FF0000");
+        styleConfig.setTabBackgroundColor("#FFFFFF");
+        styleConfig.setSelectedTabIndicatorColor("#3498DB");
+        styleConfig.setSelectedTabColor("#3498DB");
+        styleConfig.setUnselectedTabColor("#808B96");
+        styleConfig.setBackButtonColor("#3498DB");
+        styleConfig.setNavBarTitleColor("#3498DB");
         styleConfig.setNavBarTitle("MY INBOX");
         styleConfig.setNavBarColor("#FFFFFF");
-        styleConfig.setInboxBackgroundColor("#ADD8E6");
+        styleConfig.setInboxBackgroundColor("#85C1E9");
         if (cleverTapDefaultInstance != null) {
             cleverTapDefaultInstance.showAppInbox(styleConfig); //With Tabs
         }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center|top"
+    android:layout_margin="10dp"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/ptBasic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Basic Template"/>
+
+    <Button
+        android:id="@+id/pt2C2A"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2 CTAs"/>
+
+    <Button
+        android:id="@+id/ptZeroBezel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zero Bezel"/>
+
+
+    <Button
+        android:id="@+id/ptAutoCarousel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Auto Carousel"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

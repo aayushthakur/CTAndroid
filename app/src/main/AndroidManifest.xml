@@ -5,6 +5,11 @@
     <uses-permission android:name="android.permission.INTERNET" /> <!-- Recommended so that CleverTap knows when to attempt a network call -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:name=".MyApplication"
@@ -15,8 +20,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CleverTapIntegrationSample">
         <activity
-            android:name=".NativeDisplayActivity"
+            android:name=".PushTemplateActivity"
             android:exported="false" />
+        <activity
+            android:name=".NativeDisplayActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="app.cttest.com"
+                    android:pathPrefix="/native"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -24,6 +44,8 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+                <!-- <data android:scheme="https" android:host="app.cttest.com" /> -->
+                <!-- <data android:scheme="app" android:host="open.my.app" /> -->
             </intent-filter>
         </activity>
 
@@ -39,22 +61,24 @@
         <meta-data
             android:name="CLEVERTAP_USE_GOOGLE_AD_ID"
             android:value="0" />
-        <!--
- <service
+
+        <!--<meta-data
+            android:name="CLEVERTAP_BACKGROUND_SYNC"
+            android:value="1"/>-->
+    <service
             android:name=".MyFirebaseMessaging"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        -->
-        <service
+       <!-- <service
             android:name="com.clevertap.android.sdk.pushnotification.fcm.FcmMessageListenerService"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </service>
+        </service>-->
     </application>
 
 </manifest>
