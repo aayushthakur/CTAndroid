@@ -1,57 +1,90 @@
-package com.example.clevertapintegrationsample;
+package com.example.clevertapintegrationsample.appinbox;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.content.res.ColorStateList;
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
+import android.util.Log;
 
-public class CustomAppInboxActivity extends AppCompatActivity implements View.OnClickListener{
-    ColorStateList def;
-    TextView item1;
-    TextView item2;
-    TextView item3;
-    TextView select;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.clevertap.android.sdk.CleverTapAPI;
+import com.clevertap.android.sdk.inbox.CTInboxMessage;
+import com.clevertap.android.sdk.inbox.CTInboxMessageContent;
+import com.example.clevertapintegrationsample.MyApplication;
+import com.example.clevertapintegrationsample.R;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+
+public class CustomAppInboxActivity extends AppCompatActivity {
+
+    private static final String TAG = CustomAppInboxActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_app_inbox);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        item1 = findViewById(R.id.item1);
-        item2 = findViewById(R.id.item2);
-        item3 = findViewById(R.id.item3);
-        item1.setOnClickListener(this);
-        item2.setOnClickListener(this);
-        item3.setOnClickListener(this);
-        select = findViewById(R.id.select);
-        def = item2.getTextColors();
-    }
-    @Override
-    public void onClick(View view) {
-        if (view.getId() == R.id.item1){
-            select.animate().x(0).setDuration(100);
-            item1.setTextColor(Color.WHITE);
-            item2.setTextColor(def);
-            item3.setTextColor(def);
-        } else if (view.getId() == R.id.item2){
-            item1.setTextColor(def);
-            item2.setTextColor(Color.WHITE);
-            item3.setTextColor(def);
-            int size = item2.getWidth();
-            select.animate().x(size).setDuration(100);
-        } else if (view.getId() == R.id.item3){
-            item1.setTextColor(def);
-            item3.setTextColor(Color.WHITE);
-            item2.setTextColor(def);
-            int size = item2.getWidth() * 2;
-            select.animate().x(size).setDuration(100);
+//        Intent intent = getIntent();
+        //Sample Data in sample-appinbox-data.json file
+//        ArrayList<CTInboxMessage> inboxMessages = intent.getParcelableArrayListExtra("app_inbox_messages");
+        CleverTapAPI cleverTapAPI = MyApplication.getInstance().getClevertapDefaultInstance();
+        ArrayList<CTInboxMessage> ctInboxMessageArrayList = cleverTapAPI.getAllInboxMessages();
+        ArrayList<AppInboxModel> appInboxModels = new ArrayList<>();
+        if (ctInboxMessageArrayList != null && !ctInboxMessageArrayList.isEmpty()) {
+            Log.d(TAG, "onCreate() called with: inboxMessages = [" + new Gson().toJson(ctInboxMessageArrayList) + "]");
+            for (CTInboxMessage ctInboxMessage: ctInboxMessageArrayList ) {
+                AppInboxModel appInboxModel = new AppInboxModel();
+               ArrayList<CTInboxMessageContent> messageContents = ctInboxMessage.getInboxMessageContents();
+               if (!messageContents.isEmpty()){
+                   CTInboxMessageContent ctInboxMessageContent = messageContents.get(0);
+                   appInboxModel.setTitle(ctInboxMessageContent.getTitle());
+                   appInboxModel.setMessage(ctInboxMessageContent.getMessage());
+                   appInboxModel.setReceivedDate(ctInboxMessage.getDate());
+                   if (ctInboxMessageContent.getMedia()==null || ctInboxMessageContent.getMedia().isEmpty()) {
+                       appInboxModel.setType(AppInboxModel.TEXT_TYPE);
+                   }else {
+                       appInboxModel.setType(AppInboxModel.IMAGE_TYPE);
+                       appInboxModel.setImageUrl(ctInboxMessageContent.getMedia());
+                   }
+               }
+                appInboxModel.setTags(ctInboxMessage.getTags());
+                appInboxModels.add(appInboxModel);
+            }
         }
+
+
+        ViewPager2 viewPager = findViewById(R.id.viewPager);
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+
+        TabsAdapter tabsAdapter = new TabsAdapter(this);
+        tabsAdapter.setData(appInboxModels);
+        viewPager.setAdapter(tabsAdapter);
+
+        new TabLayoutMediator(tabLayout, viewPager,
+                new TabLayoutMediator.TabConfigurationStrategy() {
+                    @Override
+                    public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                        switch (position) {
+                            case 0:
+                                tab.setText("Promotions");
+                                tab.setIcon(R.drawable.promotions_inbox);
+                                break;
+
+                            default:
+                            case 1:
+                                tab.setText("Transactions");
+                                tab.setIcon(R.drawable.transactions_inbox);
+                                break;
+                            case 2:
+                                tab.setText("All");
+                                tab.setIcon(R.drawable.all_inbox);
+                                break;
+                        }
+//                        tab.setText("Tab " + (position + 1));
+                    }
+                }).attach();
     }
 }

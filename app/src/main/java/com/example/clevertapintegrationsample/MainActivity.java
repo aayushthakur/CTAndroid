@@ -30,6 +30,8 @@ import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit;
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnitContent;
 import com.clevertap.android.sdk.inapp.CTInAppNotification;
 import com.clevertap.android.sdk.inapp.InAppListener;
+import com.clevertap.android.sdk.inbox.CTInboxMessage;
+import com.example.clevertapintegrationsample.appinbox.CustomAppInboxActivity;
 import com.example.clevertapintegrationsample.notificationAPI.Android;
 import com.example.clevertapintegrationsample.notificationAPI.Content;
 import com.example.clevertapintegrationsample.notificationAPI.NotificationRequest;
@@ -208,6 +210,13 @@ public class MainActivity extends AppCompatActivity implements /*DisplayUnitList
             }
         });
 
+        findViewById(R.id.transactionSuccessful).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().chargedEvent();
+            }
+        });
+
         findViewById(R.id.nativeDisplayTrigger).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -313,12 +322,19 @@ public class MainActivity extends AppCompatActivity implements /*DisplayUnitList
     @Override
     public void inboxDidInitialize() {
         Log.d("TAG", "inboxDidInitialize() called "+cleverTapDefaultInstance.getInboxMessageCount());
-        Log.d("TAG", "inboxDidInitialize() called "+new Gson().toJson(cleverTapDefaultInstance.getAllInboxMessages()));
+//        Log.d("TAG", "inboxDidInitialize() called "+new Gson().toJson(cleverTapDefaultInstance.getAllInboxMessages()));
         //dismiss open
         inbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              showAppInbox();
+                //To Open Default App Inbox
+//              showAppInbox();
+
+                //To Open Custom App Inbox
+                Intent intent = new Intent(getApplicationContext(), CustomAppInboxActivity.class);
+//                ArrayList<CTInboxMessage> inboxMessages = cleverTapDefaultInstance.getAllInboxMessages();
+//                intent.putParcelableArrayListExtra("app_inbox_messages",inboxMessages);
+                startActivity(intent);
             }
         });
     }

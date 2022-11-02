@@ -126,7 +126,7 @@ public class MyApplication extends Application /*implements CTPushAmpListener*/ 
         // each of the below mentioned fields are optional
         HashMap<String, Object> profileUpdate = new HashMap<String, Object>();
         profileUpdate.put("Employed", "Y");                         // Can be either Y or N
-        profileUpdate.put("Education", "Graduate");
+        profileUpdate.put("Education Status", "GRAD");
         profileUpdate.put("Married", "Y" );         // Date of Birth. Set the Date object to the appropriate value first
         profileUpdate.put("Custom Score", 100 );
         profileUpdate.put("Custom Score String", "100.09" );
@@ -176,6 +176,39 @@ public class MyApplication extends Application /*implements CTPushAmpListener*/ 
     public void sendAppInboxTrigger(){
         clevertapDefaultInstance.pushEvent("App Inbox Trigger");
     }
+
+    public void chargedEvent(){
+        HashMap<String, Object> chargeDetails = new HashMap<String, Object>();
+        chargeDetails.put("Amount", 300);
+        chargeDetails.put("Payment mode", "Credit card");
+        chargeDetails.put("Charged ID", 24052013);
+
+        HashMap<String, Object> item1 = new HashMap<String, Object>();
+        item1.put("Product category", "books");
+        item1.put("Book name", "The Millionaire next door");
+        item1.put("Quantity", 1);
+
+        HashMap<String, Object> item2 = new HashMap<String, Object>();
+        item2.put("Product category", "books");
+        item2.put("Book name", "Achieving inner zen");
+        item2.put("Quantity", 1);
+
+        HashMap<String, Object> item3 = new HashMap<String, Object>();
+        item3.put("Product category", "books");
+        item3.put("Book name", "Chuck it, let's do it");
+        item3.put("Quantity", 5);
+
+        ArrayList<HashMap<String, Object>> items = new ArrayList<HashMap<String, Object>>();
+        items.add(item1);
+        items.add(item2);
+        items.add(item3);
+
+        try {
+            clevertapDefaultInstance.pushChargedEvent(chargeDetails, items);
+        } catch (Exception e) {
+            // You have to specify the first parameter to push()
+            // as CleverTapAPI.CHARGED_EVENT
+        }    }
 
     public void sendLiveEvent(){
         clevertapDefaultInstance.pushEvent("iamlive");

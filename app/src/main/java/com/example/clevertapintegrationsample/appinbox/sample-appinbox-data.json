@@ -1,0 +1,1517 @@
+[
+  {
+    "bgColor": "#ffffff",
+    "campaignId": "1664460153_20221004",
+    "data": {
+      "nameValuePairs": {
+        "id": "1664460153_1664862837",
+        "msg": {
+          "nameValuePairs": {
+            "type": "simple",
+            "bg": "#ffffff",
+            "orientation": "l",
+            "content": {
+              "values": [
+                {
+                  "nameValuePairs": {
+                    "key": 6789115690,
+                    "message": {
+                      "nameValuePairs": {
+                        "text": "Get 50% off on all purchases. Use Code SAVE50 on your next purchase.",
+                        "color": "#434761",
+                        "replacements": "Get 50% off on all purchases. Use Code SAVE50 on your next purchase.",
+                        "og": ""
+                      }
+                    },
+                    "title": {
+                      "nameValuePairs": {
+                        "text": "Hey User , Special offer for you",
+                        "color": "#434761",
+                        "replacements": "Hey $replacement$##n[User]$/replacement$ , Special offer for you",
+                        "og": ""
+                      }
+                    },
+                    "action": {
+                      "nameValuePairs": {
+                        "hasUrl": false,
+                        "hasLinks": false,
+                        "url": {
+                          "nameValuePairs": {
+                            "android": {
+                              "nameValuePairs": {
+                                "text": "",
+                                "replacements": "",
+                                "og": ""
+                              }
+                            },
+                            "ios": {
+                              "nameValuePairs": {
+                                "text": "",
+                                "replacements": "",
+                                "og": ""
+                              }
+                            }
+                          }
+                        },
+                        "links": {
+                          "values": [
+                            {
+                              "nameValuePairs": {
+                                "type": "copy",
+                                "text": "Link",
+                                "color": "#007bff",
+                                "bg": "#ffffff",
+                                "copyText": {
+                                  "nameValuePairs": {
+                                    "text": "",
+                                    "replacements": "",
+                                    "og": ""
+                                  }
+                                },
+                                "url": {
+                                  "nameValuePairs": {
+                                    "android": {
+                                      "nameValuePairs": {
+                                        "text": "",
+                                        "replacements": "",
+                                        "og": ""
+                                      }
+                                    },
+                                    "ios": {
+                                      "nameValuePairs": {
+                                        "text": "",
+                                        "replacements": "",
+                                        "og": ""
+                                      }
+                                    }
+                                  }
+                                },
+                                "kv": {
+                                  "nameValuePairs": {}
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "media": {
+                      "nameValuePairs": {
+                        "url": "https://db7hsdc8829us.cloudfront.net/dist/1642491392/i/49fa12f842b14419ba5c3797ac21884b.jpeg?v=1664460082",
+                        "poster": "",
+                        "key": "49fa12f842b14419ba5c3797ac21884b",
+                        "content_type": "image/jpeg",
+                        "processing": false
+                      }
+                    },
+                    "icon": {
+                      "nameValuePairs": {}
+                    }
+                  }
+                }
+              ]
+            },
+            "tags": {
+              "values": [
+                "TestFilterTag",
+                "Promotions"
+              ]
+            },
+            "enableTags": true
+          }
+        },
+        "isRead": false,
+        "date": 1664862837,
+        "wzrk_ttl": 1665035637,
+        "tags": {
+          "values": [
+            "TestFilterTag",
+            "Promotions"
+          ]
+        },
+        "wzrk_id": "1664460153_20221004",
+        "wzrkParams": {
+          "nameValuePairs": {
+            "wzrk_ttl": 1665035637,
+            "wzrk_id": "1664460153_20221004",
+            "wzrk_pivot": "wzrk_default"
+          }
+        }
+      }
+    },
+    "date": 1664862837,
+    "expires": 1665035637,
+    "inboxMessageContents": [
+      {
+        "contentType": "image/jpeg",
+        "hasLinks": false,
+        "hasUrl": false,
+        "icon": "",
+        "media": "https://db7hsdc8829us.cloudfront.net/dist/1642491392/i/49fa12f842b14419ba5c3797ac21884b.jpeg?v=1664460082",
+        "message": "Get 50% off on all purchases. Use Code SAVE50 on your next purchase.",
+        "messageColor": "#434761",
+        "posterUrl": "",
+        "title": "Hey User , Special offer for you",
+        "titleColor": "#434761"
+      }
+    ],
+    "isRead": false,
+    "messageId": "1664460153_1664862837",
+    "orientation": "l",
+    "tags": [
+      "TestFilterTag",
+      "Promotions"
+    ],
+    "type": "SimpleMessage",
+    "wzrkParams": {
+      "nameValuePairs": {
+        "wzrk_ttl": 1665035637,
+        "wzrk_id": "1664460153_20221004",
+        "wzrk_pivot": "wzrk_default"
+      }
+    }
+  },
+  {
+    "bgColor": "#ffffff",
+    "campaignId": "1664460153_20221004",
+    "data": {
+      "nameValuePairs": {
+        "id": "1664460153_1664862751",
+        "msg": {
+          "nameValuePairs": {
+            "type": "simple",
+            "bg": "#ffffff",
+            "orientation": "l",
+            "content": {
+              "values": [
+                {
+                  "nameValuePairs": {
+                    "key": 6789115690,
+                    "message": {
+                      "nameValuePairs": {
+                        "text": "Get 50% off on all purchases. Use Code SAVE50 on your next purchase.",
+                        "color": "#434761",
+                        "replacements": "Get 50% off on all purchases. Use Code SAVE50 on your next purchase.",
+                        "og": ""
+                      }
+                    },
+                    "title": {
+                      "nameValuePairs": {
+                        "text": "Hey User , Special offer for you",
+                        "color": "#434761",
+                        "replacements": "Hey $replacement$##n[User]$/replacement$ , Special offer for you",
+                        "og": ""
+                      }
+                    },
+                    "action": {
+                      "nameValuePairs": {
+                        "hasUrl": false,
+                        "hasLinks": false,
+                        "url": {
+                          "nameValuePairs": {
+                            "android": {
+                              "nameValuePairs": {
+                                "text": "",
+                                "replacements": "",
+                                "og": ""
+                              }
+                            },
+                            "ios": {
+                              "nameValuePairs": {
+                                "text": "",
+                                "replacements": "",
+                                "og": ""
+                              }
+                            }
+                          }
+                        },
+                        "links": {
+                          "values": [
+                            {
+                              "nameValuePairs": {
+                                "type": "copy",
+                                "text": "Link",
+                                "color": "#007bff",
+                                "bg": "#ffffff",
+                                "copyText": {
+                                  "nameValuePairs": {
+                                    "text": "",
+                                    "replacements": "",
+                                    "og": ""
+                                  }
+                                },
+                                "url": {
+                                  "nameValuePairs": {
+                                    "android": {
+                                      "nameValuePairs": {
+                                        "text": "",
+                                        "replacements": "",
+                                        "og": ""
+                                      }
+                                    },
+                                    "ios": {
+                                      "nameValuePairs": {
+                                        "text": "",
+                                        "replacements": "",
+                                        "og": ""
+                                      }
+                                    }
+                                  }
+                                },
+                                "kv": {
+                                  "nameValuePairs": {}
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "media": {
+                      "nameValuePairs": {
+                        "url": "https://db7hsdc8829us.cloudfront.net/dist/1642491392/i/49fa12f842b14419ba5c3797ac21884b.jpeg?v=1664460082",
+                        "poster": "",
+                        "key": "49fa12f842b14419ba5c3797ac21884b",
+                        "content_type": "image/jpeg",
+                        "processing": false
+                      }
+                    },
+                    "icon": {
+                      "nameValuePairs": {}
+                    }
+                  }
+                }
+              ]
+            },
+            "tags": {
+              "values": [
+                "TestFilterTag",
+                "Promotions"
+              ]
+            },
+            "enableTags": true
+          }
+        },
+        "isRead": false,
+        "date": 1664862751,
+        "wzrk_ttl": 1665035551,
+        "tags": {
+          "values": [
+            "TestFilterTag",
+            "Promotions"
+          ]
+        },
+        "wzrk_id": "1664460153_20221004",
+        "wzrkParams": {
+          "nameValuePairs": {
+            "wzrk_ttl": 1665035551,
+            "wzrk_id": "1664460153_20221004",
+            "wzrk_pivot": "wzrk_default"
+          }
+        }
+      }
+    },
+    "date": 1664862751,
+    "expires": 1665035551,
+    "inboxMessageContents": [
+      {
+        "contentType": "image/jpeg",
+        "hasLinks": false,
+        "hasUrl": false,
+        "icon": "",
+        "media": "https://db7hsdc8829us.cloudfront.net/dist/1642491392/i/49fa12f842b14419ba5c3797ac21884b.jpeg?v=1664460082",
+        "message": "Get 50% off on all purchases. Use Code SAVE50 on your next purchase.",
+        "messageColor": "#434761",
+        "posterUrl": "",
+        "title": "Hey User , Special offer for you",
+        "titleColor": "#434761"
+      }
+    ],
+    "isRead": false,
+    "messageId": "1664460153_1664862751",
+    "orientation": "l",
+    "tags": [
+      "TestFilterTag",
+      "Promotions"
+    ],
+    "type": "SimpleMessage",
+    "wzrkParams": {
+      "nameValuePairs": {
+        "wzrk_ttl": 1665035551,
+        "wzrk_id": "1664460153_20221004",
+        "wzrk_pivot": "wzrk_default"
+      }
+    }
+  },
+  {
+    "bgColor": "#ffffff",
+    "campaignId": "1664460153_20221004",
+    "data": {
+      "nameValuePairs": {
+        "id": "1664460153_1664862697",
+        "msg": {
+          "nameValuePairs": {
+            "type": "simple",
+            "bg": "#ffffff",
+            "orientation": "l",
+            "content": {
+              "values": [
+                {
+                  "nameValuePairs": {
+                    "key": 6789115690,
+                    "message": {
+                      "nameValuePairs": {
+                        "text": "Get 50% off on all purchases. Use Code SAVE50 on your next purchase.",
+                        "color": "#434761",
+                        "replacements": "Get 50% off on all purchases. Use Code SAVE50 on your next purchase.",
+                        "og": ""
+                      }
+                    },
+                    "title": {
+                      "nameValuePairs": {
+                        "text": "Hey User , Special offer for you",
+                        "color": "#434761",
+                        "replacements": "Hey $replacement$##n[User]$/replacement$ , Special offer for you",
+                        "og": ""
+                      }
+                    },
+                    "action": {
+                      "nameValuePairs": {
+                        "hasUrl": false,
+                        "hasLinks": false,
+                        "url": {
+                          "nameValuePairs": {
+                            "android": {
+                              "nameValuePairs": {
+                                "text": "",
+                                "replacements": "",
+                                "og": ""
+                              }
+                            },
+                            "ios": {
+                              "nameValuePairs": {
+                                "text": "",
+                                "replacements": "",
+                                "og": ""
+                              }
+                            }
+                          }
+                        },
+                        "links": {
+                          "values": [
+                            {
+                              "nameValuePairs": {
+                                "type": "copy",
+                                "text": "Link",
+                                "color": "#007bff",
+                                "bg": "#ffffff",
+                                "copyText": {
+                                  "nameValuePairs": {
+                                    "text": "",
+                                    "replacements": "",
+                                    "og": ""
+                                  }
+                                },
+                                "url": {
+                                  "nameValuePairs": {
+                                    "android": {
+                                      "nameValuePairs": {
+                                        "text": "",
+                                        "replacements": "",
+                                        "og": ""
+                                      }
+                                    },
+                                    "ios": {
+                                      "nameValuePairs": {
+                                        "text": "",
+                                        "replacements": "",
+                                        "og": ""
+                                      }
+                                    }
+                                  }
+                                },
+                                "kv": {
+                                  "nameValuePairs": {}
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "media": {
+                      "nameValuePairs": {
+                        "url": "https://db7hsdc8829us.cloudfront.net/dist/1642491392/i/49fa12f842b14419ba5c3797ac21884b.jpeg?v=1664460082",
+                        "poster": "",
+                        "key": "49fa12f842b14419ba5c3797ac21884b",
+                        "content_type": "image/jpeg",
+                        "processing": false
+                      }
+                    },
+                    "icon": {
+                      "nameValuePairs": {}
+                    }
+                  }
+                }
+              ]
+            },
+            "tags": {
+              "values": [
+                "TestFilterTag",
+                "Promotions"
+              ]
+            },
+            "enableTags": true
+          }
+        },
+        "isRead": false,
+        "date": 1664862697,
+        "wzrk_ttl": 1665035497,
+        "tags": {
+          "values": [
+            "TestFilterTag",
+            "Promotions"
+          ]
+        },
+        "wzrk_id": "1664460153_20221004",
+        "wzrkParams": {
+          "nameValuePairs": {
+            "wzrk_ttl": 1665035497,
+            "wzrk_id": "1664460153_20221004",
+            "wzrk_pivot": "wzrk_default"
+          }
+        }
+      }
+    },
+    "date": 1664862697,
+    "expires": 1665035497,
+    "inboxMessageContents": [
+      {
+        "contentType": "image/jpeg",
+        "hasLinks": false,
+        "hasUrl": false,
+        "icon": "",
+        "media": "https://db7hsdc8829us.cloudfront.net/dist/1642491392/i/49fa12f842b14419ba5c3797ac21884b.jpeg?v=1664460082",
+        "message": "Get 50% off on all purchases. Use Code SAVE50 on your next purchase.",
+        "messageColor": "#434761",
+        "posterUrl": "",
+        "title": "Hey User , Special offer for you",
+        "titleColor": "#434761"
+      }
+    ],
+    "isRead": false,
+    "messageId": "1664460153_1664862697",
+    "orientation": "l",
+    "tags": [
+      "TestFilterTag",
+      "Promotions"
+    ],
+    "type": "SimpleMessage",
+    "wzrkParams": {
+      "nameValuePairs": {
+        "wzrk_ttl": 1665035497,
+        "wzrk_id": "1664460153_20221004",
+        "wzrk_pivot": "wzrk_default"
+      }
+    }
+  },
+  {
+    "bgColor": "#ffffff",
+    "campaignId": "1664460153_20221004",
+    "data": {
+      "nameValuePairs": {
+        "id": "1664460153_1664862416",
+        "msg": {
+          "nameValuePairs": {
+            "type": "simple",
+            "bg": "#ffffff",
+            "orientation": "l",
+            "content": {
+              "values": [
+                {
+                  "nameValuePairs": {
+                    "key": 6789115690,
+                    "message": {
+                      "nameValuePairs": {
+                        "text": "Get 50% off on all purchases. Use Code SAVE50 on your next purchase.",
+                        "color": "#434761",
+                        "replacements": "Get 50% off on all purchases. Use Code SAVE50 on your next purchase.",
+                        "og": ""
+                      }
+                    },
+                    "title": {
+                      "nameValuePairs": {
+                        "text": "Hey User , Special offer for you",
+                        "color": "#434761",
+                        "replacements": "Hey $replacement$##n[User]$/replacement$ , Special offer for you",
+                        "og": ""
+                      }
+                    },
+                    "action": {
+                      "nameValuePairs": {
+                        "hasUrl": false,
+                        "hasLinks": false,
+                        "url": {
+                          "nameValuePairs": {
+                            "android": {
+                              "nameValuePairs": {
+                                "text": "",
+                                "replacements": "",
+                                "og": ""
+                              }
+                            },
+                            "ios": {
+                              "nameValuePairs": {
+                                "text": "",
+                                "replacements": "",
+                                "og": ""
+                              }
+                            }
+                          }
+                        },
+                        "links": {
+                          "values": [
+                            {
+                              "nameValuePairs": {
+                                "type": "copy",
+                                "text": "Link",
+                                "color": "#007bff",
+                                "bg": "#ffffff",
+                                "copyText": {
+                                  "nameValuePairs": {
+                                    "text": "",
+                                    "replacements": "",
+                                    "og": ""
+                                  }
+                                },
+                                "url": {
+                                  "nameValuePairs": {
+                                    "android": {
+                                      "nameValuePairs": {
+                                        "text": "",
+                                        "replacements": "",
+                                        "og": ""
+                                      }
+                                    },
+                                    "ios": {
+                                      "nameValuePairs": {
+                                        "text": "",
+                                        "replacements": "",
+                                        "og": ""
+                                      }
+                                    }
+                                  }
+                                },
+                                "kv": {
+                                  "nameValuePairs": {}
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "media": {
+                      "nameValuePairs": {
+                        "url": "https://db7hsdc8829us.cloudfront.net/dist/1642491392/i/49fa12f842b14419ba5c3797ac21884b.jpeg?v=1664460082",
+                        "poster": "",
+                        "key": "49fa12f842b14419ba5c3797ac21884b",
+                        "content_type": "image/jpeg",
+                        "processing": false
+                      }
+                    },
+                    "icon": {
+                      "nameValuePairs": {}
+                    }
+                  }
+                }
+              ]
+            },
+            "tags": {
+              "values": [
+                "TestFilterTag",
+                "Promotions"
+              ]
+            },
+            "enableTags": true
+          }
+        },
+        "isRead": false,
+        "date": 1664862416,
+        "wzrk_ttl": 1665035216,
+        "tags": {
+          "values": [
+            "TestFilterTag",
+            "Promotions"
+          ]
+        },
+        "wzrk_id": "1664460153_20221004",
+        "wzrkParams": {
+          "nameValuePairs": {
+            "wzrk_ttl": 1665035216,
+            "wzrk_id": "1664460153_20221004",
+            "wzrk_pivot": "wzrk_default"
+          }
+        }
+      }
+    },
+    "date": 1664862416,
+    "expires": 1665035216,
+    "inboxMessageContents": [
+      {
+        "contentType": "image/jpeg",
+        "hasLinks": false,
+        "hasUrl": false,
+        "icon": "",
+        "media": "https://db7hsdc8829us.cloudfront.net/dist/1642491392/i/49fa12f842b14419ba5c3797ac21884b.jpeg?v=1664460082",
+        "message": "Get 50% off on all purchases. Use Code SAVE50 on your next purchase.",
+        "messageColor": "#434761",
+        "posterUrl": "",
+        "title": "Hey User , Special offer for you",
+        "titleColor": "#434761"
+      }
+    ],
+    "isRead": false,
+    "messageId": "1664460153_1664862416",
+    "orientation": "l",
+    "tags": [
+      "TestFilterTag",
+      "Promotions"
+    ],
+    "type": "SimpleMessage",
+    "wzrkParams": {
+      "nameValuePairs": {
+        "wzrk_ttl": 1665035216,
+        "wzrk_id": "1664460153_20221004",
+        "wzrk_pivot": "wzrk_default"
+      }
+    }
+  },
+  {
+    "bgColor": "#ffffff",
+    "campaignId": "1664460153_20221004",
+    "data": {
+      "nameValuePairs": {
+        "id": "1664460153_1664862297",
+        "msg": {
+          "nameValuePairs": {
+            "type": "simple",
+            "bg": "#ffffff",
+            "orientation": "l",
+            "content": {
+              "values": [
+                {
+                  "nameValuePairs": {
+                    "key": 6789115690,
+                    "message": {
+                      "nameValuePairs": {
+                        "text": "Get 50% off on all purchases. Use Code SAVE50 on your next purchase.",
+                        "color": "#434761",
+                        "replacements": "Get 50% off on all purchases. Use Code SAVE50 on your next purchase.",
+                        "og": ""
+                      }
+                    },
+                    "title": {
+                      "nameValuePairs": {
+                        "text": "Hey User , Special offer for you",
+                        "color": "#434761",
+                        "replacements": "Hey $replacement$##n[User]$/replacement$ , Special offer for you",
+                        "og": ""
+                      }
+                    },
+                    "action": {
+                      "nameValuePairs": {
+                        "hasUrl": false,
+                        "hasLinks": false,
+                        "url": {
+                          "nameValuePairs": {
+                            "android": {
+                              "nameValuePairs": {
+                                "text": "",
+                                "replacements": "",
+                                "og": ""
+                              }
+                            },
+                            "ios": {
+                              "nameValuePairs": {
+                                "text": "",
+                                "replacements": "",
+                                "og": ""
+                              }
+                            }
+                          }
+                        },
+                        "links": {
+                          "values": [
+                            {
+                              "nameValuePairs": {
+                                "type": "copy",
+                                "text": "Link",
+                                "color": "#007bff",
+                                "bg": "#ffffff",
+                                "copyText": {
+                                  "nameValuePairs": {
+                                    "text": "",
+                                    "replacements": "",
+                                    "og": ""
+                                  }
+                                },
+                                "url": {
+                                  "nameValuePairs": {
+                                    "android": {
+                                      "nameValuePairs": {
+                                        "text": "",
+                                        "replacements": "",
+                                        "og": ""
+                                      }
+                                    },
+                                    "ios": {
+                                      "nameValuePairs": {
+                                        "text": "",
+                                        "replacements": "",
+                                        "og": ""
+                                      }
+                                    }
+                                  }
+                                },
+                                "kv": {
+                                  "nameValuePairs": {}
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "media": {
+                      "nameValuePairs": {
+                        "url": "https://db7hsdc8829us.cloudfront.net/dist/1642491392/i/49fa12f842b14419ba5c3797ac21884b.jpeg?v=1664460082",
+                        "poster": "",
+                        "key": "49fa12f842b14419ba5c3797ac21884b",
+                        "content_type": "image/jpeg",
+                        "processing": false
+                      }
+                    },
+                    "icon": {
+                      "nameValuePairs": {}
+                    }
+                  }
+                }
+              ]
+            },
+            "tags": {
+              "values": [
+                "TestFilterTag",
+                "Promotions"
+              ]
+            },
+            "enableTags": true
+          }
+        },
+        "isRead": false,
+        "date": 1664862297,
+        "wzrk_ttl": 1665035097,
+        "tags": {
+          "values": [
+            "TestFilterTag",
+            "Promotions"
+          ]
+        },
+        "wzrk_id": "1664460153_20221004",
+        "wzrkParams": {
+          "nameValuePairs": {
+            "wzrk_ttl": 1665035097,
+            "wzrk_id": "1664460153_20221004",
+            "wzrk_pivot": "wzrk_default"
+          }
+        }
+      }
+    },
+    "date": 1664862297,
+    "expires": 1665035097,
+    "inboxMessageContents": [
+      {
+        "contentType": "image/jpeg",
+        "hasLinks": false,
+        "hasUrl": false,
+        "icon": "",
+        "media": "https://db7hsdc8829us.cloudfront.net/dist/1642491392/i/49fa12f842b14419ba5c3797ac21884b.jpeg?v=1664460082",
+        "message": "Get 50% off on all purchases. Use Code SAVE50 on your next purchase.",
+        "messageColor": "#434761",
+        "posterUrl": "",
+        "title": "Hey User , Special offer for you",
+        "titleColor": "#434761"
+      }
+    ],
+    "isRead": false,
+    "messageId": "1664460153_1664862297",
+    "orientation": "l",
+    "tags": [
+      "TestFilterTag",
+      "Promotions"
+    ],
+    "type": "SimpleMessage",
+    "wzrkParams": {
+      "nameValuePairs": {
+        "wzrk_ttl": 1665035097,
+        "wzrk_id": "1664460153_20221004",
+        "wzrk_pivot": "wzrk_default"
+      }
+    }
+  },
+  {
+    "bgColor": "#ffffff",
+    "campaignId": "1664863160_20221004",
+    "data": {
+      "nameValuePairs": {
+        "id": "1664863160_1664862249",
+        "msg": {
+          "nameValuePairs": {
+            "type": "simple",
+            "bg": "#ffffff",
+            "orientation": "l",
+            "content": {
+              "values": [
+                {
+                  "nameValuePairs": {
+                    "key": 6789115690,
+                    "message": {
+                      "nameValuePairs": {
+                        "text": "Your transaction of Amount 300 with transaction id 24052013 done via  Cash is received.",
+                        "color": "#434761",
+                        "replacements": "Your transaction of Amount $replacement$##e:3[null]$/replacement$ with transaction id $replacement$##e:9[XXX ]$/replacement$ done via $replacement$##e:5[ Cash]$/replacement$ is received.",
+                        "og": ""
+                      }
+                    },
+                    "title": {
+                      "nameValuePairs": {
+                        "text": "Hey User , Transaction Successful",
+                        "color": "#434761",
+                        "replacements": "Hey $replacement$##n[User]$/replacement$ , Transaction Successful",
+                        "og": ""
+                      }
+                    },
+                    "action": {
+                      "nameValuePairs": {
+                        "hasUrl": false,
+                        "hasLinks": false,
+                        "url": {
+                          "nameValuePairs": {
+                            "android": {
+                              "nameValuePairs": {
+                                "text": "",
+                                "replacements": "",
+                                "og": ""
+                              }
+                            },
+                            "ios": {
+                              "nameValuePairs": {
+                                "text": "",
+                                "replacements": "",
+                                "og": ""
+                              }
+                            }
+                          }
+                        },
+                        "links": {
+                          "values": [
+                            {
+                              "nameValuePairs": {
+                                "type": "copy",
+                                "text": "Link",
+                                "color": "#007bff",
+                                "bg": "#ffffff",
+                                "copyText": {
+                                  "nameValuePairs": {
+                                    "text": "",
+                                    "replacements": "",
+                                    "og": ""
+                                  }
+                                },
+                                "url": {
+                                  "nameValuePairs": {
+                                    "android": {
+                                      "nameValuePairs": {
+                                        "text": "",
+                                        "replacements": "",
+                                        "og": ""
+                                      }
+                                    },
+                                    "ios": {
+                                      "nameValuePairs": {
+                                        "text": "",
+                                        "replacements": "",
+                                        "og": ""
+                                      }
+                                    }
+                                  }
+                                },
+                                "kv": {
+                                  "nameValuePairs": {}
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "icon": {
+                      "nameValuePairs": {}
+                    }
+                  }
+                }
+              ]
+            },
+            "tags": {
+              "values": [
+                "Transactions"
+              ]
+            },
+            "enableTags": true
+          }
+        },
+        "isRead": false,
+        "date": 1664862249,
+        "wzrk_ttl": 1665035049,
+        "tags": {
+          "values": [
+            "Transactions"
+          ]
+        },
+        "wzrk_id": "1664863160_20221004",
+        "wzrkParams": {
+          "nameValuePairs": {
+            "wzrk_ttl": 1665035049,
+            "wzrk_id": "1664863160_20221004",
+            "wzrk_pivot": "wzrk_default"
+          }
+        }
+      }
+    },
+    "date": 1664862249,
+    "expires": 1665035049,
+    "inboxMessageContents": [
+      {
+        "hasLinks": false,
+        "hasUrl": false,
+        "icon": "",
+        "message": "Your transaction of Amount 300 with transaction id 24052013 done via  Cash is received.",
+        "messageColor": "#434761",
+        "title": "Hey User , Transaction Successful",
+        "titleColor": "#434761"
+      }
+    ],
+    "isRead": false,
+    "messageId": "1664863160_1664862249",
+    "orientation": "l",
+    "tags": [
+      "Transactions"
+    ],
+    "type": "SimpleMessage",
+    "wzrkParams": {
+      "nameValuePairs": {
+        "wzrk_ttl": 1665035049,
+        "wzrk_id": "1664863160_20221004",
+        "wzrk_pivot": "wzrk_default"
+      }
+    }
+  },
+  {
+    "bgColor": "#ffffff",
+    "campaignId": "1664460153_20221004",
+    "data": {
+      "nameValuePairs": {
+        "id": "1664460153_1664861625",
+        "msg": {
+          "nameValuePairs": {
+            "type": "simple",
+            "bg": "#ffffff",
+            "orientation": "l",
+            "content": {
+              "values": [
+                {
+                  "nameValuePairs": {
+                    "key": 6789115690,
+                    "message": {
+                      "nameValuePairs": {
+                        "text": "Get 50% off on all purchases. Use Code SAVE50 on your next purchase.",
+                        "color": "#434761",
+                        "replacements": "Get 50% off on all purchases. Use Code SAVE50 on your next purchase.",
+                        "og": ""
+                      }
+                    },
+                    "title": {
+                      "nameValuePairs": {
+                        "text": "Hey User , Special offer for you",
+                        "color": "#434761",
+                        "replacements": "Hey $replacement$##n[User]$/replacement$ , Special offer for you",
+                        "og": ""
+                      }
+                    },
+                    "action": {
+                      "nameValuePairs": {
+                        "hasUrl": false,
+                        "hasLinks": false,
+                        "url": {
+                          "nameValuePairs": {
+                            "android": {
+                              "nameValuePairs": {
+                                "text": "",
+                                "replacements": "",
+                                "og": ""
+                              }
+                            },
+                            "ios": {
+                              "nameValuePairs": {
+                                "text": "",
+                                "replacements": "",
+                                "og": ""
+                              }
+                            }
+                          }
+                        },
+                        "links": {
+                          "values": [
+                            {
+                              "nameValuePairs": {
+                                "type": "copy",
+                                "text": "Link",
+                                "color": "#007bff",
+                                "bg": "#ffffff",
+                                "copyText": {
+                                  "nameValuePairs": {
+                                    "text": "",
+                                    "replacements": "",
+                                    "og": ""
+                                  }
+                                },
+                                "url": {
+                                  "nameValuePairs": {
+                                    "android": {
+                                      "nameValuePairs": {
+                                        "text": "",
+                                        "replacements": "",
+                                        "og": ""
+                                      }
+                                    },
+                                    "ios": {
+                                      "nameValuePairs": {
+                                        "text": "",
+                                        "replacements": "",
+                                        "og": ""
+                                      }
+                                    }
+                                  }
+                                },
+                                "kv": {
+                                  "nameValuePairs": {}
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "media": {
+                      "nameValuePairs": {
+                        "url": "https://db7hsdc8829us.cloudfront.net/dist/1642491392/i/49fa12f842b14419ba5c3797ac21884b.jpeg?v=1664460082",
+                        "poster": "",
+                        "key": "49fa12f842b14419ba5c3797ac21884b",
+                        "content_type": "image/jpeg",
+                        "processing": false
+                      }
+                    },
+                    "icon": {
+                      "nameValuePairs": {}
+                    }
+                  }
+                }
+              ]
+            },
+            "tags": {
+              "values": [
+                "TestFilterTag",
+                "Promotions"
+              ]
+            },
+            "enableTags": true
+          }
+        },
+        "isRead": false,
+        "date": 1664861625,
+        "wzrk_ttl": 1665034425,
+        "tags": {
+          "values": [
+            "TestFilterTag",
+            "Promotions"
+          ]
+        },
+        "wzrk_id": "1664460153_20221004",
+        "wzrkParams": {
+          "nameValuePairs": {
+            "wzrk_ttl": 1665034425,
+            "wzrk_id": "1664460153_20221004",
+            "wzrk_pivot": "wzrk_default"
+          }
+        }
+      }
+    },
+    "date": 1664861625,
+    "expires": 1665034425,
+    "inboxMessageContents": [
+      {
+        "contentType": "image/jpeg",
+        "hasLinks": false,
+        "hasUrl": false,
+        "icon": "",
+        "media": "https://db7hsdc8829us.cloudfront.net/dist/1642491392/i/49fa12f842b14419ba5c3797ac21884b.jpeg?v=1664460082",
+        "message": "Get 50% off on all purchases. Use Code SAVE50 on your next purchase.",
+        "messageColor": "#434761",
+        "posterUrl": "",
+        "title": "Hey User , Special offer for you",
+        "titleColor": "#434761"
+      }
+    ],
+    "isRead": false,
+    "messageId": "1664460153_1664861625",
+    "orientation": "l",
+    "tags": [
+      "TestFilterTag",
+      "Promotions"
+    ],
+    "type": "SimpleMessage",
+    "wzrkParams": {
+      "nameValuePairs": {
+        "wzrk_ttl": 1665034425,
+        "wzrk_id": "1664460153_20221004",
+        "wzrk_pivot": "wzrk_default"
+      }
+    }
+  },
+  {
+    "bgColor": "#ffffff",
+    "campaignId": "1652334671_20220928",
+    "data": {
+      "nameValuePairs": {
+        "id": "1652334671_1664363884",
+        "msg": {
+          "nameValuePairs": {
+            "type": "simple",
+            "bg": "#ffffff",
+            "orientation": "l",
+            "content": {
+              "values": [
+                {
+                  "nameValuePairs": {
+                    "key": 6789115690,
+                    "message": {
+                      "nameValuePairs": {
+                        "text": "Message Inbox 1",
+                        "color": "#434761",
+                        "replacements": "Message Inbox 1",
+                        "og": ""
+                      }
+                    },
+                    "title": {
+                      "nameValuePairs": {
+                        "text": "Title App Inbox 1",
+                        "color": "#434761",
+                        "replacements": "Title App Inbox 1",
+                        "og": ""
+                      }
+                    },
+                    "action": {
+                      "nameValuePairs": {
+                        "hasUrl": false,
+                        "hasLinks": false,
+                        "url": {
+                          "nameValuePairs": {
+                            "android": {
+                              "nameValuePairs": {
+                                "text": "",
+                                "replacements": "",
+                                "og": ""
+                              }
+                            },
+                            "ios": {
+                              "nameValuePairs": {
+                                "text": "",
+                                "replacements": "",
+                                "og": ""
+                              }
+                            }
+                          }
+                        },
+                        "links": {
+                          "values": [
+                            {
+                              "nameValuePairs": {
+                                "type": "copy",
+                                "text": "Link",
+                                "color": "#007bff",
+                                "bg": "#ffffff",
+                                "copyText": {
+                                  "nameValuePairs": {
+                                    "text": "",
+                                    "replacements": "",
+                                    "og": ""
+                                  }
+                                },
+                                "url": {
+                                  "nameValuePairs": {
+                                    "android": {
+                                      "nameValuePairs": {
+                                        "text": "",
+                                        "replacements": "",
+                                        "og": ""
+                                      }
+                                    },
+                                    "ios": {
+                                      "nameValuePairs": {
+                                        "text": "",
+                                        "replacements": "",
+                                        "og": ""
+                                      }
+                                    }
+                                  }
+                                },
+                                "kv": {
+                                  "nameValuePairs": {}
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "media": {
+                      "nameValuePairs": {}
+                    },
+                    "icon": {
+                      "nameValuePairs": {}
+                    }
+                  }
+                }
+              ]
+            },
+            "tags": {
+              "values": [
+                "TestFilterTag"
+              ]
+            },
+            "enableTags": true
+          }
+        },
+        "isRead": false,
+        "date": 1664363884,
+        "wzrk_ttl": 1664968684,
+        "tags": {
+          "values": [
+            "TestFilterTag"
+          ]
+        },
+        "wzrk_id": "1652334671_20220928",
+        "wzrkParams": {
+          "nameValuePairs": {
+            "wzrk_ttl": 1664968684,
+            "wzrk_id": "1652334671_20220928",
+            "wzrk_pivot": "wzrk_default"
+          }
+        }
+      }
+    },
+    "date": 1664363884,
+    "expires": 1664968684,
+    "inboxMessageContents": [
+      {
+        "contentType": "",
+        "hasLinks": false,
+        "hasUrl": false,
+        "icon": "",
+        "media": "",
+        "message": "Message Inbox 1",
+        "messageColor": "#434761",
+        "posterUrl": "",
+        "title": "Title App Inbox 1",
+        "titleColor": "#434761"
+      }
+    ],
+    "isRead": false,
+    "messageId": "1652334671_1664363884",
+    "orientation": "l",
+    "tags": [
+      "TestFilterTag"
+    ],
+    "type": "SimpleMessage",
+    "wzrkParams": {
+      "nameValuePairs": {
+        "wzrk_ttl": 1664968684,
+        "wzrk_id": "1652334671_20220928",
+        "wzrk_pivot": "wzrk_default"
+      }
+    }
+  },
+  {
+    "bgColor": "#ffffff",
+    "campaignId": "1652334671_20220928",
+    "data": {
+      "nameValuePairs": {
+        "id": "1652334671_1664363079",
+        "msg": {
+          "nameValuePairs": {
+            "type": "simple",
+            "bg": "#ffffff",
+            "orientation": "l",
+            "content": {
+              "values": [
+                {
+                  "nameValuePairs": {
+                    "key": 6789115690,
+                    "message": {
+                      "nameValuePairs": {
+                        "text": "Message Inbox 1",
+                        "color": "#434761",
+                        "replacements": "Message Inbox 1",
+                        "og": ""
+                      }
+                    },
+                    "title": {
+                      "nameValuePairs": {
+                        "text": "Title App Inbox 1",
+                        "color": "#434761",
+                        "replacements": "Title App Inbox 1",
+                        "og": ""
+                      }
+                    },
+                    "action": {
+                      "nameValuePairs": {
+                        "hasUrl": false,
+                        "hasLinks": false,
+                        "url": {
+                          "nameValuePairs": {
+                            "android": {
+                              "nameValuePairs": {
+                                "text": "",
+                                "replacements": "",
+                                "og": ""
+                              }
+                            },
+                            "ios": {
+                              "nameValuePairs": {
+                                "text": "",
+                                "replacements": "",
+                                "og": ""
+                              }
+                            }
+                          }
+                        },
+                        "links": {
+                          "values": [
+                            {
+                              "nameValuePairs": {
+                                "type": "copy",
+                                "text": "Link",
+                                "color": "#007bff",
+                                "bg": "#ffffff",
+                                "copyText": {
+                                  "nameValuePairs": {
+                                    "text": "",
+                                    "replacements": "",
+                                    "og": ""
+                                  }
+                                },
+                                "url": {
+                                  "nameValuePairs": {
+                                    "android": {
+                                      "nameValuePairs": {
+                                        "text": "",
+                                        "replacements": "",
+                                        "og": ""
+                                      }
+                                    },
+                                    "ios": {
+                                      "nameValuePairs": {
+                                        "text": "",
+                                        "replacements": "",
+                                        "og": ""
+                                      }
+                                    }
+                                  }
+                                },
+                                "kv": {
+                                  "nameValuePairs": {}
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "media": {
+                      "nameValuePairs": {}
+                    },
+                    "icon": {
+                      "nameValuePairs": {}
+                    }
+                  }
+                }
+              ]
+            },
+            "tags": {
+              "values": [
+                "TestFilterTag"
+              ]
+            },
+            "enableTags": true
+          }
+        },
+        "isRead": false,
+        "date": 1664363079,
+        "wzrk_ttl": 1664967879,
+        "tags": {
+          "values": [
+            "TestFilterTag"
+          ]
+        },
+        "wzrk_id": "1652334671_20220928",
+        "wzrkParams": {
+          "nameValuePairs": {
+            "wzrk_ttl": 1664967879,
+            "wzrk_id": "1652334671_20220928",
+            "wzrk_pivot": "wzrk_default"
+          }
+        }
+      }
+    },
+    "date": 1664363079,
+    "expires": 1664967879,
+    "inboxMessageContents": [
+      {
+        "contentType": "",
+        "hasLinks": false,
+        "hasUrl": false,
+        "icon": "",
+        "media": "",
+        "message": "Message Inbox 1",
+        "messageColor": "#434761",
+        "posterUrl": "",
+        "title": "Title App Inbox 1",
+        "titleColor": "#434761"
+      }
+    ],
+    "isRead": false,
+    "messageId": "1652334671_1664363079",
+    "orientation": "l",
+    "tags": [
+      "TestFilterTag"
+    ],
+    "type": "SimpleMessage",
+    "wzrkParams": {
+      "nameValuePairs": {
+        "wzrk_ttl": 1664967879,
+        "wzrk_id": "1652334671_20220928",
+        "wzrk_pivot": "wzrk_default"
+      }
+    }
+  }
+]
