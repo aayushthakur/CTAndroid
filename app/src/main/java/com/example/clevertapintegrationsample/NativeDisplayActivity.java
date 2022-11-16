@@ -27,8 +27,10 @@ public class NativeDisplayActivity extends AppCompatActivity implements DisplayU
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_native_display);
+        NativeDisplayActivity.this.setTitle("Native Display");
         MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("Native Display Trigger");
         MyApplication.getInstance().getClevertapDefaultInstance().setDisplayUnitListener(this);
+        MyApplication.getInstance().getClevertapDefaultInstance().getAllDisplayUnits();
         nativeText1 = findViewById(R.id.nativeText1);
         nativeText2 = findViewById(R.id.nativeText2);
         nativeImage1 = findViewById(R.id.nativeImage1);
@@ -45,6 +47,7 @@ public class NativeDisplayActivity extends AppCompatActivity implements DisplayU
             for (CleverTapDisplayUnitContent content : contents) {
                 String title = content.getTitle();
                 String message = content.getMessage();
+
                 String mediaUrl = content.getMedia();
                 /*Log.d("TAG", "onDisplayUnitsLoaded() called with: units = [" + title + "]");
                 Log.d("TAG", "onDisplayUnitsLoaded() called with: units = [" + message + "]");
@@ -55,6 +58,9 @@ public class NativeDisplayActivity extends AppCompatActivity implements DisplayU
             }
             //CustomKV
             Map<String, String> customMap = cleverTapDisplayUnit.getCustomExtras();
+            if (customMap==null){
+                return;
+            }
             if (customMap.containsKey("native_display_type") &&
                     customMap.get("native_display_type").equals("title_message_image_1")){
                 /*for (Map.Entry<String,String> entry : customMap.entrySet()) {

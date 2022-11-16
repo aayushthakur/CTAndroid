@@ -1,9 +1,7 @@
 package com.example.clevertapintegrationsample;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -17,20 +15,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.clevertap.android.geofence.CTGeofenceAPI;
-import com.clevertap.android.geofence.interfaces.CTGeofenceEventsListener;
-import com.clevertap.android.geofence.interfaces.CTLocationUpdatesListener;
 import com.clevertap.android.sdk.CTInboxListener;
 import com.clevertap.android.sdk.CTInboxStyleConfig;
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.clevertap.android.sdk.InAppNotificationButtonListener;
 import com.clevertap.android.sdk.InAppNotificationListener;
-import com.clevertap.android.sdk.displayunits.DisplayUnitListener;
-import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit;
-import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnitContent;
 import com.clevertap.android.sdk.inapp.CTInAppNotification;
 import com.clevertap.android.sdk.inapp.InAppListener;
-import com.clevertap.android.sdk.inbox.CTInboxMessage;
 import com.example.clevertapintegrationsample.appinbox.CustomAppInboxActivity;
 import com.example.clevertapintegrationsample.notificationAPI.Android;
 import com.example.clevertapintegrationsample.notificationAPI.Content;
@@ -44,13 +35,11 @@ import com.google.gson.Gson;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -81,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements /*DisplayUnitList
         inbox = findViewById(R.id.inbox);
 
 
-
         cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(this);
         if (cleverTapDefaultInstance != null) {
             //Set the Notification Inbox Listener
@@ -91,21 +79,21 @@ public class MainActivity extends AppCompatActivity implements /*DisplayUnitList
         }
 
 
-        if (cleverTapDefaultInstance!=null) {
+        if (cleverTapDefaultInstance != null) {
 
             cleverTapDefaultInstance.setInAppNotificationButtonListener(payload -> {
                 Log.d(TAG, "In App onInAppButtonClick() called with: payload = [" + payload + "]");
-                if (payload!=null && !payload.isEmpty()){
-                    if (payload.containsKey("title")){
+                if (payload != null && !payload.isEmpty()) {
+                    if (payload.containsKey("title")) {
                         String inAppTitle = (String) payload.get("title");
                         Log.d(TAG, "In App called inAppTitle = [" + inAppTitle + "]");
                     }
-                    if (payload.containsKey("inapp_deeplink")){
+                    if (payload.containsKey("inapp_deeplink")) {
                         String deepLink = (String) payload.get("inapp_deeplink");
                         Log.d(TAG, "In App called with: deepLink = [" + deepLink + "]");
 
                     }
-                    if (payload.containsKey("extra_key")){
+                    if (payload.containsKey("extra_key")) {
                         String extraValue = (String) payload.get("extra_key");
                         Log.d(TAG, "In App called with: extraValue = [" + extraValue + "]");
                     }
@@ -220,14 +208,15 @@ public class MainActivity extends AppCompatActivity implements /*DisplayUnitList
         findViewById(R.id.nativeDisplayTrigger).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),NativeDisplayActivity.class);
+//                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("Native Display Trigger");
+                Intent intent = new Intent(getApplicationContext(), NativeDisplayActivity.class);
                 startActivity(intent);
             }
         });
         findViewById(R.id.pushTemplateSamples).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),PushTemplateActivity.class);
+                Intent intent = new Intent(getApplicationContext(), PushTemplateActivity.class);
                 startActivity(intent);
             }
         });
@@ -321,25 +310,25 @@ public class MainActivity extends AppCompatActivity implements /*DisplayUnitList
 
     @Override
     public void inboxDidInitialize() {
-        Log.d("TAG", "inboxDidInitialize() called "+cleverTapDefaultInstance.getInboxMessageCount());
+        Log.d("TAG", "inboxDidInitialize() called " + cleverTapDefaultInstance.getInboxMessageCount());
 //        Log.d("TAG", "inboxDidInitialize() called "+new Gson().toJson(cleverTapDefaultInstance.getAllInboxMessages()));
         //dismiss open
         inbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //To Open Default App Inbox
-//              showAppInbox();
+              showAppInbox();
 
                 //To Open Custom App Inbox
-                Intent intent = new Intent(getApplicationContext(), CustomAppInboxActivity.class);
+//                Intent intent = new Intent(getApplicationContext(), CustomAppInboxActivity.class);
 //                ArrayList<CTInboxMessage> inboxMessages = cleverTapDefaultInstance.getAllInboxMessages();
 //                intent.putParcelableArrayListExtra("app_inbox_messages",inboxMessages);
-                startActivity(intent);
+//                startActivity(intent);
             }
         });
     }
 
-    private void showAppInbox(){
+    private void showAppInbox() {
         ArrayList<String> tabs = new ArrayList<>();
         tabs.add("Promotions");//We support upto 2 tabs only. Additional tabs will be ignored
 //        tabs.add("Promotions");
@@ -364,10 +353,10 @@ public class MainActivity extends AppCompatActivity implements /*DisplayUnitList
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
         // Do something
-        showAlertDialogButtonClicked(event.title,event.messge);
+        showAlertDialogButtonClicked(event.title, event.messge);
     }
 
-    public void showAlertDialogButtonClicked(String title,String message) {
+    public void showAlertDialogButtonClicked(String title, String message) {
 
         // Create an alert builder
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -393,7 +382,7 @@ public class MainActivity extends AppCompatActivity implements /*DisplayUnitList
         customLayout.findViewById(R.id.dismissButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             dialog.dismiss();
+                dialog.dismiss();
             }
         });
 
@@ -414,8 +403,8 @@ public class MainActivity extends AppCompatActivity implements /*DisplayUnitList
 
     @Override
     public void inboxMessagesDidUpdate() {
-        Log.d("TAG", "inboxMessagesDidUpdate() called "+cleverTapDefaultInstance.getInboxMessageCount());
-        Log.d("TAG", "inboxMessagesDidUpdate() called "+new Gson().toJson(cleverTapDefaultInstance.getAllInboxMessages()));
+        Log.d("TAG", "inboxMessagesDidUpdate() called " + cleverTapDefaultInstance.getInboxMessageCount());
+        Log.d("TAG", "inboxMessagesDidUpdate() called " + new Gson().toJson(cleverTapDefaultInstance.getAllInboxMessages()));
     }
 
    /* @Override

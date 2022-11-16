@@ -1,5 +1,6 @@
 package com.example.clevertapintegrationsample;
 
+import android.app.Activity;
 import android.app.Application;
 import android.app.NotificationManager;
 import android.content.res.Configuration;
@@ -10,6 +11,7 @@ import android.util.ArrayMap;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.bumptech.glide.signature.ObjectKey;
 import com.clevertap.android.geofence.CTGeofenceAPI;
@@ -34,7 +36,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MyApplication extends Application /*implements CTPushAmpListener*/ {
+public class MyApplication extends Application implements Application.ActivityLifecycleCallbacks /* ,CTPushAmpListener*/ {
 
     private static final String TAG = MyApplication.class.getName();
     private CleverTapAPI clevertapDefaultInstance;
@@ -45,6 +47,7 @@ public class MyApplication extends Application /*implements CTPushAmpListener*/ 
     public void onCreate() {
         ActivityLifecycleCallback.register(this);
         super.onCreate();
+        registerActivityLifecycleCallbacks(this);
         singleton = this;
         // Required initialization logic here!
         clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
@@ -233,6 +236,42 @@ public class MyApplication extends Application /*implements CTPushAmpListener*/ 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
+    }
+
+    @Override
+    public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
+        Log.d(TAG, "onActivityCreated() called with: activity = [" + activity + "], savedInstanceState = [" + savedInstanceState + "]");
+    }
+
+    @Override
+    public void onActivityStarted(@NonNull Activity activity) {
+        Log.d(TAG, "onActivityStarted() called with: activity = [" + activity + "]");
+
+    }
+
+    @Override
+    public void onActivityResumed(@NonNull Activity activity) {
+        Log.d(TAG, "onActivityResumed() called with: activity = [" + activity + "]");
+    }
+
+    @Override
+    public void onActivityPaused(@NonNull Activity activity) {
+        Log.d(TAG, "onActivityPaused() called with: activity = [" + activity + "]");
+    }
+
+    @Override
+    public void onActivityStopped(@NonNull Activity activity) {
+        Log.d(TAG, "onActivityStopped() called with: activity = [" + activity + "]");
+    }
+
+    @Override
+    public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {
+        Log.d(TAG, "onActivitySaveInstanceState() called with: activity = [" + activity + "], outState = [" + outState + "]");
+    }
+
+    @Override
+    public void onActivityDestroyed(@NonNull Activity activity) {
+        Log.d(TAG, "onActivityDestroyed() called with: activity = [" + activity + "]");
     }
 
    /* @Override
