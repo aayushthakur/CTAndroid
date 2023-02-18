@@ -19,6 +19,8 @@ import com.clevertap.android.sdk.CleverTapAPI;
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener;
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit;
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnitContent;
+import com.clevertap.android.sdk.inbox.CTInboxMessage;
+import com.example.clevertapintegrationsample.appinbox.CustomAppInboxActivity;
 import com.example.clevertapintegrationsample.nativeDisplay.NativeDisplayActivity;
 import com.example.clevertapintegrationsample.notificationAPI.Android;
 import com.example.clevertapintegrationsample.notificationAPI.Content;
@@ -322,13 +324,13 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
             @Override
             public void onClick(View view) {
                 //To Open Default App Inbox
-              showAppInbox();
+//              showAppInbox();
 
                 //To Open Custom App Inbox
-//                Intent intent = new Intent(getApplicationContext(), CustomAppInboxActivity.class);
-//                ArrayList<CTInboxMessage> inboxMessages = cleverTapDefaultInstance.getAllInboxMessages();
-//                intent.putParcelableArrayListExtra("app_inbox_messages",inboxMessages);
-//                startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), CustomAppInboxActivity.class);
+                ArrayList<CTInboxMessage> inboxMessages = cleverTapDefaultInstance.getAllInboxMessages();
+                intent.putParcelableArrayListExtra("app_inbox_messages",inboxMessages);
+                startActivity(intent);
             }
         });
     }
