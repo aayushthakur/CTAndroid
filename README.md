@@ -1,6 +1,33 @@
 # CTAndroid
 
-Native Display Templates
+**Custom App Inbox Setup**
+package: appinbox
+
+<img width="313" alt="image" src="https://user-images.githubusercontent.com/16386061/219878600-bd924f9f-71d6-4c85-bafb-cc50c3c9279b.png">
+
+"App Launched" campaign with with Filter Tag: "TestFilterTag" & "Promotions"
+<img width="1006" alt="image" src="https://user-images.githubusercontent.com/16386061/219878960-ab686d10-3e2c-47e4-969e-29e9abaf6ddc.png">
+<img width="1353" alt="image" src="https://user-images.githubusercontent.com/16386061/219878982-677d4aff-5fd3-4827-b32a-547f98251e26.png">
+<img width="822" alt="image" src="https://user-images.githubusercontent.com/16386061/219878993-c4630752-69b9-4e24-8be1-23ba3661a335.png">
+
+
+Trigger App Inbox button triggers Event: "App Inbox Trigger" with Filter Tag: "TestFilterTag"
+<img width="1003" alt="image" src="https://user-images.githubusercontent.com/16386061/219878794-2aa9843c-0548-4b65-81c8-81debe86f1a6.png">
+<img width="806" alt="image" src="https://user-images.githubusercontent.com/16386061/219878806-a4095147-8fbe-4488-ba07-4a84ed7d7824.png">
+<img width="801" alt="image" src="https://user-images.githubusercontent.com/16386061/219878833-80e03a83-439c-48f5-b311-a9177b0b9d30.png">
+
+
+Transaction Complete button triggers Event: "Charged" with Filter tags:Transactions
+<img width="1011" alt="image" src="https://user-images.githubusercontent.com/16386061/219878872-b4af096c-8b5e-4334-bb08-e8261e5ae111.png">
+<img width="812" alt="image" src="https://user-images.githubusercontent.com/16386061/219878911-96395016-27f4-4843-88ba-18590f29498f.png">
+
+
+Open App Inbox: Opens Custom App Inbox
+<img width="994" alt="image" src="https://user-images.githubusercontent.com/16386061/219879029-1a59839d-a2df-41d7-bf49-ebaa6a731758.png">
+
+
+**Native Display Templates**
+package: nativeDisplay
 
 1. Image with Text Template
 Title, Message, Media, Custom key Value pairs
