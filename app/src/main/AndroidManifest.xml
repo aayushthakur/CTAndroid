@@ -20,13 +20,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CleverTapIntegrationSample">
         <activity
+            android:name=".InAppTemplatesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EmptyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".appinbox.CustomAppInboxActivity"
             android:exported="false" />
         <activity
             android:name=".PushTemplateActivity"
             android:exported="false" />
         <activity
-            android:name=".NativeDisplayActivity"
+            android:name=".nativeDisplay.NativeDisplayActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

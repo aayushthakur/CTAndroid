@@ -40,7 +40,12 @@
             android:text="Update profile"/>
     </LinearLayout>
 
-
+    <Button
+        android:id="@+id/openProfilePage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Profile Page"/>
 
     <Button
         android:id="@+id/sendInApp"
@@ -94,6 +99,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Push Template Samples"/>
+
+    <Button
+        android:id="@+id/inAppSamples"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="InApp Template Samples"/>
 
     <TextView
         android:id="@+id/nativeText"

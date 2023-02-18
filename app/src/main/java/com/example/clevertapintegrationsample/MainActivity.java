@@ -1,6 +1,5 @@
 package com.example.clevertapintegrationsample;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,18 +10,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.clevertap.android.sdk.CTInboxListener;
 import com.clevertap.android.sdk.CTInboxStyleConfig;
 import com.clevertap.android.sdk.CleverTapAPI;
-import com.clevertap.android.sdk.InAppNotificationButtonListener;
-import com.clevertap.android.sdk.InAppNotificationListener;
-import com.clevertap.android.sdk.inapp.CTInAppNotification;
-import com.clevertap.android.sdk.inapp.InAppListener;
-import com.example.clevertapintegrationsample.appinbox.CustomAppInboxActivity;
+import com.clevertap.android.sdk.displayunits.DisplayUnitListener;
+import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit;
+import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnitContent;
+import com.example.clevertapintegrationsample.nativeDisplay.NativeDisplayActivity;
 import com.example.clevertapintegrationsample.notificationAPI.Android;
 import com.example.clevertapintegrationsample.notificationAPI.Content;
 import com.example.clevertapintegrationsample.notificationAPI.NotificationRequest;
@@ -37,9 +34,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,7 +42,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity implements /*DisplayUnitListener,*/ CTInboxListener, InAppNotificationButtonListener, InAppListener {
+public class MainActivity extends AppCompatActivity implements DisplayUnitListener, CTInboxListener /*InAppNotificationButtonListener, InAppListener*/ {
 
     private static final String TAG = MainActivity.class.getName();
     TextView nativeText;
@@ -60,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements /*DisplayUnitList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Objects.requireNonNull(CleverTapAPI.getDefaultInstance(this)).setDisplayUnitListener(this);
+        MyApplication.getInstance().getClevertapDefaultInstance().setDisplayUnitListener(this);
 
         identityEdt = findViewById(R.id.identityEdt);
         emailEdt = findViewById(R.id.emailEdt);
@@ -99,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements /*DisplayUnitList
                     }
                 }
             });
-            cleverTapDefaultInstance.setInAppNotificationListener(new InAppNotificationListener() {
+            /*cleverTapDefaultInstance.setInAppNotificationListener(new InAppNotificationListener() {
                 @Override
                 public boolean beforeShow(Map<String, Object> extras) {
                     Log.d(TAG, "In App beforeShow() called with: extras = [" + extras + "]");
@@ -110,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements /*DisplayUnitList
                 public void onDismissed(Map<String, Object> extras, @Nullable Map<String, Object> actionExtras) {
                     Log.d(TAG, "In App onDismissed() called with: extras = [" + extras + "], actionExtras = [" + actionExtras + "]");
                 }
-            });
+            });*/
         }
 
        /* CTGeofenceAPI.getInstance(getApplicationContext())
@@ -221,6 +216,21 @@ public class MainActivity extends AppCompatActivity implements /*DisplayUnitList
             }
         });
 
+        findViewById(R.id.inAppSamples).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), InAppTemplatesActivity.class);
+                startActivity(intent);
+            }
+        });
+        findViewById(R.id.openProfilePage).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void postData() {
@@ -287,25 +297,20 @@ public class MainActivity extends AppCompatActivity implements /*DisplayUnitList
 
     }
 
-    /*@Override
+    @Override
     public void onDisplayUnitsLoaded(ArrayList<CleverTapDisplayUnit> units) {
         Log.d("TAG", "onDisplayUnitsLoaded() called with: units = [" + units.toString() + "]");
         for (CleverTapDisplayUnit cleverTapDisplayUnit : units) {
-            //CUstomKV
-            Map<String, String> customMap = cleverTapDisplayUnit.getCustomExtras();
             ArrayList<CleverTapDisplayUnitContent> contents = cleverTapDisplayUnit.getContents();
             for (CleverTapDisplayUnitContent content : contents) {
                 String title = content.getTitle();
                 String message = content.getMessage();
-                String mediaUrl = content.getMedia();
                 Log.d("TAG", "onDisplayUnitsLoaded() called with: units = [" + title + "]");
                 Log.d("TAG", "onDisplayUnitsLoaded() called with: units = [" + message + "]");
-                Log.d("TAG", "onDisplayUnitsLoaded() called with: units = [" + mediaUrl + "]");
-
                 nativeText.setText(title + " " + message);
             }
         }
-    }*/
+    }
 
 
     @Override
@@ -418,7 +423,7 @@ public class MainActivity extends AppCompatActivity implements /*DisplayUnitList
         Log.d(TAG, "onDismissed() called with: extras = [" + extras + "], actionExtras = [" + actionExtras + "]");
     }*/
 
-    @Override
+   /* @Override
     public void inAppNotificationDidClick(CTInAppNotification inAppNotification, Bundle formData, HashMap<String, String> keyValueMap) {
         Log.d(TAG, "inAppNotificationDidClick() called with: inAppNotification = [" + inAppNotification + "], formData = [" + formData + "], keyValueMap = [" + keyValueMap + "]");
     }
@@ -436,5 +441,5 @@ public class MainActivity extends AppCompatActivity implements /*DisplayUnitList
     @Override
     public void onInAppButtonClick(HashMap<String, String> payload) {
         Log.d(TAG, "onInAppButtonClick() called with: payload = [" + payload + "]");
-    }
+    }*/
 }

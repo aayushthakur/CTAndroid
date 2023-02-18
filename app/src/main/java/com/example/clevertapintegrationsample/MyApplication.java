@@ -22,6 +22,8 @@ import com.clevertap.android.pushtemplates.TemplateRenderer;
 import com.clevertap.android.sdk.ActivityLifecycleCallback;
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.clevertap.android.sdk.interfaces.NotificationHandler;
+import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener;
+import com.clevertap.android.sdk.pushnotification.PushNotificationHandler;
 import com.clevertap.android.sdk.pushnotification.amp.CTPushAmpListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -54,7 +56,15 @@ public class MyApplication extends Application implements Application.ActivityLi
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE);
         TemplateRenderer.setDebugLevel(3);
         CleverTapAPI.setNotificationHandler((NotificationHandler)new PushTemplateNotificationHandler());
-        clevertapDefaultInstance.pushEvent("Aayush App Open");
+        Map<String,Object> data = new HashMap<>();
+        data.put("sample_date", "01-02-2023");
+        clevertapDefaultInstance.pushEvent("Aayush App Open",data);
+        clevertapDefaultInstance.setCTPushNotificationListener(new CTPushNotificationListener() {
+            @Override
+            public void onNotificationClickedPayloadReceived(HashMap<String, Object> payload) {
+                Log.d(TAG, "onNotificationClickedPayloadReceived() called with: payload = [" + payload + "]");
+            }
+        });
 //        String fcmRegId;
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(new OnCompleteListener<String>() {

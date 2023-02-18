@@ -1,47 +1,82 @@
-package com.example.clevertapintegrationsample;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.clevertapintegrationsample.nativeDisplay;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener;
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit;
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnitContent;
+import com.example.clevertapintegrationsample.MyApplication;
+import com.example.clevertapintegrationsample.R;
+import com.example.clevertapintegrationsample.appinbox.AppInboxModel;
+import com.example.clevertapintegrationsample.appinbox.AppInboxRecyclerviewAdapter;
 
-import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class NativeDisplayActivity extends AppCompatActivity implements DisplayUnitListener {
+public class ImageTextTemplateFragment extends Fragment implements FragmentCommunicator{
+    private String TAG = ImageTextTemplateFragment.class.getSimpleName();
 
-    private String TAG = NativeDisplayActivity.class.getSimpleName();
     private TextView nativeText1,nativeText2;
     private ImageView nativeImage1,customNativeImage1;
     private TextView customNativeText1,customNativeText2;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_native_display);
-        NativeDisplayActivity.this.setTitle("Native Display");
-        MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("Native Display Trigger");
-        MyApplication.getInstance().getClevertapDefaultInstance().setDisplayUnitListener(this);
-        MyApplication.getInstance().getClevertapDefaultInstance().getAllDisplayUnits();
-        nativeText1 = findViewById(R.id.nativeText1);
-        nativeText2 = findViewById(R.id.nativeText2);
-        nativeImage1 = findViewById(R.id.nativeImage1);
-        customNativeText1 = findViewById(R.id.customNativeText1);
-        customNativeText2 = findViewById(R.id.customNativeText2);
-        customNativeImage1 = findViewById(R.id.customNativeImage1);
+    public ImageTextTemplateFragment() {
+        // Required empty public constructor
+    }
+
+    public static ImageTextTemplateFragment newInstance() {
+        return new ImageTextTemplateFragment();
     }
 
     @Override
-    public void onDisplayUnitsLoaded(ArrayList<CleverTapDisplayUnit> units) {
-        Log.d(TAG, "onDisplayUnitsLoaded() called with: units = [" + units.toString() + "]");
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+         View rootView = inflater.inflate(R.layout.image_text_native_display_fragment, container, false);
+        MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("Native Display Trigger");
+
+        nativeText1 = rootView.findViewById(R.id.nativeText1);
+        nativeText2 = rootView.findViewById(R.id.nativeText2);
+        nativeImage1 = rootView.findViewById(R.id.nativeImage1);
+        customNativeText1 = rootView.findViewById(R.id.customNativeText1);
+        customNativeText2 = rootView.findViewById(R.id.customNativeText2);
+        customNativeImage1 = rootView.findViewById(R.id.customNativeImage1);
+
+        if (getActivity() instanceof NativeDisplayActivity){
+            ((NativeDisplayActivity) getActivity()).setFragmentListener(this);
+        }
+        return rootView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+//        view.setBackgroundColor(ContextCompat.getColor(getContext(), COLOR_MAP[counter]));
+//        TextView textViewCounter = view.findViewById(R.id.tv_counter);
+//        textViewCounter.setText("Fragment No " + (counter+1));
+    }
+
+    @Override
+    public void loadData(ArrayList<CleverTapDisplayUnit> units){
+        Log.d(TAG, "loadData() called with: units = [" + units.toString() + "]");
         for (CleverTapDisplayUnit cleverTapDisplayUnit : units) {
             ArrayList<CleverTapDisplayUnitContent> contents = cleverTapDisplayUnit.getContents();
             for (CleverTapDisplayUnitContent content : contents) {
@@ -72,6 +107,8 @@ public class NativeDisplayActivity extends AppCompatActivity implements DisplayU
                 customNativeText1.setText(customTitle1);
                 customNativeText2.setText(customMessage1);
                 Glide.with(this).load(customImage1).into(customNativeImage1);
+            }else{
+                //backend
             }
         }
     }
