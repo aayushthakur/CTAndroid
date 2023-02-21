@@ -25,6 +25,10 @@ Transaction Complete button triggers Event: "Charged" with Filter tags:Transacti
 Open App Inbox: Opens Custom App Inbox
 <img width="994" alt="image" src="https://user-images.githubusercontent.com/16386061/219879029-1a59839d-a2df-41d7-bf49-ebaa6a731758.png">
 
+Sample:
+
+![AppInbox](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDI2MWI4OWYwMjIyZjczMWZjMzEzY2IzMjc2YWEwNzI4YzNmMzY5YSZjdD1n/b6N6SzKwBWuNFkahtB/giphy.gif)
+
 
 **Native Display Templates**
 package: nativeDisplay
@@ -46,3 +50,8 @@ Custom Key value pair only. No title, no message
 Custom Key value pair only. No title, no message
 <img width="1275" alt="image" src="https://user-images.githubusercontent.com/16386061/219878374-46d1227f-216e-4311-abb5-95752931c385.png">
 <img width="812" alt="image" src="https://user-images.githubusercontent.com/16386061/219878403-b6e6060e-9f72-44fa-b48e-29294625a43c.png">
+
+Sample:
+
+![Native](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmU4MmQzOTUyNjdhZThhODM4ZmY3YzFmZDhhZjAxNWYxYjg1NzdkYSZjdD1n/qV7GufNcqwwlkjxdma/giphy.gif)
+
