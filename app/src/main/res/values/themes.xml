@@ -9,6 +9,8 @@
         <item name="background">@color/background</item>
         <item name="colorSurface">@color/colorSurface</item>
         <item name="colorError">@color/colorError</item>
+        <item name="toolbarStyle">@style/MyToolbar</item>
+
 
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/colorSecondary</item>

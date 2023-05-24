@@ -5,8 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="10dp"
+    android:layout_margin="10dp"
     tools:context=".ProfileActivity">
+
+    <EditText
+        android:id="@+id/profileName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your Name"/>
+
+    <EditText
+        android:id="@+id/profilePhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your Phone with country code"/>
+
+    <Button
+        android:id="@+id/profileDatePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Choose DOB"
+        android:textAllCaps="false" />
 
     <TextView
         android:layout_width="match_parent"

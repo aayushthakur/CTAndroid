@@ -21,6 +21,16 @@
         android:layout_height="wrap_content"
         android:hint="Set Email"/>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,6 +49,13 @@
             android:layout_height="wrap_content"
             android:text="Update profile"/>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/sendDateEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Send Date"/>
 
     <Button
         android:id="@+id/openProfilePage"
@@ -118,5 +135,9 @@
         android:padding="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
+
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>

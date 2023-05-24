@@ -54,8 +54,9 @@ public class MyApplication extends Application implements Application.ActivityLi
         // Required initialization logic here!
         clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE);
+
         TemplateRenderer.setDebugLevel(3);
-        CleverTapAPI.setNotificationHandler((NotificationHandler)new PushTemplateNotificationHandler());
+        CleverTapAPI.setNotificationHandler(new PushTemplateNotificationHandler());
         Map<String,Object> data = new HashMap<>();
         data.put("sample_date", "01-02-2023");
         clevertapDefaultInstance.pushEvent("Aayush App Open",data);
@@ -65,6 +66,7 @@ public class MyApplication extends Application implements Application.ActivityLi
                 Log.d(TAG, "onNotificationClickedPayloadReceived() called with: payload = [" + payload + "]");
             }
         });
+
 //        String fcmRegId;
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(new OnCompleteListener<String>() {
@@ -90,6 +92,11 @@ public class MyApplication extends Application implements Application.ActivityLi
                     "testChannelId1","Test Channel 1",
                     "Test Channel Description",
                     NotificationManager.IMPORTANCE_MAX,true);
+
+            CleverTapAPI.createNotificationChannel(getApplicationContext(),
+                    "soundChannel","Sound Channel",
+                    "Channel with custom sound",
+                    NotificationManager.IMPORTANCE_MAX,true,"anya.mp3");
         }
 
         /*CleverTapAPI cleverTapAPI = CleverTapAPI.getDefaultInstance(getApplicationContext());
@@ -115,14 +122,27 @@ public class MyApplication extends Application implements Application.ActivityLi
 
     }
 
-    public void sendProfileData(String identity, String email){
+    public void onUserLogin(String identity, String email){
+        HashMap<String, Object> profileUpdate = new HashMap<String, Object>();
+        profileUpdate.put("Identity", identity);      // String or number
+        profileUpdate.put("Email", email); // Email address of the user
+        clevertapDefaultInstance.onUserLogin(profileUpdate);
+    }
+
+    public void updateProfile(HashMap<String,Object> profileHashMap){
+//        Double d = 100.67;
         // each of the below mentioned fields are optional
         HashMap<String, Object> profileUpdate = new HashMap<String, Object>();
-        profileUpdate.put("Name", "Aayush Thakur");    // String
-            profileUpdate.put("Identity", identity);      // String or number
-            profileUpdate.put("Email", email); // Email address of the user
-        profileUpdate.put("Phone", "+917737388313");   // Phone (with the country code, starting with +)
-        profileUpdate.put("Gender", "Others");             // Can be either M or F
+        profileUpdate.put("Name", "SHELDON LEE COOPER");    // String
+        profileUpdate.put("Employed", "Y");                         // Can be either Y or N
+        profileUpdate.put("Education Status", "GRAD");
+        profileUpdate.put("Married", "Y" );         // Date of Birth. Set the Date object to the appropriate value first
+//        profileUpdate.put("Custom Score", 100 );
+//        profileUpdate.put("Custom Score String", "100.09" );
+//        profileUpdate.put("Custom Score Double", 100.10 );
+//        profileUpdate.put("Custom Score Double Var", d );
+//        profileUpdate.put("Custom Score Float", 100.89f );
+//        profileUpdate.put("Gender","Custom Gender");
         DateFormat sourceFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = null;
         try {
@@ -131,28 +151,12 @@ public class MyApplication extends Application implements Application.ActivityLi
             e.printStackTrace();
         }
         profileUpdate.put("DOB", date);         // Date of Birth. Set the Date object to the appropriate value first
-        clevertapDefaultInstance.onUserLogin(profileUpdate);
-    }
-
-    public void updateProfile(){
-        Double d = 100.67;
-        // each of the below mentioned fields are optional
-        HashMap<String, Object> profileUpdate = new HashMap<String, Object>();
-        profileUpdate.put("Employed", "Y");                         // Can be either Y or N
-        profileUpdate.put("Education Status", "GRAD");
-        profileUpdate.put("Married", "Y" );         // Date of Birth. Set the Date object to the appropriate value first
-        profileUpdate.put("Custom Score", 100 );
-        profileUpdate.put("Custom Score String", "100.09" );
-        profileUpdate.put("Custom Score Double", 100.10 );
-        profileUpdate.put("Custom Score Double Var", d );
-        profileUpdate.put("Custom Score Float", 100.89f );
-        profileUpdate.put("Gender","Custom Gender");
-        ArrayList<String> arrayList = new ArrayList<>();
+        /*ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("tn:2");
         arrayList.add("tn:24454");
         arrayList.add("pl:489889");
         arrayList.add("pl:4898896464");
-        profileUpdate.put("pn_scores",arrayList);
+        profileUpdate.put("pn_scores",arrayList);*/
         clevertapDefaultInstance.pushProfile(profileUpdate);
     }
 

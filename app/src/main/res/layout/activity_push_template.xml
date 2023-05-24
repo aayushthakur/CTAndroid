@@ -27,11 +27,28 @@
         android:layout_height="wrap_content"
         android:text="Zero Bezel"/>
 
+    <Button
+        android:id="@+id/ptZeroBezelRM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zero Bezel RenderMax"/>
+
+
+    <Button
+        android:id="@+id/ptManualCarousel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Manual Carousel"/>
 
     <Button
         android:id="@+id/ptAutoCarousel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Auto Carousel"/>
+    <Button
+        android:id="@+id/ptSticky5Icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sticky 5 icon"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

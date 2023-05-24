@@ -68,7 +68,7 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
                     boolean status = new CTFcmMessageHandler().createNotification(getApplicationContext(), remoteMessage);
                     Log.i("TAG", "onMessageReceived status: "+status);
                 } else {
-                                        customRenderNotification(remoteMessage);
+                    customRenderNotification(remoteMessage);
                     // not from CleverTap handle yourself or pass to another provider
                 }
             }

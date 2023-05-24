@@ -47,6 +47,7 @@
                     android:host="app.cttest.com"
                     android:pathPrefix="/native"
                     android:scheme="https" />
+
             </intent-filter>
         </activity>
         <activity
@@ -73,14 +74,26 @@
         <meta-data
             android:name="CLEVERTAP_USE_GOOGLE_AD_ID"
             android:value="0" />
-        <!--
-<meta-data
+
+            <meta-data
             android:name="CLEVERTAP_BACKGROUND_SYNC"
-            android:value="1"/>
-        -->
-        <service
+            android:value="0"/>
+       <!-- <service
             android:name=".MyFirebaseMessaging"
             android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>-->
+
+        <receiver
+            android:name="com.clevertap.android.sdk.pushnotification.CTPushNotificationReceiver"
+            android:exported="false"
+            android:enabled="true">
+        </receiver>
+
+        <service android:name="com.clevertap.android.sdk.pushnotification.fcm.FcmMessageListenerService"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

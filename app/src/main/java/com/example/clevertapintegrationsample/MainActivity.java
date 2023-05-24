@@ -35,8 +35,14 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -149,7 +155,24 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
             public void onClick(View view) {
                 String email = TextUtils.isEmpty(emailEdt.getText()) ? "" : emailEdt.getText().toString();
                 String identity = TextUtils.isEmpty(identityEdt.getText()) ? "14011995" : identityEdt.getText().toString();
-                MyApplication.getInstance().sendProfileData(identity, email);
+                MyApplication.getInstance().onUserLogin(identity, email);
+            }
+        });
+
+        findViewById(R.id.sendDateEvent).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Map<String,Object> evtData = new HashMap<>();
+                evtData.put("dateProp",new Date());
+                DateFormat sourceFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = null;
+                try {
+                    date = sourceFormat.parse("14/01/1995");
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                evtData.put("dateProp1",date);
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("Date Event",evtData);
             }
         });
 
@@ -177,7 +200,8 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
         findViewById(R.id.updateProfile).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MyApplication.getInstance().updateProfile();
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                startActivity(intent);
             }
         });
 

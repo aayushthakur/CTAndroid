@@ -26,5 +26,19 @@ public class InAppTemplatesActivity extends AppCompatActivity {
                 MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Ratings");
             }
         });
+
+        findViewById(R.id.inAppSpinTemplate).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Spin the wheel");
+            }
+        });
+
+        findViewById(R.id.inAppHeader).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Header");
+            }
+        });
     }
 }

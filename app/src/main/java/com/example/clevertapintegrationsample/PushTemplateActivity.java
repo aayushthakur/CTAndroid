@@ -32,11 +32,31 @@ public class PushTemplateActivity extends AppCompatActivity {
                 MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("PT Zero Bezel Trigger");
             }
         });
+        findViewById(R.id.ptZeroBezelRM).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("PT Zero Bezel RM Trigger");
+            }
+        });
+
+        findViewById(R.id.ptManualCarousel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("PT Manual Carousel Trigger");
+            }
+        });
 
         findViewById(R.id.ptAutoCarousel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("PT Auto Carousel Trigger");
+            }
+        });
+
+        findViewById(R.id.ptSticky5Icon).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("PT Sticky 5 Icon");
             }
         });
     }
