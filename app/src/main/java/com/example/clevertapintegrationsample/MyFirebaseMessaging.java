@@ -62,8 +62,11 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
                 if (info.fromCleverTap) {
                     if (extras.containsKey("isSticky")) {
                         Log.i(TAG, "onMessageReceived isSticky: ");
+                        //The below line helps to avoid duplicate rendering when using custom render implementation via CT
                         CleverTapAPI.processPushNotification(getApplicationContext(),extras);
-//                        new CTFcmMessageHandler().processPushAmp(getApplicationContext(), remoteMessage);
+                        ////////////////////////////////////////////////////
+
+                        //method to render your notification
                         showStickyNotification(getApplicationContext(), remoteMessage, extras);
                     }else {
                         boolean status = new CTFcmMessageHandler().createNotification(getApplicationContext(), remoteMessage);
@@ -98,7 +101,7 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
         String message = remoteMessage.getData().get("nm");
         String channelId = remoteMessage.getData().get("wzrk_cid");
 
-        PendingIntent pendingIntent = NotificationActivity.getDismissIntent(RANDOM_NOTIFICATION_ID,context);
+        PendingIntent pendingIntent = NotificationActivity.getDismissIntent(RANDOM_NOTIFICATION_ID,context, extras);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), channelId)
                 .setSmallIcon(R.drawable.gcm_icon)
@@ -116,8 +119,12 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
 
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(RANDOM_NOTIFICATION_ID, n);
+
+        //Method .pushNotificationViewedEvent(extras) to raise push impression event
         MyApplication.getInstance().getClevertapDefaultInstance().pushNotificationViewedEvent(extras);
     }
+
+    //                        new CTFcmMessageHandler().processPushAmp(getApplicationContext(), remoteMessage);
 
     private void customRenderNotification(RemoteMessage remoteMessage) {
         Log.d(TAG, "customRenderNotification() called with: remoteMessage = [" + remoteMessage + "]");
