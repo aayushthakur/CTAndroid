@@ -20,6 +20,13 @@
         android:layout_height="wrap_content"
         android:hint="Enter your Phone with country code"/>
 
+
+    <EditText
+        android:id="@+id/profileIdentity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Identity push/append"/>
+
     <Button
         android:id="@+id/profileDatePicker"
         android:layout_width="wrap_content"
@@ -28,6 +35,13 @@
         android:layout_marginBottom="10dp"
         android:text="Choose DOB"
         android:textAllCaps="false" />
+
+    <TextView
+        android:id="@+id/selectedDateTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="Selected Date"/>
 
     <TextView
         android:layout_width="match_parent"

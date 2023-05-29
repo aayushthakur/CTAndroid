@@ -5,10 +5,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -22,14 +18,13 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
 
-import org.greenrobot.eventbus.EventBus;
-
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 public class MyFirebaseMessaging extends FirebaseMessagingService {
     private static final String TAG = FirebaseMessagingService.class.getName();
+    public static final String ACTION_1 = "action_1";
+    public static final int RANDOM_NOTIFICATION_ID = 999;
 
     public MyFirebaseMessaging() {
         super();
@@ -54,19 +49,26 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        Log.i("TAG", "onMessageReceived: "+new Gson().toJson(remoteMessage.getData()));
-//        new CTFcmMessageHandler().processPushAmp(getApplicationContext(), remoteMessage);
+        Log.i(TAG, "onMessageReceived: " + new Gson().toJson(remoteMessage.getData()));
         try {
             if (remoteMessage.getData().size() > 0) {
                 Bundle extras = new Bundle();
                 for (Map.Entry<String, String> entry : remoteMessage.getData().entrySet()) {
                     extras.putString(entry.getKey(), entry.getValue());
                 }
-                NotificationInfo info = CleverTapAPI.getNotificationInfo(extras);
 
+
+                NotificationInfo info = CleverTapAPI.getNotificationInfo(extras);
                 if (info.fromCleverTap) {
-                    boolean status = new CTFcmMessageHandler().createNotification(getApplicationContext(), remoteMessage);
-                    Log.i("TAG", "onMessageReceived status: "+status);
+                    if (extras.containsKey("isSticky")) {
+                        Log.i(TAG, "onMessageReceived isSticky: ");
+                        CleverTapAPI.processPushNotification(getApplicationContext(),extras);
+//                        new CTFcmMessageHandler().processPushAmp(getApplicationContext(), remoteMessage);
+                        showStickyNotification(getApplicationContext(), remoteMessage, extras);
+                    }else {
+                        boolean status = new CTFcmMessageHandler().createNotification(getApplicationContext(), remoteMessage);
+                        Log.i(TAG, "onMessageReceived status: " + status);
+                    }
                 } else {
                     customRenderNotification(remoteMessage);
                     // not from CleverTap handle yourself or pass to another provider
@@ -88,7 +90,36 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
 
     }
 
-    private void customRenderNotification(RemoteMessage remoteMessage){
+    private void showStickyNotification(Context context, RemoteMessage remoteMessage, Bundle extras) {
+        if (remoteMessage.getData() == null) {
+            return;
+        }
+        String title = remoteMessage.getData().get("nt");
+        String message = remoteMessage.getData().get("nm");
+        String channelId = remoteMessage.getData().get("wzrk_cid");
+
+        PendingIntent pendingIntent = NotificationActivity.getDismissIntent(RANDOM_NOTIFICATION_ID,context);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), channelId)
+                .setSmallIcon(R.drawable.gcm_icon)
+                .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
+                .setContentTitle(title)
+                .setContentText(message)
+                .setColor(getResources().getColor(R.color.colorAccent))
+                .setColorized(true)
+                .setOngoing(true)
+                .addAction(R.drawable.ic_close_icon, "Dismiss", pendingIntent);
+//                .setContentIntent(pendingIntent);
+
+        Notification n = builder.build();
+        n.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
+
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(RANDOM_NOTIFICATION_ID, n);
+        MyApplication.getInstance().getClevertapDefaultInstance().pushNotificationViewedEvent(extras);
+    }
+
+    private void customRenderNotification(RemoteMessage remoteMessage) {
         Log.d(TAG, "customRenderNotification() called with: remoteMessage = [" + remoteMessage + "]");
 //// Get the layouts to use in the custom notification
 //        RemoteViews notificationLayout = new RemoteViews(getPackageName(), R.layout.notification_small);
@@ -96,7 +127,7 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
 
 // Apply the layouts to the notification
 
-        if (remoteMessage.getData()==null) {
+        if (remoteMessage.getData() == null) {
             return;
         }
         String title = remoteMessage.getData().get("nt");
@@ -139,3 +170,5 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
         super.onSendError(s, e);
     }
 }
+
+

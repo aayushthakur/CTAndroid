@@ -59,5 +59,12 @@ public class PushTemplateActivity extends AppCompatActivity {
                 MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("PT Sticky 5 Icon");
             }
         });
+
+        findViewById(R.id.ptStickyCustom).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("PT Sticky Custom");
+            }
+        });
     }
 }

@@ -38,7 +38,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MyApplication extends Application implements Application.ActivityLifecycleCallbacks /* ,CTPushAmpListener*/ {
+public class MyApplication extends Application implements Application.ActivityLifecycleCallbacks  /*CTPushAmpListener*/ {
 
     private static final String TAG = MyApplication.class.getName();
     private CleverTapAPI clevertapDefaultInstance;
@@ -53,6 +53,7 @@ public class MyApplication extends Application implements Application.ActivityLi
         singleton = this;
         // Required initialization logic here!
         clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
+//        clevertapDefaultInstance.setCTPushAmpListener(this);
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE);
 
         TemplateRenderer.setDebugLevel(3);
@@ -100,7 +101,7 @@ public class MyApplication extends Application implements Application.ActivityLi
         }
 
         /*CleverTapAPI cleverTapAPI = CleverTapAPI.getDefaultInstance(getApplicationContext());
-        cleverTapAPI.setCTPushAmpListener(this);*/
+        */
         /*CTGeofenceSettings ctGeofenceSettings = new CTGeofenceSettings.Builder()
                 .enableBackgroundLocationUpdates(true)//boolean to enable background location updates
                 .setLogLevel(Logger.VERBOSE)//Log Level
@@ -288,7 +289,7 @@ public class MyApplication extends Application implements Application.ActivityLi
         Log.d(TAG, "onActivityDestroyed() called with: activity = [" + activity + "]");
     }
 
-   /* @Override
+    /*@Override
     public void onPushAmpPayloadReceived(Bundle extras) {
         Log.d(TAG, "onPushAmpPayloadReceived() called with: extras = [" + extras + "]");
     }*/

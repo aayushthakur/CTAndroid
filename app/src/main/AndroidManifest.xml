@@ -78,26 +78,32 @@
             <meta-data
             android:name="CLEVERTAP_BACKGROUND_SYNC"
             android:value="0"/>
-       <!-- <service
+       <service
             android:name=".MyFirebaseMessaging"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </service>-->
+        </service>
 
-        <receiver
+        <activity
+            android:name=".NotificationActivity"
+            android:taskAffinity=""
+            android:excludeFromRecents="true">
+        </activity>
+
+        <!--<receiver
             android:name="com.clevertap.android.sdk.pushnotification.CTPushNotificationReceiver"
             android:exported="false"
             android:enabled="true">
-        </receiver>
+        </receiver>-->
 
-        <service android:name="com.clevertap.android.sdk.pushnotification.fcm.FcmMessageListenerService"
+     <!--   <service android:name="com.clevertap.android.sdk.pushnotification.fcm.FcmMessageListenerService"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </service>
+        </service>-->
     </application>
 
 </manifest>

@@ -51,4 +51,10 @@
         android:layout_height="wrap_content"
         android:text="Sticky 5 icon"/>
 
+    <Button
+        android:id="@+id/ptStickyCustom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sticky Custom Render"/>
+
 </androidx.appcompat.widget.LinearLayoutCompat>
