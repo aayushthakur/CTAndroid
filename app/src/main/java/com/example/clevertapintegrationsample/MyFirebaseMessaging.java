@@ -56,8 +56,6 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
                 for (Map.Entry<String, String> entry : remoteMessage.getData().entrySet()) {
                     extras.putString(entry.getKey(), entry.getValue());
                 }
-
-
                 NotificationInfo info = CleverTapAPI.getNotificationInfo(extras);
                 if (info.fromCleverTap) {
                     if (extras.containsKey("isSticky")) {

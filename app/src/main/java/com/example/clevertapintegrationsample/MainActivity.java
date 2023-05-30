@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
             @Override
             public void onClick(View view) {
                 String email = TextUtils.isEmpty(emailEdt.getText()) ? "" : emailEdt.getText().toString();
-                String identity = TextUtils.isEmpty(identityEdt.getText()) ? "14011995" : identityEdt.getText().toString();
+                String identity = TextUtils.isEmpty(identityEdt.getText()) ? "" : identityEdt.getText().toString();
                 MyApplication.getInstance().onUserLogin(identity, email);
             }
         });
