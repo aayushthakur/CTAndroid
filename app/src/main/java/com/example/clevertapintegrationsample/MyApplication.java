@@ -3,32 +3,25 @@ package com.example.clevertapintegrationsample;
 import android.app.Activity;
 import android.app.Application;
 import android.app.NotificationManager;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.preference.PreferenceManager;
 import android.util.ArrayMap;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.bumptech.glide.signature.ObjectKey;
-import com.clevertap.android.geofence.CTGeofenceAPI;
-import com.clevertap.android.geofence.CTGeofenceSettings;
-import com.clevertap.android.geofence.Logger;
 import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler;
 import com.clevertap.android.pushtemplates.TemplateRenderer;
 import com.clevertap.android.sdk.ActivityLifecycleCallback;
 import com.clevertap.android.sdk.CleverTapAPI;
-import com.clevertap.android.sdk.interfaces.NotificationHandler;
 import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener;
-import com.clevertap.android.sdk.pushnotification.PushNotificationHandler;
-import com.clevertap.android.sdk.pushnotification.amp.CTPushAmpListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.gson.JsonObject;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -41,12 +34,18 @@ import java.util.Map;
 public class MyApplication extends Application implements Application.ActivityLifecycleCallbacks  /*CTPushAmpListener*/ {
 
     private static final String TAG = MyApplication.class.getName();
+    private static MyApplication singleton;
     private CleverTapAPI clevertapDefaultInstance;
+
+    public static MyApplication getInstance() {
+        return singleton;
+    }
 
     // Called when the application is starting, before any other application objects have been created.
     // Overriding this method is totally optional!
     @Override
     public void onCreate() {
+//        clearPrefAfterDeMerge();
         ActivityLifecycleCallback.register(this);
         super.onCreate();
         registerActivityLifecycleCallbacks(this);
@@ -58,9 +57,9 @@ public class MyApplication extends Application implements Application.ActivityLi
 
         TemplateRenderer.setDebugLevel(3);
         CleverTapAPI.setNotificationHandler(new PushTemplateNotificationHandler());
-        Map<String,Object> data = new HashMap<>();
+        Map<String, Object> data = new HashMap<>();
         data.put("sample_date", "01-02-2023");
-        clevertapDefaultInstance.pushEvent("Aayush App Open",data);
+        clevertapDefaultInstance.pushEvent("Aayush App Open", data);
         clevertapDefaultInstance.setCTPushNotificationListener(new CTPushNotificationListener() {
             @Override
             public void onNotificationClickedPayloadReceived(HashMap<String, Object> payload) {
@@ -80,8 +79,8 @@ public class MyApplication extends Application implements Application.ActivityLi
 
                         // Get new FCM registration token
                         String token = task.getResult();
-                        Log.v("TAG", "token: "+token);
-                        clevertapDefaultInstance.pushFcmRegistrationId(token,true);
+                        Log.v("TAG", "token: " + token);
+                        clevertapDefaultInstance.pushFcmRegistrationId(token, true);
                         // Log and toast
 //                        String msg = getString(R.string.msg_token_fmt, token);
 //                        Log.d(TAG, msg);
@@ -90,18 +89,18 @@ public class MyApplication extends Application implements Application.ActivityLi
                 });
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CleverTapAPI.createNotificationChannel(getApplicationContext(),
-                    "testChannelId1","Test Channel 1",
+                    "testChannelId1", "Test Channel 1",
                     "Test Channel Description",
-                    NotificationManager.IMPORTANCE_MAX,true);
+                    NotificationManager.IMPORTANCE_MAX, true);
 
             CleverTapAPI.createNotificationChannel(getApplicationContext(),
-                    "soundChannel","Sound Channel",
+                    "soundChannel", "Sound Channel",
                     "Channel with custom sound",
-                    NotificationManager.IMPORTANCE_MAX,true,"anya.mp3");
+                    NotificationManager.IMPORTANCE_MAX, true, "anya.mp3");
         }
 
         /*CleverTapAPI cleverTapAPI = CleverTapAPI.getDefaultInstance(getApplicationContext());
-        */
+         */
         /*CTGeofenceSettings ctGeofenceSettings = new CTGeofenceSettings.Builder()
                 .enableBackgroundLocationUpdates(true)//boolean to enable background location updates
                 .setLogLevel(Logger.VERBOSE)//Log Level
@@ -123,21 +122,21 @@ public class MyApplication extends Application implements Application.ActivityLi
 
     }
 
-    public void onUserLogin(String identity, String email){
+    public void onUserLogin(String identity, String email) {
         HashMap<String, Object> profileUpdate = new HashMap<String, Object>();
         profileUpdate.put("Identity", identity);      // String or number
         profileUpdate.put("Email", email); // Email address of the user
         clevertapDefaultInstance.onUserLogin(profileUpdate);
     }
 
-    public void updateProfile(HashMap<String,Object> profileHashMap){
+    public void updateProfile(HashMap<String, Object> profileHashMap) {
 //        Double d = 100.67;
         // each of the below mentioned fields are optional
         HashMap<String, Object> profileUpdate = new HashMap<String, Object>();
         profileUpdate.put("Name", "SHELDON LEE COOPER");    // String
         profileUpdate.put("Employed", "Y");                         // Can be either Y or N
         profileUpdate.put("Education Status", "GRAD");
-        profileUpdate.put("Married", "Y" );         // Date of Birth. Set the Date object to the appropriate value first
+        profileUpdate.put("Married", "Y");         // Date of Birth. Set the Date object to the appropriate value first
 //        profileUpdate.put("Custom Score", 100 );
 //        profileUpdate.put("Custom Score String", "100.09" );
 //        profileUpdate.put("Custom Score Double", 100.10 );
@@ -161,41 +160,40 @@ public class MyApplication extends Application implements Application.ActivityLi
         clevertapDefaultInstance.pushProfile(profileUpdate);
     }
 
-    public CleverTapAPI getClevertapDefaultInstance(){
+    public CleverTapAPI getClevertapDefaultInstance() {
         return clevertapDefaultInstance;
     }
 
-    public void sendInApp(){
+    public void sendInApp() {
         clevertapDefaultInstance.pushEvent("Aayush InApp");
     }
 
-    public void sendInAppInterstitial(){
+    public void sendInAppInterstitial() {
         //oneplus 7
         //apple iphone 13
-        Map<String,Object> data = new HashMap<>();
+        Map<String, Object> data = new HashMap<>();
         data.put("Name", "onpleus");
         data.put("productid", "23786487326");
         data.put("color", "blue");
 
-        clevertapDefaultInstance.pushEvent("Product viewed",data);
+        clevertapDefaultInstance.pushEvent("Product viewed", data);
 
-        clevertapDefaultInstance.pushEvent("Aayush InApp Interstitial",new ArrayMap<>());
+        clevertapDefaultInstance.pushEvent("Aayush InApp Interstitial", new ArrayMap<>());
 
     }
 
-    public void sendNotificationAppInbox(String title,String message){
-        Map<String,Object> data = new HashMap<>();
+    public void sendNotificationAppInbox(String title, String message) {
+        Map<String, Object> data = new HashMap<>();
         data.put("title", title);
         data.put("message", message);
-        clevertapDefaultInstance.pushEvent("Notification App Inbox",data);
+        clevertapDefaultInstance.pushEvent("Notification App Inbox", data);
     }
 
-
-    public void sendAppInboxTrigger(){
+    public void sendAppInboxTrigger() {
         clevertapDefaultInstance.pushEvent("App Inbox Trigger");
     }
 
-    public void chargedEvent(){
+    public void chargedEvent() {
         HashMap<String, Object> chargeDetails = new HashMap<String, Object>();
         chargeDetails.put("Amount", 300);
         chargeDetails.put("Payment mode", "Credit card");
@@ -226,16 +224,11 @@ public class MyApplication extends Application implements Application.ActivityLi
         } catch (Exception e) {
             // You have to specify the first parameter to push()
             // as CleverTapAPI.CHARGED_EVENT
-        }    }
-
-    public void sendLiveEvent(){
-        clevertapDefaultInstance.pushEvent("iamlive");
+        }
     }
 
-    private static MyApplication singleton;
-
-    public static MyApplication getInstance() {
-        return singleton;
+    public void sendLiveEvent() {
+        clevertapDefaultInstance.pushEvent("iamlive");
     }
 
     // Called by the system when the device configuration changes while your component is running.
@@ -287,6 +280,13 @@ public class MyApplication extends Application implements Application.ActivityLi
     @Override
     public void onActivityDestroyed(@NonNull Activity activity) {
         Log.d(TAG, "onActivityDestroyed() called with: activity = [" + activity + "]");
+    }
+
+    public void clearPrefAfterDeMerge() {
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences("WizRocket",MODE_PRIVATE);
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.clear();
+        edit.commit();
     }
 
     /*@Override
