@@ -34,4 +34,10 @@
         android:layout_height="wrap_content"
         android:text="InApp Header"/>
 
+    <Button
+        android:id="@+id/inAppVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="InApp Video"/>
+
 </androidx.appcompat.widget.LinearLayoutCompat>

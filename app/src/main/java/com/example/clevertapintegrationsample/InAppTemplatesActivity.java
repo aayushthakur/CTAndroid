@@ -40,5 +40,12 @@ public class InAppTemplatesActivity extends AppCompatActivity {
                 MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Header");
             }
         });
+
+        findViewById(R.id.inAppVideo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Video");
+            }
+        });
     }
 }
