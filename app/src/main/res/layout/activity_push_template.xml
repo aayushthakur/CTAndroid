@@ -57,4 +57,28 @@
         android:layout_height="wrap_content"
         android:text="Sticky Custom Render"/>
 
+    <Button
+        android:id="@+id/ptTimerTemplate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Timer"/>
+
+    <Button
+        android:id="@+id/ptInputBoxTemplate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Input Box"/>
+
+    <Button
+        android:id="@+id/ptRemindLater"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remind Later"/>
+
+    <Button
+        android:id="@+id/ptRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rating"/>
+
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -66,5 +66,32 @@ public class PushTemplateActivity extends AppCompatActivity {
                 MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("PT Sticky Custom");
             }
         });
+
+        findViewById(R.id.ptTimerTemplate).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("PT Timer");
+            }
+        });
+
+        findViewById(R.id.ptInputBoxTemplate).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("PT Input Box");
+            }
+        });
+
+        findViewById(R.id.ptRemindLater).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("PT Remind Later");
+            }
+        });
+        findViewById(R.id.ptRating).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("PT Rating");
+            }
+        });
     }
 }

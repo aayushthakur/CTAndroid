@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    tools:context=".CartAbandon">
+
+    <EditText
+        android:id="@+id/edtProductIds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint= "Enter Product Id"
+        />
+
+    <Button
+        android:layout_marginTop="10dp"
+        android:id="@+id/addToCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text= "Add to Cart"/>
+
+    <Button
+        android:layout_marginTop="10dp"
+        android:id="@+id/charged"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text= "Charged"/>
+
+    <Button
+        android:layout_marginTop="10dp"
+        android:id="@+id/removeProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text= "Remove Id from Cart"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

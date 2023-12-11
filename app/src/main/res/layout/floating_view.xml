@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:minWidth="300dp"
+    android:minHeight="80dp"
+    android:weightSum="100"
+    android:background="#8FC1E3"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+        <LinearLayout
+            android:gravity="center|top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <ImageView
+                android:src="@mipmap/ic_launcher"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="App Name"
+                android:textSize="10sp"
+                android:textColor="#ffffff"
+                android:layout_marginStart="4dp"
+                android:layout_gravity="center_vertical"
+                style="@style/TextAppearance.Compat.Notification.Info"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="12sp"
+            android:textColor="#ffffff"
+            style="@style/TextAppearance.Compat.Notification.Title"
+            tools:text="Title of the notification"
+            />
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:textSize="12sp"
+            android:maxLines="1"
+            android:textColor="#ffffff"
+            style="@style/TextAppearance.Compat.Notification.Media"
+            tools:text="Description of the notification"
+            />
+
+<!--
+    <FrameLayout
+        android:layout_weight="60"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ImageView
+        android:id="@+id/image"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        />
+
+        <ImageButton
+            android:id="@+id/btCross"
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:background="#989898"
+            android:padding="2dp"
+            android:focusable="true"
+            />
+
+
+    </FrameLayout>-->
+</LinearLayout>

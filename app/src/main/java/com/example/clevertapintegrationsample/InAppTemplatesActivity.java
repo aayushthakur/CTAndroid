@@ -47,5 +47,38 @@ public class InAppTemplatesActivity extends AppCompatActivity {
                 MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Video");
             }
         });
+
+        findViewById(R.id.inAppGIf).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Custom GIF");
+            }
+        });
+
+        findViewById(R.id.inAppScratchCard).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Scratch Card");
+            }
+        });
+
+        findViewById(R.id.inAppCustomCarousel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Custom Carousel");
+            }
+        });
+        findViewById(R.id.inAppCustomCard).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Custom Card Image");
+            }
+        });
+        findViewById(R.id.inAppSlidingImage).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Sliding Image");
+            }
+        });
     }
 }

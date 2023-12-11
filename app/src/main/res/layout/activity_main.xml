@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center|top"
     android:layout_margin="10dp"
-    tools:context=".MainActivity">
+    android:gravity="center|top"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    android:id="@+id/rootView">
 
     <EditText
         android:id="@+id/identityEdt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Set Identity"/>
+        android:hint="Set Identity" />
 
     <EditText
         android:id="@+id/emailEdt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Set Email"/>
+        android:hint="Set Email" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -31,113 +32,144 @@
             android:gravity="center"
             android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
 
-        <Button
-            android:id="@+id/sendData"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="Send Data"/>
+                <Button
+                    android:id="@+id/sendData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="Send Data" />
 
-        <Button
-            android:id="@+id/updateProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Update profile"/>
-    </LinearLayout>
+                <Button
+                    android:id="@+id/updateProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Update profile" />
+            </LinearLayout>
 
-    <Button
-        android:id="@+id/sendDateEvent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="Send Date"/>
+            <Button
+                android:id="@+id/copyCtId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Copy CT Id" />
+            <Button
+                android:id="@+id/sendDateEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Send Date" />
 
-    <Button
-        android:id="@+id/openProfilePage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="Profile Page"/>
+            <Button
+                android:id="@+id/openProfilePage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Profile Page" />
 
-    <Button
-        android:id="@+id/sendInApp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Send InApp"/>
+            <Button
+                android:id="@+id/eventPage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Event Page" />
 
-    <Button
-        android:id="@+id/sendInAppInterstitial"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Send Interstitial"/>
+            <Button
+                android:id="@+id/sendInApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Send InApp" />
 
-    <Button
-        android:id="@+id/live"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="LIVE"/>
+            <Button
+                android:id="@+id/sendInAppInterstitial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Send Interstitial" />
 
-    <Button
-        android:id="@+id/apiCall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="API CALL"/>
+            <Button
+                android:id="@+id/live"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LIVE" />
 
-    <Button
-        android:id="@+id/actionInbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Trigger App Inbox"/>
+            <Button
+                android:id="@+id/personalizedEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Personalized Event" />
 
-    <Button
-        android:id="@+id/transactionSuccessful"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Transaction Complete"/>
-    <Button
-        android:id="@+id/inbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Open App Inbox"/>
+            <Button
+                android:id="@+id/apiCall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="API CALL" />
 
-    <Button
-        android:id="@+id/nativeDisplayTrigger"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Native Display TRIGGER"/>
+            <Button
+                android:id="@+id/actionInbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trigger App Inbox" />
 
-    <Button
-        android:id="@+id/pushTemplateSamples"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Push Template Samples"/>
+            <Button
+                android:id="@+id/transactionSuccessful"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Transaction Complete" />
 
-    <Button
-        android:id="@+id/inAppSamples"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="InApp Template Samples"/>
+            <Button
+                android:id="@+id/inbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Open App Inbox" />
 
-    <TextView
-        android:id="@+id/nativeText"
-        android:padding="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Hello World!" />
+            <Button
+                android:id="@+id/nativeDisplayTrigger"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Native Display TRIGGER" />
 
-    <ImageView
-        android:id="@+id/nativeImage"
-        android:padding="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/pushTemplateSamples"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Push Template Samples" />
+
+            <Button
+                android:id="@+id/inAppSamples"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="InApp Template Samples" />
+
+            <Button
+                android:id="@+id/pushPrimers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Push Primer" />
+
+            <Button
+                android:id="@+id/cartAbandon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cart Abandon" />
+
+            <TextView
+                android:id="@+id/nativeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                tools:text="Hello World!" />
+
+            <ImageView
+                android:id="@+id/nativeImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>
-
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -10,6 +10,8 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" /> <!-- needed for notification view to float -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:name=".MyApplication"
@@ -19,6 +21,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CleverTapIntegrationSample">
+        <activity
+            android:name=".CartAbandon"
+            android:exported="false" />
+        <activity
+            android:name=".notificationAPI.PushPrimerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EventActivity"
+            android:exported="false" />
         <activity
             android:name=".InAppTemplatesActivity"
             android:exported="false" />
@@ -47,7 +58,6 @@
                     android:host="app.cttest.com"
                     android:pathPrefix="/native"
                     android:scheme="https" />
-
             </intent-filter>
         </activity>
         <activity
@@ -74,11 +84,11 @@
         <meta-data
             android:name="CLEVERTAP_USE_GOOGLE_AD_ID"
             android:value="0" />
-
-            <meta-data
+        <meta-data
             android:name="CLEVERTAP_BACKGROUND_SYNC"
-            android:value="0"/>
-       <service
+            android:value="0" />
+
+        <service
             android:name=".MyFirebaseMessaging"
             android:exported="false">
             <intent-filter>
@@ -88,22 +98,8 @@
 
         <activity
             android:name=".NotificationActivity"
-            android:taskAffinity=""
-            android:excludeFromRecents="true">
-        </activity>
-
-        <!--<receiver
-            android:name="com.clevertap.android.sdk.pushnotification.CTPushNotificationReceiver"
-            android:exported="false"
-            android:enabled="true">
-        </receiver>-->
-
-     <!--   <service android:name="com.clevertap.android.sdk.pushnotification.fcm.FcmMessageListenerService"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>-->
+            android:excludeFromRecents="true"
+            android:taskAffinity="" />
     </application>
 
 </manifest>

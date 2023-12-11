@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -50,6 +51,8 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
         Log.i(TAG, "onMessageReceived: " + new Gson().toJson(remoteMessage.getData()));
+        boolean isTelevision = getPackageManager().hasSystemFeature(PackageManager.FEATURE_LEANBACK);
+
         try {
             if (remoteMessage.getData().size() > 0) {
                 Bundle extras = new Bundle();
@@ -58,23 +61,44 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
                 }
                 NotificationInfo info = CleverTapAPI.getNotificationInfo(extras);
                 if (info.fromCleverTap) {
-                    if (extras.containsKey("isSticky")) {
-                        Log.i(TAG, "onMessageReceived isSticky: ");
+                    if (isTelevision) {
+                        Log.d(TAG, "Running on a TV Device");
                         //The below line helps to avoid duplicate rendering when using custom render implementation via CT
-                        CleverTapAPI.processPushNotification(getApplicationContext(),extras);
+                        CleverTapAPI.processPushNotification(getApplicationContext(), extras);
                         ////////////////////////////////////////////////////
+                        if (MyApplication.getInstance().isOverlayPermissionGiven()) {
+                            NotifUtil.floatingNotif(this, remoteMessage);
+                        }
 
-                        //method to render your notification
-                        showStickyNotification(getApplicationContext(), remoteMessage, extras);
+                    } else {
+                        Log.d(TAG, "Running on a non-TV Device");
+                        if (extras.containsKey("isSticky")) {
+                            Log.i(TAG, "onMessageReceived isSticky: ");
+                            //The below line helps to avoid duplicate rendering when using custom render implementation via CT
+                            CleverTapAPI.processPushNotification(getApplicationContext(), extras);
+                            ////////////////////////////////////////////////////
+
+                            //method to render your notification
+                            showStickyNotification(getApplicationContext(), remoteMessage, extras);
+                        } else if (extras.containsKey("isProgressTimer")){
+                            Log.i(TAG, "onMessageReceived isProgressTimer: ");
+                            //The below line helps to avoid duplicate rendering when using custom render implementation via CT
+                            CleverTapAPI.processPushNotification(getApplicationContext(), extras);
+                            ////////////////////////////////////////////////////
+
+                            //method to render your notification
+                            progressBarNotification(getApplicationContext(), remoteMessage, extras);
                     }else {
-                        boolean status = new CTFcmMessageHandler().createNotification(getApplicationContext(), remoteMessage);
-                        Log.i(TAG, "onMessageReceived status: " + status);
+                            boolean status = new CTFcmMessageHandler().createNotification(getApplicationContext(), remoteMessage);
+                            Log.i(TAG, "onMessageReceived status: " + status);
+                        }
                     }
                 } else {
                     customRenderNotification(remoteMessage);
                     // not from CleverTap handle yourself or pass to another provider
                 }
             }
+            //if app is in foreground && banner to be shown //raise event via ct
         } catch (Throwable t) {
             Log.d("MYFCMLIST", "Error parsing FCM message", t);
         }
@@ -109,6 +133,36 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
                 .setColor(getResources().getColor(R.color.colorAccent))
                 .setColorized(true)
                 .setOngoing(true)
+                .addAction(R.drawable.ic_close_icon, "Dismiss", pendingIntent);
+//                .setContentIntent(pendingIntent);
+
+        Notification n = builder.build();
+        n.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
+
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(RANDOM_NOTIFICATION_ID, n);
+
+        //Method .pushNotificationViewedEvent(extras) to raise push impression event
+        MyApplication.getInstance().getClevertapDefaultInstance().pushNotificationViewedEvent(extras);
+    }
+
+    private void progressBarNotification(Context context, RemoteMessage remoteMessage, Bundle extras) {
+        remoteMessage.getData();
+        String title = remoteMessage.getData().get("nt");
+        String message = remoteMessage.getData().get("nm");
+        String channelId = remoteMessage.getData().get("wzrk_cid");
+
+        PendingIntent pendingIntent = NotificationActivity.getDismissIntent(RANDOM_NOTIFICATION_ID,context, extras);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), channelId)
+                .setSmallIcon(R.drawable.gcm_icon)
+                .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
+                .setContentTitle(title)
+                .setContentText(message)
+                .setColor(getResources().getColor(R.color.colorAccent))
+                .setColorized(true)
+                .setOngoing(true)
+                .setProgress(100,1,false)
                 .addAction(R.drawable.ic_close_icon, "Dismiss", pendingIntent);
 //                .setContentIntent(pendingIntent);
 

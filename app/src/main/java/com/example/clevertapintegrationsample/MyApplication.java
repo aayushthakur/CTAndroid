@@ -8,11 +8,13 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.util.ArrayMap;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler;
 import com.clevertap.android.pushtemplates.TemplateRenderer;
@@ -287,6 +289,14 @@ public class MyApplication extends Application implements Application.ActivityLi
         SharedPreferences.Editor edit = preferences.edit();
         edit.clear();
         edit.commit();
+    }
+
+    public boolean isOverlayPermissionGiven(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return Settings.canDrawOverlays(this);
+        }
+        return true;
+
     }
 
     /*@Override

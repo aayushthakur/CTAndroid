@@ -40,4 +40,33 @@
         android:layout_height="wrap_content"
         android:text="InApp Video"/>
 
+    <Button
+        android:id="@+id/inAppGIf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="InApp Custom GIF"/>
+
+    <Button
+        android:id="@+id/inAppScratchCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="InApp Scratch Card"/>
+
+    <Button
+        android:id="@+id/inAppCustomCarousel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="InApp Custom Carousel"/>
+
+    <Button
+        android:id="@+id/inAppCustomCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="InApp Card Image"/>
+
+    <Button
+        android:id="@+id/inAppSlidingImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="InApp Sliding Image"/>
 </androidx.appcompat.widget.LinearLayoutCompat>
