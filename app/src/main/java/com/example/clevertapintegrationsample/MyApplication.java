@@ -3,6 +3,7 @@ package com.example.clevertapintegrationsample;
 import android.app.Activity;
 import android.app.Application;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -259,9 +260,24 @@ public class MyApplication extends Application implements Application.ActivityLi
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onActivityResumed(@NonNull Activity activity) {
         Log.d(TAG, "onActivityResumed() called with: activity = [" + activity + "]");
+        Bundle payload = activity.getIntent().getExtras();
+        if (payload==null){
+            return;
+        }
+        if (payload.containsKey("pt_id")&& payload.getString("pt_id").equals("pt_rating"))
+        {
+            NotificationManager nm = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
+            nm.cancel(payload.getInt("notificationId"));
+        }
+        if (payload.containsKey("pt_id")&& payload.getString("pt_id").equals("pt_product_display"))
+        {
+            NotificationManager nm = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
+            nm.cancel(payload.getInt("notificationId"));
+        }
     }
 
     @Override

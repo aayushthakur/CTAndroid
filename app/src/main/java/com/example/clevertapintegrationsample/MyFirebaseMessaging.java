@@ -26,6 +26,7 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
     private static final String TAG = FirebaseMessagingService.class.getName();
     public static final String ACTION_1 = "action_1";
     public static final int RANDOM_NOTIFICATION_ID = 999;
+    public static final String CURRENT_APP_NAME = "A23_POKER";
 
     public MyFirebaseMessaging() {
         super();
@@ -61,6 +62,25 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
                 }
                 NotificationInfo info = CleverTapAPI.getNotificationInfo(extras);
                 if (info.fromCleverTap) {
+                    if (extras.containsKey("app_to_render")) {
+                        //app_to_render will be a custom key which will be passed by CRM team under key value pair
+                        // for push notifications
+                        // & the value will be the app name to which they want this notification to render on.
+                        //the value should match with the one's fixed by the dev team in each app
+                        String appName = extras.getString("app_to_render");
+                        //here CURRENT_APP_NAME will be a static string saved in each app with its name like a23_poker,a23_rummy etc.
+                        if (appName.equals(CURRENT_APP_NAME)){
+
+                            //render notification using
+                            //new CTFcmMessageHandler().createNotification(getApplicationContext(), remoteMessage);
+                        }else {
+                            //this notification is meant for other application, do not render here just process notification
+                            //using CleverTapAPI.processPushNotification(getApplicationContext(), extras);
+                        }
+                    }else{
+                        //render normally using new CTFcmMessageHandler().createNotification(getApplicationContext(), remoteMessage);
+                    }
+
                     if (isTelevision) {
                         Log.d(TAG, "Running on a TV Device");
                         //The below line helps to avoid duplicate rendering when using custom render implementation via CT
