@@ -69,4 +69,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="InApp Sliding Image"/>
+
+    <Button
+        android:id="@+id/inAppBottomCornerGif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="InApp Bottom Gif"/>
+
+    <Button
+        android:id="@+id/inAppFooterGif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="InApp Footer Gif"/>
+
 </androidx.appcompat.widget.LinearLayoutCompat>

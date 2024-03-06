@@ -8,23 +8,30 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.ArrayMap;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
 import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler;
 import com.clevertap.android.pushtemplates.TemplateRenderer;
 import com.clevertap.android.sdk.ActivityLifecycleCallback;
 import com.clevertap.android.sdk.CleverTapAPI;
+import com.clevertap.android.sdk.InAppNotificationButtonListener;
+import com.clevertap.android.sdk.InAppNotificationListener;
+import com.clevertap.android.sdk.inapp.CTInAppNotification;
 import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener;
+import com.clevertap.android.signedcall.exception.InitException;
+import com.clevertap.android.signedcall.init.SignedCallAPI;
+import com.clevertap.android.signedcall.init.SignedCallInitConfiguration;
+import com.clevertap.android.signedcall.interfaces.SignedCallInitResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -60,13 +67,25 @@ public class MyApplication extends Application implements Application.ActivityLi
 
         TemplateRenderer.setDebugLevel(3);
         CleverTapAPI.setNotificationHandler(new PushTemplateNotificationHandler());
-        Map<String, Object> data = new HashMap<>();
-        data.put("sample_date", "01-02-2023");
-        clevertapDefaultInstance.pushEvent("Aayush App Open", data);
+//        Map<String, Object> data = new HashMap<>();
+//        data.put("sample_date", "01-02-2023");
+//        clevertapDefaultInstance.pushEvent("Aayush App Open", data);
         clevertapDefaultInstance.setCTPushNotificationListener(new CTPushNotificationListener() {
             @Override
             public void onNotificationClickedPayloadReceived(HashMap<String, Object> payload) {
                 Log.d(TAG, "onNotificationClickedPayloadReceived() called with: payload = [" + payload + "]");
+                if (payload == null) {
+                    return;
+                }
+                if (payload.containsKey("pt_id") && payload.get("pt_id").equals("pt_rating")) {
+                    NotificationManager nm = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                    nm.cancel((Integer) payload.get("notificationId"));
+                }
+                if (payload.containsKey("pt_id") && payload.get("pt_id").equals("pt_product_display")) {
+                    NotificationManager nm = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                    nm.cancel((Integer) payload.get("notificationId"));
+                }
+
             }
         });
 
@@ -74,7 +93,7 @@ public class MyApplication extends Application implements Application.ActivityLi
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
-                    public void onComplete(@NonNull Task<String> task) {
+                    public void onComplete(Task<String> task) {
                         if (!task.isSuccessful()) {
                             Log.w("TAG", "Fetching FCM registration token failed", task.getException());
                             return;
@@ -122,7 +141,79 @@ public class MyApplication extends Application implements Application.ActivityLi
             // thrown when this method is called before geofence SDK initialization
         }*/
 
+        if (clevertapDefaultInstance != null) {
 
+           /* clevertapDefaultInstance.setInAppNotificationButtonListener(payload -> {
+                Log.d(TAG, "In App onInAppButtonClick() called with: payload = [" + payload + "]");
+                if (payload != null && !payload.isEmpty()) {
+                    if (payload.containsKey("title")) {
+                        String inAppTitle = payload.get("title");
+                        Log.d(TAG, "In App called inAppTitle = [" + inAppTitle + "]");
+                    }
+                    if (payload.containsKey("inapp_deeplink")) {
+                        String deepLink = payload.get("inapp_deeplink");
+                        Log.d(TAG, "In App called with: deepLink = [" + deepLink + "]");
+
+                    }
+                    if (payload.containsKey("extra_key")) {
+                        String extraValue = payload.get("extra_key");
+                        Log.d(TAG, "In App called with: extraValue = [" + extraValue + "]");
+                    }
+                }
+            });*/
+
+
+//            getNotificationPermission();
+
+            /*cleverTapDefaultInstance.setInAppNotificationListener(new InAppNotificationListener() {
+                @Override
+                public boolean beforeShow(Map<String, Object> extras) {
+                    Log.d(TAG, "In App beforeShow() called with: extras = [" + extras + "]");
+                    return true;                    //return true to show the inApp notification, if false then inapp wont show
+                }
+
+                @Override
+                public void onDismissed(Map<String, Object> extras, @Nullable Map<String, Object> actionExtras) {
+                    Log.d(TAG, "In App onDismissed() called with: extras = [" + extras + "], actionExtras = [" + actionExtras + "]");
+                }
+            });*/
+        }
+
+
+        SignedCallInitResponse signedCallInitListener = new SignedCallInitResponse() {
+            @Override
+            public void onSuccess() {
+                //App is notified on the main thread when the Signed Call SDK is initialized
+            }
+
+            @Override
+            public void onFailure(InitException initException) {
+                //App is notified on the main thread when the initialization is failed
+                Log.d("SignedCall: ", "error code: " + initException.getErrorCode()
+                        + "\n error message: " + initException.getMessage()
+                        + "\n error explanation: " + initException.getExplanation());
+
+                if (initException.getErrorCode() == InitException.SdkNotInitializedException.getErrorCode()) {
+                    //Handle this error here
+                }
+            }
+        };
+
+      /*  JSONObject initOptions = new JSONObject();
+        try {
+            initOptions.put("accountId", "6568502216033fcfba4cfc76");
+            initOptions.put("apiKey", "uXFsHxBseCIUgDqU5kKLpgLR6KO7ZUmY5ObZqs1p5ox4vlxxTKxfHUiewEhCZgTN");
+            initOptions.put("cuid", "TEST_AAYUSH1495");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        //Create a Builder instance of SignedCallInitConfiguration and pass it inside the init() method
+        SignedCallInitConfiguration initConfiguration = new SignedCallInitConfiguration.Builder(initOptions, false)
+                .build();
+
+        SignedCallAPI.getInstance().init(getApplicationContext(), initConfiguration, clevertapDefaultInstance, signedCallInitListener);
+        SignedCallAPI.setDebugLevel(SignedCallAPI.LogLevel.VERBOSE);*/
     }
 
     public void onUserLogin(String identity, String email) {
@@ -231,7 +322,9 @@ public class MyApplication extends Application implements Application.ActivityLi
     }
 
     public void sendLiveEvent() {
-        clevertapDefaultInstance.pushEvent("iamlive");
+        Map<String,Object> data = new HashMap<>();
+        data.put("testKey","testValue");
+        clevertapDefaultInstance.pushEvent("iamlive", data);
     }
 
     // Called by the system when the device configuration changes while your component is running.
@@ -250,21 +343,20 @@ public class MyApplication extends Application implements Application.ActivityLi
     }
 
     @Override
-    public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         Log.d(TAG, "onActivityCreated() called with: activity = [" + activity + "], savedInstanceState = [" + savedInstanceState + "]");
     }
 
     @Override
-    public void onActivityStarted(@NonNull Activity activity) {
+    public void onActivityStarted(Activity activity) {
         Log.d(TAG, "onActivityStarted() called with: activity = [" + activity + "]");
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    public void onActivityResumed(@NonNull Activity activity) {
+    public void onActivityResumed(Activity activity) {
         Log.d(TAG, "onActivityResumed() called with: activity = [" + activity + "]");
-        Bundle payload = activity.getIntent().getExtras();
+        /*Bundle payload = activity.getIntent().getExtras();
         if (payload==null){
             return;
         }
@@ -277,37 +369,37 @@ public class MyApplication extends Application implements Application.ActivityLi
         {
             NotificationManager nm = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
             nm.cancel(payload.getInt("notificationId"));
-        }
+        }*/
     }
 
     @Override
-    public void onActivityPaused(@NonNull Activity activity) {
+    public void onActivityPaused(Activity activity) {
         Log.d(TAG, "onActivityPaused() called with: activity = [" + activity + "]");
     }
 
     @Override
-    public void onActivityStopped(@NonNull Activity activity) {
+    public void onActivityStopped(Activity activity) {
         Log.d(TAG, "onActivityStopped() called with: activity = [" + activity + "]");
     }
 
     @Override
-    public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {
+    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
         Log.d(TAG, "onActivitySaveInstanceState() called with: activity = [" + activity + "], outState = [" + outState + "]");
     }
 
     @Override
-    public void onActivityDestroyed(@NonNull Activity activity) {
+    public void onActivityDestroyed(Activity activity) {
         Log.d(TAG, "onActivityDestroyed() called with: activity = [" + activity + "]");
     }
 
     public void clearPrefAfterDeMerge() {
-        SharedPreferences preferences = getApplicationContext().getSharedPreferences("WizRocket",MODE_PRIVATE);
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences("WizRocket", MODE_PRIVATE);
         SharedPreferences.Editor edit = preferences.edit();
         edit.clear();
         edit.commit();
     }
 
-    public boolean isOverlayPermissionGiven(){
+    public boolean isOverlayPermissionGiven() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return Settings.canDrawOverlays(this);
         }

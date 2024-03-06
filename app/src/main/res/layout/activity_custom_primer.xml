@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".notificationAPI.CustomPrimerActivity">
+
+    <TextView
+        android:id="@+id/primerSkipButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SKIP"
+        android:layout_gravity="end"
+        android:gravity="end"
+        android:padding="10dp"
+        android:textColor="#027dff"
+        />
+
+    <TextView
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:id="@+id/primerMessage"
+        android:gravity="center"
+        android:layout_margin="20dp"
+        android:textColor="@color/black"
+        android:text="To get updates about your orders, delivery and offers \n Allow Push Notification Permission \n P.S. We won't spam you :)"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_gravity="center"
+        android:src="@mipmap/notification"/>
+
+    <LinearLayout
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <Button
+        android:layout_gravity="bottom"
+        android:id="@+id/primerAllowButton"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#027dff"
+        android:text="Allow" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

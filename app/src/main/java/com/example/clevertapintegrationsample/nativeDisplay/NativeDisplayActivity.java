@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.app.NotificationManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -19,6 +22,7 @@ import com.example.clevertapintegrationsample.appinbox.AppInboxModel;
 import com.example.clevertapintegrationsample.appinbox.TabsAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -75,4 +79,6 @@ public class NativeDisplayActivity extends AppCompatActivity implements DisplayU
             Log.d(TAG, "onDisplayUnitsLoaded() called with: units = [" + units.toString() + "]");
             mListener.loadData(units);
     }
+
+
 }

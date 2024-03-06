@@ -37,9 +37,12 @@ import androidx.core.content.ContextCompat;
 import com.clevertap.android.sdk.CTInboxListener;
 import com.clevertap.android.sdk.CTInboxStyleConfig;
 import com.clevertap.android.sdk.CleverTapAPI;
+import com.clevertap.android.sdk.InAppNotificationButtonListener;
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener;
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit;
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnitContent;
+import com.clevertap.android.sdk.inbox.CTInboxMessage;
+import com.example.clevertapintegrationsample.appinbox.CustomAppInboxActivity;
 import com.example.clevertapintegrationsample.nativeDisplay.NativeDisplayActivity;
 import com.example.clevertapintegrationsample.notificationAPI.Android;
 import com.example.clevertapintegrationsample.notificationAPI.Content;
@@ -71,7 +74,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity implements DisplayUnitListener, CTInboxListener /*InAppNotificationButtonListener, InAppListener*/ {
+public class MainActivity extends AppCompatActivity implements DisplayUnitListener, CTInboxListener, InAppNotificationButtonListener /*InAppNotificationButtonListener, InAppListener*/ {
 
     private static final String TAG = MainActivity.class.getName();
     private static final int PERMISSION_REQUEST_CODE = 9999;
@@ -125,7 +128,8 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
 
         if (cleverTapDefaultInstance != null) {
 
-            cleverTapDefaultInstance.setInAppNotificationButtonListener(payload -> {
+            cleverTapDefaultInstance.setInAppNotificationButtonListener(this);
+            /*cleverTapDefaultInstance.setInAppNotificationButtonListener(payload -> {
                 Log.d(TAG, "In App onInAppButtonClick() called with: payload = [" + payload + "]");
                 if (payload != null && !payload.isEmpty()) {
                     if (payload.containsKey("title")) {
@@ -142,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
                         Log.d(TAG, "In App called with: extraValue = [" + extraValue + "]");
                     }
                 }
-            });
+            });*/
 
 //            getNotificationPermission();
 
@@ -469,13 +473,13 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
             @Override
             public void onClick(View view) {
                 //To Open Default App Inbox
-                showAppInbox();
+//                showAppInbox();
 
                 //To Open Custom App Inbox
-//                Intent intent = new Intent(getApplicationContext(), CustomAppInboxActivity.class);
-//                ArrayList<CTInboxMessage> inboxMessages = cleverTapDefaultInstance.getAllInboxMessages();
-//                intent.putParcelableArrayListExtra("app_inbox_messages",inboxMessages);
-//                startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), CustomAppInboxActivity.class);
+                ArrayList<CTInboxMessage> inboxMessages = cleverTapDefaultInstance.getAllInboxMessages();
+                intent.putParcelableArrayListExtra("app_inbox_messages",inboxMessages);
+                startActivity(intent);
             }
         });
     }
@@ -608,6 +612,11 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
         dialog.show();
     }
 
+    @Override
+    public void onInAppButtonClick(HashMap<String, String> payload) {
+        Log.d(TAG, "onInAppButtonClick() called with: payload = [" + payload + "]");
+    }
+
    /* @Override
     public boolean beforeShow(Map<String, Object> extras) {
         Log.d(TAG, "beforeShow() called with: extras = [" + extras + "]");
@@ -638,4 +647,6 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
     public void onInAppButtonClick(HashMap<String, String> payload) {
         Log.d(TAG, "onInAppButtonClick() called with: payload = [" + payload + "]");
     }*/
+
+
 }

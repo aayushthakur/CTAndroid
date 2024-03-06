@@ -40,5 +40,11 @@
         android:layout_height="wrap_content"
         android:text="InApp Alert"/>
 
+    <Button
+        android:id="@+id/customPrimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Custom Primer"/>
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>

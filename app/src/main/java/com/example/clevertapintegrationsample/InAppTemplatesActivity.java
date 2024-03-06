@@ -80,5 +80,19 @@ public class InAppTemplatesActivity extends AppCompatActivity {
                 MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Sliding Image");
             }
         });
+
+        findViewById(R.id.inAppBottomCornerGif).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Bottom Corner Gif");
+            }
+        });
+
+        findViewById(R.id.inAppFooterGif).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Footer Gif");
+            }
+        });
     }
 }

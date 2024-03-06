@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -23,10 +24,11 @@ import java.util.Map;
 import java.util.Objects;
 
 public class MyFirebaseMessaging extends FirebaseMessagingService {
-    private static final String TAG = FirebaseMessagingService.class.getName();
     public static final String ACTION_1 = "action_1";
     public static final int RANDOM_NOTIFICATION_ID = 999;
     public static final String CURRENT_APP_NAME = "A23_POKER";
+    private static final String TAG = FirebaseMessagingService.class.getName();
+    int id = 1;
 
     public MyFirebaseMessaging() {
         super();
@@ -69,15 +71,15 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
                         //the value should match with the one's fixed by the dev team in each app
                         String appName = extras.getString("app_to_render");
                         //here CURRENT_APP_NAME will be a static string saved in each app with its name like a23_poker,a23_rummy etc.
-                        if (appName.equals(CURRENT_APP_NAME)){
+                        if (appName.equals(CURRENT_APP_NAME)) {
 
                             //render notification using
                             //new CTFcmMessageHandler().createNotification(getApplicationContext(), remoteMessage);
-                        }else {
+                        } else {
                             //this notification is meant for other application, do not render here just process notification
                             //using CleverTapAPI.processPushNotification(getApplicationContext(), extras);
                         }
-                    }else{
+                    } else {
                         //render normally using new CTFcmMessageHandler().createNotification(getApplicationContext(), remoteMessage);
                     }
 
@@ -100,15 +102,16 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
 
                             //method to render your notification
                             showStickyNotification(getApplicationContext(), remoteMessage, extras);
-                        } else if (extras.containsKey("isProgressTimer")){
+                        } else if (extras.containsKey("isProgressTimerSticky")) {
                             Log.i(TAG, "onMessageReceived isProgressTimer: ");
                             //The below line helps to avoid duplicate rendering when using custom render implementation via CT
                             CleverTapAPI.processPushNotification(getApplicationContext(), extras);
                             ////////////////////////////////////////////////////
 
                             //method to render your notification
+                            //testMethod(extras,remoteMessage);
                             progressBarNotification(getApplicationContext(), remoteMessage, extras);
-                    }else {
+                        } else {
                             boolean status = new CTFcmMessageHandler().createNotification(getApplicationContext(), remoteMessage);
                             Log.i(TAG, "onMessageReceived status: " + status);
                         }
@@ -143,10 +146,10 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
         String message = remoteMessage.getData().get("nm");
         String channelId = remoteMessage.getData().get("wzrk_cid");
 
-        PendingIntent pendingIntent = NotificationActivity.getDismissIntent(RANDOM_NOTIFICATION_ID,context, extras);
+        PendingIntent pendingIntent = NotificationActivity.getDismissIntent(RANDOM_NOTIFICATION_ID, context, extras);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), channelId)
-                .setSmallIcon(R.drawable.gcm_icon)
+//                .setSmallIcon(R.drawable.gcm_icon)
                 .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
                 .setContentTitle(title)
                 .setContentText(message)
@@ -166,31 +169,45 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
         MyApplication.getInstance().getClevertapDefaultInstance().pushNotificationViewedEvent(extras);
     }
 
-    private void progressBarNotification(Context context, RemoteMessage remoteMessage, Bundle extras) {
-        remoteMessage.getData();
+
+    private void testMethod( Bundle extras, RemoteMessage remoteMessage){
         String title = remoteMessage.getData().get("nt");
         String message = remoteMessage.getData().get("nm");
         String channelId = remoteMessage.getData().get("wzrk_cid");
+        String time = extras.getString("isProgressTimerSticky");
+        int timerValue = Integer.parseInt(time);
+        /*mNotifyManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mBuilder = new NotificationCompat.Builder(getApplicationContext(),"testChannelId1");
+        PendingIntent pendingIntent = NotificationActivity.getDismissIntent(id, getApplicationContext(), extras);
 
-        PendingIntent pendingIntent = NotificationActivity.getDismissIntent(RANDOM_NOTIFICATION_ID,context, extras);
+        mBuilder.setContentTitle("Download")
+                .setContentText("Download in progress")
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+//                .setOngoing(true)
+                .addAction(R.drawable.ic_close_icon, "Dismiss", pendingIntent);;
+        new ProgressLoader(timerValue,extras).execute();*/
+    }
+
+    private void progressBarNotification(Context context, RemoteMessage remoteMessage, Bundle extras) {
+        String title = remoteMessage.getData().get("nt");
+        String message = remoteMessage.getData().get("nm");
+        String channelId = remoteMessage.getData().get("wzrk_cid");
+        String time = extras.getString("isProgressTimerSticky");
+        int timerValue = Integer.parseInt(time);
+
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        PendingIntent pendingIntent = NotificationActivity.getDismissIntent(id, context, extras);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), channelId)
-                .setSmallIcon(R.drawable.gcm_icon)
+//                .setSmallIcon(R.drawable.gcm_icon)
                 .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
                 .setContentTitle(title)
                 .setContentText(message)
                 .setColor(getResources().getColor(R.color.colorAccent))
                 .setColorized(true)
-                .setOngoing(true)
-                .setProgress(100,1,false)
                 .addAction(R.drawable.ic_close_icon, "Dismiss", pendingIntent);
-//                .setContentIntent(pendingIntent);
 
-        Notification n = builder.build();
-        n.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
-
-        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(RANDOM_NOTIFICATION_ID, n);
+        new ProgressLoader(manager,builder,timerValue,extras).execute();
 
         //Method .pushNotificationViewedEvent(extras) to raise push impression event
         MyApplication.getInstance().getClevertapDefaultInstance().pushNotificationViewedEvent(extras);
@@ -212,19 +229,25 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
         String title = remoteMessage.getData().get("nt");
         String message = remoteMessage.getData().get("nm");
         String channelId = remoteMessage.getData().get("wzrk_cid");
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+//        Intent notificationIntent = new Intent(this, MainActivity.class);
+//        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
+//                PendingIntent.FLAG_UPDATE_CURRENT);
+        Bundle extras = new Bundle();
+        for (Map.Entry<String, String> entry : remoteMessage.getData().entrySet()) {
+            extras.putString(entry.getKey(), entry.getValue());
+        }
+        PendingIntent pendingIntent = NotificationActivity.getDismissIntent(0,getApplicationContext(), extras);
+
 
         NotificationCompat.Builder customNotification = new NotificationCompat.Builder(getApplicationContext(),
                 Objects.requireNonNull(channelId))
-                .setSmallIcon(R.drawable.gcm_icon)
+//                .setSmallIcon(R.drawable.gcm_icon)
                 .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
                 .setContentTitle(title)
                 .setContentText(message)
-                .setColor(getResources().getColor(R.color.gray))
+//                .setColor(getResources().getColor(R.color.gray))
                 .setColorized(true)
-                .setContentIntent(contentIntent);
+                .setContentIntent(pendingIntent);
 //                .setCustomContentView(notificationLayout)
 //                .setCustomBigContentView(notificationLayoutExpanded)
 
@@ -247,6 +270,72 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
     @Override
     public void onSendError(@NonNull String s, @NonNull Exception e) {
         super.onSendError(s, e);
+    }
+
+
+    private class ProgressLoader extends AsyncTask<Void, Integer, Integer> {
+
+        int timerValue;
+        Bundle extras;
+        NotificationManager mNotifyManager;
+        NotificationCompat.Builder mBuilder;
+        Notification notification;
+
+        public ProgressLoader(NotificationManager manager, NotificationCompat.Builder builder,
+                              int timer, Bundle extras) {
+            this.mBuilder = builder;
+            this.mNotifyManager = manager;
+            this.timerValue = timer;
+            this.extras = extras;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            // Displays the progress bar for the first time.
+            mBuilder.setProgress(timerValue, 0, false);
+            notification = mBuilder.build();
+            notification.flags = Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
+            mNotifyManager.notify(id, notification);
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            // Update progress
+            mBuilder.setProgress(timerValue, values[0], false);
+            notification = mBuilder.build();
+            notification.flags = Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
+            mNotifyManager.notify(id, notification);
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected Integer doInBackground(Void... params) {
+            int i;
+            for (i = 0; i <= timerValue; i += 1) {
+                // Sets the progress indicator completion percentage
+                publishProgress(Math.min(i, timerValue));
+                try {
+                    // Sleep for 1 second
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Log.d("TAG", "sleep failure");
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            mBuilder.setContentText("Deal Expired");
+            // Removes the progress bar
+            mBuilder.setProgress(0, 0, false);
+            notification = mBuilder.build();
+            notification.flags = Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
+            mNotifyManager.notify(id,notification );
+        }
     }
 }
 

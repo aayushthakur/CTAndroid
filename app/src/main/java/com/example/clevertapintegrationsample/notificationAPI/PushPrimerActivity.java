@@ -111,6 +111,16 @@ public class PushPrimerActivity extends AppCompatActivity implements PushPermiss
                 }
             }
         });
+
+
+        findViewById(R.id.customPrimer).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                if (!MyApplication.getInstance().getClevertapDefaultInstance().isPushPermissionGranted()) {
+                    Intent intent = new Intent(getApplicationContext(), CustomPrimerActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     public void getNotificationPermission(){

@@ -81,4 +81,11 @@
         android:layout_height="wrap_content"
         android:text="Rating"/>
 
+    <Button
+        android:id="@+id/ptProgressBarWithTimerSticky"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sticky + Progress Bar + Timer"/>
+
+
 </androidx.appcompat.widget.LinearLayoutCompat>
