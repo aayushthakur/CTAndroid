@@ -94,5 +94,12 @@ public class InAppTemplatesActivity extends AppCompatActivity {
                 MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Footer Gif");
             }
         });
+
+        findViewById(R.id.youtubeVideo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Youtube Video");
+            }
+        });
     }
 }

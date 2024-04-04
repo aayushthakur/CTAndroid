@@ -2,6 +2,7 @@ package com.example.clevertapintegrationsample;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -119,6 +120,20 @@ public class MyApplication extends Application implements Application.ActivityLi
                     "soundChannel", "Sound Channel",
                     "Channel with custom sound",
                     NotificationManager.IMPORTANCE_MAX, true, "anya.mp3");
+
+            CleverTapAPI.createNotificationChannel(getApplicationContext(),
+                    "silentChannel", "Silent Channel",
+                    "Channel with no sound",
+                    NotificationManager.IMPORTANCE_MAX, true,"silent.mp3");
+
+            CleverTapAPI.createNotificationChannel(getApplicationContext(),
+                    "lowImportance", "Low Importance Channel",
+                    "Channel with low importance",
+                    NotificationManager.IMPORTANCE_LOW, true);
+
+//            NotificationChannel notificationChannel = new NotificationChannel("silentChannel","Silent Channel",NotificationManager.IMPORTANCE_HIGH);
+//            notificationChannel.setSound(null,null);
+
         }
 
         /*CleverTapAPI cleverTapAPI = CleverTapAPI.getDefaultInstance(getApplicationContext());

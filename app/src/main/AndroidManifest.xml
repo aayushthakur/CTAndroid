@@ -22,9 +22,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CleverTapIntegrationSample">
         <activity
-            android:theme="@style/Theme.Design.NoActionBar"
-            android:name=".notificationAPI.CustomPrimerActivity"
+            android:name=".Webview"
             android:exported="false" />
+        <activity
+            android:name=".notificationAPI.CustomPrimerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Design.NoActionBar" />
         <activity
             android:name=".CartAbandon"
             android:exported="false" />

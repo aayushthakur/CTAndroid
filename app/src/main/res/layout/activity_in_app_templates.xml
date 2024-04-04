@@ -82,4 +82,10 @@
         android:layout_height="wrap_content"
         android:text="InApp Footer Gif"/>
 
+    <Button
+        android:id="@+id/youtubeVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="InApp Youtube Video"/>
+
 </androidx.appcompat.widget.LinearLayoutCompat>

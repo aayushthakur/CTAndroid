@@ -284,6 +284,20 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
             }
         });
 
+        findViewById(R.id.soundNotification).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("PT Sound Notif");
+            }
+        });
+
+        findViewById(R.id.lowImportanceNotification).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("PT Low Importance Notif");
+            }
+        });
+
         findViewById(R.id.transactionSuccessful).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -355,6 +369,14 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), CartAbandon.class);
+                startActivity(intent);
+            }
+        });
+
+        findViewById(R.id.openWebview).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Webview.class);
                 startActivity(intent);
             }
         });
@@ -473,25 +495,25 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
             @Override
             public void onClick(View view) {
                 //To Open Default App Inbox
-//                showAppInbox();
+                showAppInbox();
 
                 //To Open Custom App Inbox
-                Intent intent = new Intent(getApplicationContext(), CustomAppInboxActivity.class);
-                ArrayList<CTInboxMessage> inboxMessages = cleverTapDefaultInstance.getAllInboxMessages();
-                intent.putParcelableArrayListExtra("app_inbox_messages",inboxMessages);
-                startActivity(intent);
+//                Intent intent = new Intent(getApplicationContext(), CustomAppInboxActivity.class);
+//                ArrayList<CTInboxMessage> inboxMessages = cleverTapDefaultInstance.getAllInboxMessages();
+//                intent.putParcelableArrayListExtra("app_inbox_messages",inboxMessages);
+//                startActivity(intent);
             }
         });
     }
 
     private void showAppInbox() {
-        ArrayList<String> tabs = new ArrayList<>();
-        tabs.add("Promotions");//We support upto 2 tabs only. Additional tabs will be ignored
+//        ArrayList<String> tabs = new ArrayList<>();
+//        tabs.add("Promotions");//We support upto 2 tabs only. Additional tabs will be ignored
 //        tabs.add("Promotions");
 
         CTInboxStyleConfig styleConfig = new CTInboxStyleConfig();
-        styleConfig.setFirstTabTitle("TestFilterTag");
-        styleConfig.setTabs(tabs);//Do not use this if you don't want to use tabs
+//        styleConfig.setFirstTabTitle("TestFilterTag");
+//        styleConfig.setTabs(tabs);//Do not use this if you don't want to use tabs
         styleConfig.setTabBackgroundColor("#FFFFFF");
         styleConfig.setSelectedTabIndicatorColor("#3498DB");
         styleConfig.setSelectedTabColor("#3498DB");
@@ -504,6 +526,7 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
         if (cleverTapDefaultInstance != null) {
             cleverTapDefaultInstance.showAppInbox(styleConfig); //With Tabs
         }
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

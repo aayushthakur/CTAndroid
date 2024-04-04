@@ -15,6 +15,9 @@ android {
     namespace 'com.example.clevertapintegrationsample'
     compileSdk 33
 
+    buildFeatures {
+        buildConfig = true
+    }
     defaultConfig {
         applicationId "com.example.clevertapintegrationsample"
         minSdk 21
@@ -22,6 +25,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "ACCOUNT_ID", "\"R9K-Z94-R46Z\""
+        buildConfigField "String", "CLEVERTAP_TOKEN", "\"4c1-3c2\""
+
     }
 
     buildTypes {
