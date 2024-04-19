@@ -31,6 +31,7 @@
         android:id="@+id/ptZeroBezelRM"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:text="Zero Bezel RenderMax"/>
 
 
@@ -55,6 +56,7 @@
         android:id="@+id/ptStickyCustom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:text="Sticky Custom Render"/>
 
     <Button
@@ -85,6 +87,7 @@
         android:id="@+id/ptProgressBarWithTimerSticky"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:text="Sticky + Progress Bar + Timer"/>
 
 

@@ -149,7 +149,7 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
         PendingIntent pendingIntent = NotificationActivity.getDismissIntent(RANDOM_NOTIFICATION_ID, context, extras);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), channelId)
-//                .setSmallIcon(R.drawable.gcm_icon)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
                 .setContentTitle(title)
                 .setContentText(message)
@@ -199,7 +199,7 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
         PendingIntent pendingIntent = NotificationActivity.getDismissIntent(id, context, extras);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), channelId)
-//                .setSmallIcon(R.drawable.gcm_icon)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
                 .setContentTitle(title)
                 .setContentText(message)
@@ -241,7 +241,7 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
 
         NotificationCompat.Builder customNotification = new NotificationCompat.Builder(getApplicationContext(),
                 Objects.requireNonNull(channelId))
-//                .setSmallIcon(R.drawable.gcm_icon)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
                 .setContentTitle(title)
                 .setContentText(message)
