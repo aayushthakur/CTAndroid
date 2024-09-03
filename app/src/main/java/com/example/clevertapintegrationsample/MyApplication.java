@@ -68,6 +68,13 @@ public class MyApplication extends Application implements Application.ActivityLi
 
         TemplateRenderer.setDebugLevel(3);
         CleverTapAPI.setNotificationHandler(new PushTemplateNotificationHandler());
+
+        if (clevertapDefaultInstance!=null) {
+            clevertapDefaultInstance.enablePersonalization();
+            String customerName = (String) clevertapDefaultInstance.getProperty("Name");
+            Log.d(TAG, "Property Name Value is : " + customerName);
+        }
+
 //        Map<String, Object> data = new HashMap<>();
 //        data.put("sample_date", "01-02-2023");
 //        clevertapDefaultInstance.pushEvent("Aayush App Open", data);

@@ -176,6 +176,31 @@
                 android:layout_height="wrap_content"
                 android:text="Open Webview" />
 
+            <Button
+                android:id="@+id/webhookEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Webhook Event" />
+
+            <Button
+                android:id="@+id/registerPush"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Register Push" />
+
+
+            <Button
+                android:id="@+id/unregisterPush"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unregister Push" />
+
+            <Button
+                android:id="@+id/customCTID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Custom CT ID" />
+
             <TextView
                 android:id="@+id/nativeText"
                 android:layout_width="wrap_content"

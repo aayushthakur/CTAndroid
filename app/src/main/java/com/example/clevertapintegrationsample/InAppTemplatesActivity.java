@@ -101,5 +101,33 @@ public class InAppTemplatesActivity extends AppCompatActivity {
                 MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Youtube Video");
             }
         });
+
+        findViewById(R.id.inAppInterstitialUIMode).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Interstitial UIMode");
+            }
+        });
+
+        findViewById(R.id.inAppBottomSheetCarousel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp BottomSheet Carousel");
+            }
+        });
+
+        findViewById(R.id.inAppCustomRating).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Custom Rating Template");
+            }
+        });
+
+        findViewById(R.id.inappSurveyClients).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Survey Client");
+            }
+        });
     }
 }

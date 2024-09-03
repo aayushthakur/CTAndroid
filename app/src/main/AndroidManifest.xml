@@ -35,6 +35,9 @@
             android:name=".notificationAPI.PushPrimerActivity"
             android:exported="false" />
         <activity
+            android:name=".CustomClevertapID"
+            android:exported="false"/>
+        <activity
             android:name=".EventActivity"
             android:exported="false" />
         <activity
@@ -94,6 +97,10 @@
         <meta-data
             android:name="CLEVERTAP_BACKGROUND_SYNC"
             android:value="0" />
+
+      <!--  <meta-data
+            android:name="CLEVERTAP_USE_CUSTOM_ID"
+            android:value="0" />-->
 
         <service
             android:name=".MyFirebaseMessaging"

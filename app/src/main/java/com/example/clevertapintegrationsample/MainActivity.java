@@ -52,7 +52,10 @@ import com.example.clevertapintegrationsample.notificationAPI.PlatformSpecific;
 import com.example.clevertapintegrationsample.notificationAPI.PushPrimerActivity;
 import com.example.clevertapintegrationsample.notificationAPI.RetrofitAPI;
 import com.example.clevertapintegrationsample.notificationAPI.To;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
@@ -123,6 +126,10 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
             cleverTapDefaultInstance.setCTNotificationInboxListener(this);
             //Initialize the inbox and wait for callbacks on overridden methods
             cleverTapDefaultInstance.initializeInbox();
+
+            if (!cleverTapDefaultInstance.isPushPermissionGranted()) {
+                cleverTapDefaultInstance.promptForPushPermission(true);
+            }
         }
 
 
@@ -245,7 +252,15 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
             }
         });
 
-        findViewById(R.id.personalizedEvent).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.live).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().sendLiveEvent();
+            }
+        });
+
+
+        findViewById(R.id.webhookEvent).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Map<String, Object> data = new HashMap<>();
@@ -258,7 +273,7 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
                 data.put("messageColor", "#ffffff");
                 data.put("imageUrl", "https://i.ibb.co/N734CBv/88.jpg");
 
-                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("Personalized Event",data);
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("Webhook Event",data);
             }
         });
 
@@ -341,6 +356,13 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
                 startActivity(intent);
             }
         });
+        findViewById(R.id.customCTID).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), CustomClevertapID.class);
+                startActivity(intent);
+            }
+        });
         findViewById(R.id.openProfilePage).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -381,8 +403,59 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
             }
         });
 
+        findViewById(R.id.registerPush).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseMessaging.getInstance().getToken()
+                        .addOnCompleteListener(new OnCompleteListener<String>() {
+                            @Override
+                            public void onComplete(Task<String> task) {
+                                if (!task.isSuccessful()) {
+                                    Log.w("TAG", "Fetching FCM registration token failed", task.getException());
+                                    return;
+                                }
+
+                                // Get new FCM registration token
+                                String token = task.getResult();
+                                Log.v("TAG", "token: " + token);
+                                MyApplication.getInstance().getClevertapDefaultInstance().pushFcmRegistrationId(token, true);
+                                // Log and toast
+//                        String msg = getString(R.string.msg_token_fmt, token);
+//                        Log.d(TAG, msg);
+//                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        });
+
+        findViewById(R.id.unregisterPush).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseMessaging.getInstance().getToken()
+                        .addOnCompleteListener(new OnCompleteListener<String>() {
+                            @Override
+                            public void onComplete(Task<String> task) {
+                                if (!task.isSuccessful()) {
+                                    Log.w("TAG", "Fetching FCM registration token failed", task.getException());
+                                    return;
+                                }
+
+                                // Get new FCM registration token
+                                String token = task.getResult();
+                                Log.v("TAG", "token: " + token);
+                                MyApplication.getInstance().getClevertapDefaultInstance().pushFcmRegistrationId(token, false);
+                                // Log and toast
+//                        String msg = getString(R.string.msg_token_fmt, token);
+//                        Log.d(TAG, msg);
+//                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        });
+
         checkPermissionOverlay();
 
+        MyApplication.getInstance().getClevertapDefaultInstance().recordScreen("Home");
     }
 
     public void getNotificationPermission() {

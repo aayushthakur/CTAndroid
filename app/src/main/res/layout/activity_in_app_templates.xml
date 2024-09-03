@@ -88,4 +88,28 @@
         android:layout_height="wrap_content"
         android:text="InApp Youtube Video"/>
 
+    <Button
+        android:id="@+id/inAppInterstitialUIMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Image Interstitial UI"/>
+
+    <Button
+        android:id="@+id/inAppBottomSheetCarousel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BottomSheet Carousel"/>
+
+    <Button
+        android:id="@+id/inAppCustomRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Custom Rating"/>
+
+    <Button
+        android:id="@+id/inappSurveyClients"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Survey Client"/>
+
 </androidx.appcompat.widget.LinearLayoutCompat>
