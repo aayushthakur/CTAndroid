@@ -13,12 +13,13 @@
         android:id="@+id/inAppCustomHtml"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Custom HTML"/>
+        android:text="Survey"/>
 
     <Button
         android:id="@+id/inAppRatingTemplate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:text="InApp Rating"/>
 
     <Button
@@ -32,10 +33,12 @@
         android:id="@+id/inAppHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:text="InApp Header"/>
 
     <Button
         android:id="@+id/inAppVideo"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="InApp Video"/>
@@ -50,6 +53,7 @@
         android:id="@+id/inAppScratchCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:text="InApp Scratch Card"/>
 
     <Button
@@ -104,12 +108,14 @@
         android:id="@+id/inAppCustomRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:text="Custom Rating"/>
 
     <Button
         android:id="@+id/inappSurveyClients"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:text="Survey Client"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

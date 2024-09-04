@@ -73,13 +73,23 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-            <intent-filter>
+          <!--  <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-                <!-- <data android:scheme="https" android:host="app.cttest.com" /> -->
-                <!-- <data android:scheme="app" android:host="open.my.app" /> -->
-            </intent-filter>
+                &lt;!&ndash; <data android:scheme="https" android:host="app.cttest.com" /> &ndash;&gt;
+                &lt;!&ndash; <data android:scheme="app" android:host="open.my.app" /> &ndash;&gt;
+            </intent-filter>-->
+        </activity>
+
+        <activity
+            android:name=".MasterActivity"
+            android:exported="true">
+              <intent-filter>
+                  <action android:name="android.intent.action.MAIN" />
+
+                  <category android:name="android.intent.category.LAUNCHER" />
+              </intent-filter>
         </activity>
 
         <meta-data

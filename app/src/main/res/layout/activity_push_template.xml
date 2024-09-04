@@ -19,6 +19,7 @@
         android:id="@+id/pt2C2A"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:text="2 CTAs"/>
 
     <Button
@@ -75,6 +76,7 @@
         android:id="@+id/ptRemindLater"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:text="Remind Later"/>
 
     <Button
@@ -83,12 +85,12 @@
         android:layout_height="wrap_content"
         android:text="Rating"/>
 
-    <Button
+   <!-- <Button
         android:id="@+id/ptProgressBarWithTimerSticky"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
-        android:text="Sticky + Progress Bar + Timer"/>
+        android:text="Sticky + Progress Bar + Timer"/>-->
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -94,11 +94,11 @@ public class PushTemplateActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.ptProgressBarWithTimerSticky).setOnClickListener(new View.OnClickListener() {
+        /*findViewById(R.id.ptProgressBarWithTimerSticky).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("PT ProgressBar-Timer-Sticky");
             }
-        });
+        });*/
     }
 }
