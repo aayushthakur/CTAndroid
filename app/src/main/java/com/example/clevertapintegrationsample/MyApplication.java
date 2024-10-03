@@ -5,6 +5,7 @@ import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -367,6 +368,12 @@ public class MyApplication extends Application implements Application.ActivityLi
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         Log.d(TAG, "onActivityCreated() called with: activity = [" + activity + "], savedInstanceState = [" + savedInstanceState + "]");
+        /**
+         * On Android 12, clear notification on CTA click when Activity is already running in activity backstack
+         */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            NotificationUtils.dismissNotification(activity.getIntent(), getApplicationContext());
+        }
     }
 
     @Override

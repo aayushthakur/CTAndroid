@@ -138,7 +138,13 @@
                 android:id="@+id/inbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Open App Inbox" />
+                android:text="Default App Inbox" />
+
+            <Button
+                android:id="@+id/customInbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Custom App Inbox" />
 
             <Button
                 android:id="@+id/nativeDisplayTrigger"
