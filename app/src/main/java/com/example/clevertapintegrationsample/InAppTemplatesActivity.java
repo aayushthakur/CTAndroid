@@ -123,6 +123,20 @@ public class InAppTemplatesActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.inappCustomRatingFooter).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Custom Rating Footer");
+            }
+        });
+
+        findViewById(R.id.inappCustomRatingFooterSmiley).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Custom Rating Footer Smiley");
+            }
+        });
+
         findViewById(R.id.inappSurveyClients).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -43,6 +43,7 @@ import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit;
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnitContent;
 import com.clevertap.android.sdk.inbox.CTInboxMessage;
 import com.example.clevertapintegrationsample.appinbox.CustomAppInboxActivity;
+import com.example.clevertapintegrationsample.homescreen.ProductExperienceActivity;
 import com.example.clevertapintegrationsample.nativeDisplay.NativeDisplayActivity;
 import com.example.clevertapintegrationsample.notificationAPI.Android;
 import com.example.clevertapintegrationsample.notificationAPI.Content;
@@ -293,6 +294,14 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        findViewById(R.id.productExperience).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ProductExperienceActivity.class);
                 startActivity(intent);
             }
         });

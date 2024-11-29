@@ -1,115 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schema̵s.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center|top"
     android:layout_margin="10dp"
+    android:gravity="center|top"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/inAppCustomHtml"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Custom HTML"/>
-
-    <Button
-        android:id="@+id/inAppRatingTemplate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="InApp Rating"/>
-
-    <Button
-        android:id="@+id/inAppSpinTemplate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="InApp Spin The Wheel"/>
+    <ScrollView
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
 
-    <Button
-        android:id="@+id/inAppHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="InApp Header"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/inAppVideo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="InApp Video"/>
+            <Button
+                android:id="@+id/inAppCustomHtml"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Custom HTML" />
 
-    <Button
-        android:id="@+id/inAppGIf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="InApp Custom GIF"/>
+            <Button
+                android:id="@+id/inAppRatingTemplate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="InApp Rating" />
 
-    <Button
-        android:id="@+id/inAppScratchCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="InApp Scratch Card"/>
+            <Button
+                android:id="@+id/inAppSpinTemplate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="InApp Spin The Wheel" />
 
-    <Button
-        android:id="@+id/inAppCustomCarousel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="InApp Custom Carousel"/>
 
-    <Button
-        android:id="@+id/inAppCustomCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="InApp Card Image"/>
+            <Button
+                android:id="@+id/inAppHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="InApp Header" />
 
-    <Button
-        android:id="@+id/inAppSlidingImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="InApp Sliding Image"/>
+            <Button
+                android:id="@+id/inAppVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="InApp Video" />
 
-    <Button
-        android:id="@+id/inAppBottomCornerGif"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="InApp Bottom Gif"/>
+            <Button
+                android:id="@+id/inAppGIf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="InApp Custom GIF" />
 
-    <Button
-        android:id="@+id/inAppFooterGif"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="InApp Footer Gif"/>
+            <Button
+                android:id="@+id/inAppScratchCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="InApp Scratch Card" />
 
-    <Button
-        android:id="@+id/youtubeVideo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="InApp Youtube Video"/>
+            <Button
+                android:id="@+id/inAppCustomCarousel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="InApp Custom Carousel" />
 
-    <Button
-        android:id="@+id/inAppInterstitialUIMode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Image Interstitial UI"/>
+            <Button
+                android:id="@+id/inAppCustomCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="InApp Card Image" />
 
-    <Button
-        android:id="@+id/inAppBottomSheetCarousel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="BottomSheet Carousel"/>
+            <Button
+                android:id="@+id/inAppSlidingImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="InApp Sliding Image" />
 
-    <Button
-        android:id="@+id/inAppCustomRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Custom Rating"/>
+            <Button
+                android:id="@+id/inAppBottomCornerGif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="InApp Bottom Gif" />
 
-    <Button
-        android:id="@+id/inappSurveyClients"
+            <Button
+                android:id="@+id/inAppFooterGif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="InApp Footer Gif" />
+
+            <Button
+                android:id="@+id/youtubeVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="InApp Youtube Video" />
+
+            <Button
+                android:id="@+id/inAppInterstitialUIMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Image Interstitial UI" />
+
+            <Button
+                android:id="@+id/inAppBottomSheetCarousel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BottomSheet Carousel" />
+
+            <Button
+                android:id="@+id/inAppCustomRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Custom Rating" />
+
+            <Button
+                android:id="@+id/inappSurveyClients"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Survey Client" />
+
+            <Button
+                android:id="@+id/inappCustomRatingFooter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Footer Rating Star" />
+
+            <Button
+                android:id="@+id/inappCustomRatingFooterSmiley"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Footer Rating Smiley" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!--<Button
+        android:id="@+id/inappCustomRatingFooter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Survey Client"/>
+        android:text="Footer Rating Star" />-->
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -66,6 +66,13 @@
                 android:text="Low Importance Notif" />
 
             <Button
+                android:id="@+id/productExperience"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Product Experiences" />
+
+            <Button
                 android:id="@+id/copyCtId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

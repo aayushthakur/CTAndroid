@@ -22,6 +22,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CleverTapIntegrationSample">
         <activity
+            android:name=".homescreen.ProductExperienceActivity"
+            android:exported="false" />
+        <activity
             android:name=".Webview"
             android:exported="false" />
         <activity
@@ -36,7 +39,7 @@
             android:exported="false" />
         <activity
             android:name=".CustomClevertapID"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".EventActivity"
             android:exported="false" />
@@ -60,6 +63,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
@@ -67,7 +71,6 @@
                     android:host="www.app.cttest.com"
                     android:pathPrefix="/native"
                     android:scheme="https" />
-
             </intent-filter>
         </activity>
         <activity
@@ -97,11 +100,11 @@
         <meta-data
             android:name="CLEVERTAP_BACKGROUND_SYNC"
             android:value="0" />
-
-      <!--  <meta-data
+        <!--
+  <meta-data
             android:name="CLEVERTAP_USE_CUSTOM_ID"
-            android:value="0" />-->
-
+            android:value="0" />
+        -->
         <service
             android:name=".MyFirebaseMessaging"
             android:exported="false">
