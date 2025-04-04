@@ -34,7 +34,7 @@ public class ProductExperienceActivity extends AppCompatActivity {
 
     private static final String TAG = ProductExperienceActivity.class.getSimpleName();
 
-    Var<String> PETheme;
+    Var<String> PETheme, PEColor;
     ArrayList<ItemImageSlider> sliderDataArrayList = new ArrayList<>();
     SliderAdapter sliderAdapter;
     private final List<HorizontalListItemsModel> horizontalListItemsModels = new ArrayList<>();
@@ -71,6 +71,7 @@ public class ProductExperienceActivity extends AppCompatActivity {
 //        cleverTapAPI.syncVariables();
 
         PETheme = cleverTapAPI.defineVariable("festivalTheme", "diwali");
+        PEColor = cleverTapAPI.defineVariable("themeColor", "black");
 
         cleverTapAPI.fetchVariables(new FetchVariablesCallback() {
             @Override
@@ -79,6 +80,9 @@ public class ProductExperienceActivity extends AppCompatActivity {
                 Log.d(TAG, "onVariablesFetched: " + isSuccess);
                 if (isSuccess) {
                     PETheme = cleverTapAPI.getVariable("festivalTheme");
+                    PEColor = cleverTapAPI.getVariable("black");
+                    Log.d(TAG, "onVariablesFetched() called with:  = [" + PEColor.stringValue + "]");
+
                 }
             }
         });
@@ -154,6 +158,20 @@ public class ProductExperienceActivity extends AppCompatActivity {
                     PETheme = varInstance;
                     // run code
                     renderData();
+                });
+            }
+        });
+
+        assert PEColor != null;
+        PEColor.addValueChangedCallback(new VariableCallback() {
+            @Override
+            public void onValueChanged(Var varInstance) {
+                // invoked on app start and whenever value is changed
+                Log.d(TAG, "onValueChanged() called with: varInstance = [" + varInstance.stringValue() + "]");
+                new Handler(getApplicationContext().getMainLooper()).post(() -> {
+                    PEColor = varInstance;
+                    // run code
+                    Log.d(TAG, "onValueChanged() called with: varInstance = [" + varInstance.stringValue + "]");
                 });
             }
         });

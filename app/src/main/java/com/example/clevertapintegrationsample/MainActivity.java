@@ -27,6 +27,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +39,7 @@ import com.clevertap.android.sdk.CTInboxListener;
 import com.clevertap.android.sdk.CTInboxStyleConfig;
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.clevertap.android.sdk.InAppNotificationButtonListener;
+import com.clevertap.android.sdk.PushPermissionResponseListener;
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener;
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit;
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnitContent;
@@ -139,10 +141,6 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
             cleverTapDefaultInstance.setCTNotificationInboxListener(this);
             //Initialize the inbox and wait for callbacks on overridden methods
             cleverTapDefaultInstance.initializeInbox();
-
-            if (!cleverTapDefaultInstance.isPushPermissionGranted()) {
-                cleverTapDefaultInstance.promptForPushPermission(true);
-            }
         }
 
 
@@ -477,6 +475,36 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
         checkPermissionOverlay();
 
         MyApplication.getInstance().getClevertapDefaultInstance().recordScreen("Home");
+
+//        Map<String,Object> data = new HashMap<>();
+//        data.put("float_user_property",1.5f);
+//        MyApplication.getInstance().getClevertapDefaultInstance().pushProfile(data);
+
+        cleverTapDefaultInstance.registerPushPermissionNotificationResponseListener(new PushPermissionResponseListener() {
+            @Override
+            public void onPushPermissionResponse(boolean accepted) {
+                if (accepted){
+                    FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+                        @Override
+                        public void onComplete(@NonNull Task<String> task) {
+                            if (!task.isSuccessful()) {
+                                Log.w("TAG", "Fetching FCM registration token failed", task.getException());
+                                return;
+                            }
+
+                            // Get new FCM registration token
+                            String token = task.getResult();
+                            Log.v("FirebaseMessaging", "token: " + token);
+                            MyApplication.getInstance().getClevertapDefaultInstance().pushFcmRegistrationId(token, true);
+                            Map<String, Object> data1 = new HashMap<>();
+                            data1.put("MSG-push", true);
+                            MyApplication.getInstance().getClevertapDefaultInstance().pushProfile(data1);
+                        }
+                    });
+                }
+            }
+        });
+
     }
 
     public void getNotificationPermission() {
@@ -577,6 +605,16 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
                 Log.d("TAG", "onDisplayUnitsLoaded() called with: units = [" + message + "]");
                 nativeText.setText(title + " " + message);
             }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (!cleverTapDefaultInstance.isPushPermissionGranted()) {
+            Log.d(TAG, "onCreate() called with: pusPermissionGranted = [" + cleverTapDefaultInstance.isPushPermissionGranted() + "]");
+            cleverTapDefaultInstance.promptForPushPermission(true);
         }
     }
 

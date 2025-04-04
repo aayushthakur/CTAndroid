@@ -135,6 +135,12 @@
                 android:layout_height="wrap_content"
                 android:text="Footer Rating Smiley" />
 
+            <Button
+                android:id="@+id/inAppFloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FAB" />
+
         </LinearLayout>
 
     </ScrollView>

@@ -143,5 +143,12 @@ public class InAppTemplatesActivity extends AppCompatActivity {
                 MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Survey Client");
             }
         });
+
+        findViewById(R.id.inAppFloatingActionButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("Floating Action Button");
+            }
+        });
     }
 }
