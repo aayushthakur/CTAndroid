@@ -15,7 +15,7 @@ public class Webview extends AppCompatActivity {
         setContentView(R.layout.activity_webview);
         simpleWebView = (WebView) findViewById(R.id.webview);
         simpleWebView.setWebViewClient(new MyWebViewClient());
-        String url = "https://youtu.be/6kvsXhHUhSs?si=vs4a3_eXrJHBhlIs?autoplay=1";
+        String url = "https://agent.dev.qoalaplus.com/quote/comprehensive/list/";
         simpleWebView.getSettings().setJavaScriptEnabled(true);
         simpleWebView.loadUrl(url); // load a web page in a web view
 

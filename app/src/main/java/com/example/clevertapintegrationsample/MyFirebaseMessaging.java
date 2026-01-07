@@ -20,6 +20,9 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -49,6 +52,30 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
     public void onDeletedMessages() {
         super.onDeletedMessages();
     }
+
+   /* @Override
+    public void onMessageReceived(@NonNull RemoteMessage message) {
+        super.onMessageReceived(message);
+        try {
+            if (message.getData().size() > 0) {
+                Bundle extras = new Bundle();
+                for (Map.Entry<String, String> entry : message.getData().entrySet()) {
+                    extras.putString(entry.getKey(), entry.getValue());
+                }
+                NotificationInfo info = CleverTapAPI.getNotificationInfo(extras);
+                if (info.fromCleverTap) {
+                    //Render using Clevertap
+                }else{
+                   //Render using your own logic
+                    Map<String,Object> eventProps = new HashMap<>();
+                    eventProps.put("someprop","somevalue");
+                   CleverTapAPI.getDefaultInstance(getApplicationContext()).pushEvent("Custom Impression Event",eventProps);
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }*/
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
@@ -128,13 +155,13 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
 //        boolean status = new CTFcmMessageHandler().createNotification(getApplicationContext(), remoteMessage);
 //        Log.i("TAG", "onMessageReceived status: "+status);
 
-        /*if (remoteMessage.getData().size()>0) {
+        if (remoteMessage.getData().size()>0) {
             Map<String,String> data = remoteMessage.getData();
             String title = data.get("nt");
            String message = data.get("nm");
             MyApplication.getInstance().sendNotificationAppInbox(title,message);
             EventBus.getDefault().post(new MessageEvent(title,message));
-        }*/
+        }
 
     }
 

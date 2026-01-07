@@ -150,5 +150,31 @@ public class InAppTemplatesActivity extends AppCompatActivity {
                 MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("Floating Action Button");
             }
         });
+
+        findViewById(R.id.inAppCopyCouponCode).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("Copy Coupon Code");
+            }
+        });
+        findViewById(R.id.inAppFullCover).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Full Cover");
+            }
+        });
+        findViewById(R.id.inAppEmbedVideo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Portrait Video");
+            }
+        });
+
+        findViewById(R.id.inAppSimpleButtonHTML).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApplication.getInstance().getClevertapDefaultInstance().pushEvent("InApp Simple HTML");
+            }
+        });
     }
 }

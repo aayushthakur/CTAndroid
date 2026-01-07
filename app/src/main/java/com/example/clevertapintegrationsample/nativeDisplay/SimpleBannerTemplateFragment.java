@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.clevertap.android.sdk.CleverTapAPI;
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener;
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit;
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnitContent;
@@ -83,6 +84,12 @@ public class SimpleBannerTemplateFragment extends Fragment implements FragmentCo
                 }*/
                 String customImage1 = customMap.get("simple_banner_image");
                 Glide.with(this).load(customImage1).into(nativeImage1);
+                nativeImage1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        MyApplication.getInstance().getClevertapDefaultInstance().pushDisplayUnitClickedEventForID(cleverTapDisplayUnit.getUnitID());
+                    }
+                });
             }else{
                 //backend
             }

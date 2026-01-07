@@ -2,7 +2,10 @@ package com.example.clevertapintegrationsample;
 
 import static android.Manifest.permission.POST_NOTIFICATIONS;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -33,8 +36,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
+import com.clevertap.android.geofence.CTGeofenceAPI;
+import com.clevertap.android.geofence.CTGeofenceSettings;
+import com.clevertap.android.geofence.Logger;
+import com.clevertap.android.geofence.interfaces.CTGeofenceEventsListener;
 import com.clevertap.android.sdk.CTInboxListener;
 import com.clevertap.android.sdk.CTInboxStyleConfig;
 import com.clevertap.android.sdk.CleverTapAPI;
@@ -64,6 +72,7 @@ import com.google.gson.Gson;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -82,6 +91,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements DisplayUnitListener, CTInboxListener, InAppNotificationButtonListener /*InAppNotificationButtonListener, InAppListener*/ {
 
+    // Unique integers to identify our requests
+    private static final int LOCATION_PERMISSION_CODE = 100;
+    private static final int BACKGROUND_LOCATION_PERMISSION_CODE = 101;
     private static final String TAG = MainActivity.class.getName();
     private static final int PERMISSION_REQUEST_CODE = 9999;
     public static int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 5469;
@@ -123,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         MyApplication.getInstance().getClevertapDefaultInstance().setDisplayUnitListener(this);
+        checkAndRequestPermissions();
 
         rootView = findViewById(R.id.rootView);
         identityEdt = findViewById(R.id.identityEdt);
@@ -141,10 +154,13 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
             cleverTapDefaultInstance.setCTNotificationInboxListener(this);
             //Initialize the inbox and wait for callbacks on overridden methods
             cleverTapDefaultInstance.initializeInbox();
+
+            initializeGeoFenceSDK();
         }
 
 
         if (cleverTapDefaultInstance != null) {
+
 
             cleverTapDefaultInstance.setInAppNotificationButtonListener(this);
             /*cleverTapDefaultInstance.setInAppNotificationButtonListener(payload -> {
@@ -505,8 +521,142 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
             }
         });
 
+
+      /*  NotificationManager notificationManager = (NotificationManager)
+                getSystemService(Context.NOTIFICATION_SERVICE);
+
+        String GROUP_KEY_NEWS_SPORTS = "news_sports";
+        Notification newMessageNotification =
+                new NotificationCompat.Builder(getApplicationContext(), "GroupChannel1")
+                .setContentTitle("Sports News")
+                .setContentText("FC Barcelona wins El Clasico!")
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setGroup(GROUP_KEY_NEWS_SPORTS)
+                .build();
+
+
+        notificationManager.notify(1, newMessageNotification);
+
+        Notification newMessageNotification11 =
+                new NotificationCompat.Builder(getApplicationContext(), "GroupChannel1")
+                        .setContentTitle("Sports News")
+                        .setContentText("Lakers defeat Warriors")
+                        .setSmallIcon(R.drawable.ic_launcher_foreground)
+                        .setGroup(GROUP_KEY_NEWS_SPORTS)
+                        .build();
+
+
+        notificationManager.notify(1, newMessageNotification11);
+
+       *//* Notification summaryNotification =
+                new NotificationCompat.Builder(getApplicationContext(), "GroupChannel1")
+                .setContentTitle("Sports News Summary")
+                .setContentText("2 new sports updates")
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setStyle(new NotificationCompat.InboxStyle()
+                        .addLine("FC Barcelona wins El Clasico!")
+                        .addLine("Lakers defeat Warriors"))
+                .setGroup(GROUP_KEY_NEWS_SPORTS)
+                .setGroupSummary(true)
+                .build();
+        notificationManager.notify(1, summaryNotification);*//*
+
+        String GROUP_KEY_NEWS_GLOBAL = "news_global";
+        Notification newMessageNotification1 =
+                new NotificationCompat.Builder(getApplicationContext(), "GroupChannel2")
+                .setContentTitle("Global News")
+                .setContentText("China Releases DeepSeek AI!")
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setGroup(GROUP_KEY_NEWS_GLOBAL)
+                .build();
+
+        notificationManager.notify(2, newMessageNotification1);
+
+
+        Notification newMessageNotification2 =
+                new NotificationCompat.Builder(getApplicationContext(), "GroupChannel2")
+                        .setContentTitle("Global News")
+                        .setContentText("Tesla Stock Price Go Down")
+                        .setSmallIcon(R.drawable.ic_launcher_foreground)
+                        .setGroup(GROUP_KEY_NEWS_GLOBAL)
+                        .build();
+
+        notificationManager.notify(2, newMessageNotification2);*/
+
+        /*Notification summaryNotification1 =
+                new NotificationCompat.Builder(getApplicationContext(), "GroupChannel2")
+                .setContentTitle("Global News Summary")
+                .setContentText("2 new global updates")
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setStyle(new NotificationCompat.InboxStyle()
+                        .addLine("China Releases DeepSeek AI!")
+                        .addLine("Tesla Stock Price Go Down"))
+                .setGroup(GROUP_KEY_NEWS_GLOBAL)
+                .setGroupSummary(true)
+                .build();
+        notificationManager.notify(2, summaryNotification1);*/
+
     }
 
+    private void checkAndRequestPermissions() {
+        // Step 1: Check if we already have FINE location (Foreground)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // If not, request FINE location first
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    LOCATION_PERMISSION_CODE);
+        } else {
+            // If we already have foreground, check/request background
+            checkBackgroundLocation();
+        }
+    }
+
+    private void checkBackgroundLocation() {
+        // Background location only exists on Android 10 (API 29) and higher
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                // OPTIONAL: Show an alert dialog here explaining WHY you need background location.
+                // Android 11+ requires the user to go to settings manually if they don't select "Allow all the time" immediately.
+
+                // Request Background Location
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION},
+                        BACKGROUND_LOCATION_PERMISSION_CODE);
+            } else {
+                Toast.makeText(this, "Background Location Already Granted", Toast.LENGTH_SHORT).show();
+                // Do your background work here
+            }
+        } else {
+            // For Android 9 and below, background location is granted with Fine Location
+            Toast.makeText(this, "Background Location Granted (Legacy)", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // This method handles the user's choice (Allow/Deny)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == LOCATION_PERMISSION_CODE) {
+            // Step 2: Handle result of Foreground Request
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Foreground Location Granted", Toast.LENGTH_SHORT).show();
+                // Now that we have foreground, ask for background
+                checkBackgroundLocation();
+            } else {
+                Toast.makeText(this, "Foreground Location Denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else if (requestCode == BACKGROUND_LOCATION_PERMISSION_CODE) {
+            // Step 3: Handle result of Background Request
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Background Location Granted", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Background Location Denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
     public void getNotificationPermission() {
         try {
             if (Build.VERSION.SDK_INT > 32) {
@@ -814,6 +964,51 @@ public class MainActivity extends AppCompatActivity implements DisplayUnitListen
     public void onInAppButtonClick(HashMap<String, String> payload) {
         Log.d(TAG, "onInAppButtonClick() called with: payload = [" + payload + "]");
     }*/
+
+    private void initializeGeoFenceSDK(){
+        CTGeofenceSettings ctGeofenceSettings = new CTGeofenceSettings.Builder()
+                .enableBackgroundLocationUpdates(true)//boolean to enable background location updates
+                .setLogLevel(Logger.VERBOSE)//Log Level
+                .setLocationAccuracy(CTGeofenceSettings.ACCURACY_HIGH)//byte value for Location Accuracy
+                .setLocationFetchMode(CTGeofenceSettings.FETCH_CURRENT_LOCATION_PERIODIC)//byte value for Fetch Mode
+                .setGeofenceMonitoringCount(CTGeofenceSettings.DEFAULT_GEO_MONITOR_COUNT)//int value for number of Geofences CleverTap can monitor
+                .build();
+
+        CTGeofenceAPI.getInstance(getApplicationContext()).init(ctGeofenceSettings, cleverTapDefaultInstance);
+        try {
+            CTGeofenceAPI.getInstance(getApplicationContext()).triggerLocation();
+        } catch (IllegalStateException e) {
+            // thrown when this method is called before geofence SDK initialization
+        }
+
+        CTGeofenceAPI.getInstance(getApplicationContext())
+                .setOnGeofenceApiInitializedListener(() -> {
+                    //App is notified on the main thread that CTGeofenceAPI is initialized
+                    Log.d("CTGEOFENCELOG", "OnGeofenceApiInitialized() called");
+                });
+
+        CTGeofenceAPI.getInstance(getApplicationContext())
+                .setCtGeofenceEventsListener(new CTGeofenceEventsListener() {
+                    @Override
+                    public void onGeofenceEnteredEvent(JSONObject jsonObject) {
+                        //Callback on the main thread when the user enters Geofence with info in jsonObject
+                        Log.d("CTGEOFENCELOG", "onGeofenceEnteredEvent() called with: jsonObject = [" + new Gson().toJson(jsonObject) + "]");
+                    }
+
+                    @Override
+                    public void onGeofenceExitedEvent(JSONObject jsonObject) {
+                        //Callback on the main thread when user exits Geofence with info in jsonObject
+                        Log.d("CTGEOFENCELOG", "onGeofenceExitedEvent() called with: jsonObject = [" + new Gson().toJson(jsonObject) + "]");
+
+                    }
+                });
+
+        CTGeofenceAPI.getInstance(getApplicationContext())
+                .setCtLocationUpdatesListener(location -> {
+                    //New location on the main thread as provided by the Android OS
+                    Log.d("CTGEOFENCELOG", "onLocationUpdates() called with: location = [" + location.toString() + "]");
+                });
+    }
 
 
 }

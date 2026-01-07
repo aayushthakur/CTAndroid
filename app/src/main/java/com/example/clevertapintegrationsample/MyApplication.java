@@ -2,37 +2,38 @@ package com.example.clevertapintegrationsample;
 
 import android.app.Activity;
 import android.app.Application;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.ArrayMap;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.clevertap.android.geofence.CTGeofenceAPI;
+import com.clevertap.android.geofence.CTGeofenceSettings;
+import com.clevertap.android.geofence.Logger;
+import com.clevertap.android.geofence.interfaces.CTGeofenceEventsListener;
+import com.clevertap.android.geofence.interfaces.CTLocationUpdatesListener;
 import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler;
 import com.clevertap.android.pushtemplates.TemplateRenderer;
 import com.clevertap.android.sdk.ActivityLifecycleCallback;
 import com.clevertap.android.sdk.CleverTapAPI;
-import com.clevertap.android.sdk.InAppNotificationButtonListener;
 import com.clevertap.android.sdk.InAppNotificationListener;
 import com.clevertap.android.sdk.inapp.CTInAppNotification;
+import com.clevertap.android.sdk.interfaces.OnInitCleverTapIDListener;
 import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener;
-import com.clevertap.android.signedcall.exception.InitException;
-import com.clevertap.android.signedcall.init.SignedCallAPI;
-import com.clevertap.android.signedcall.init.SignedCallInitConfiguration;
-import com.clevertap.android.signedcall.interfaces.SignedCallInitResponse;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.gson.Gson;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
@@ -42,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class MyApplication extends Application implements Application.ActivityLifecycleCallbacks  /*CTPushAmpListener*/ {
 
@@ -52,6 +54,9 @@ public class MyApplication extends Application implements Application.ActivityLi
     public static MyApplication getInstance() {
         return singleton;
     }
+
+    private FirebaseAnalytics mFirebaseAnalytics;
+
 
     // Called when the application is starting, before any other application objects have been created.
     // Overriding this method is totally optional!
@@ -70,7 +75,7 @@ public class MyApplication extends Application implements Application.ActivityLi
         TemplateRenderer.setDebugLevel(3);
         CleverTapAPI.setNotificationHandler(new PushTemplateNotificationHandler());
 
-        if (clevertapDefaultInstance!=null) {
+        if (clevertapDefaultInstance != null) {
             clevertapDefaultInstance.enablePersonalization();
             String customerName = (String) clevertapDefaultInstance.getProperty("Name");
             Log.d(TAG, "Property Name Value is : " + customerName);
@@ -93,6 +98,40 @@ public class MyApplication extends Application implements Application.ActivityLi
                 if (payload.containsKey("pt_id") && payload.get("pt_id").equals("pt_product_display")) {
                     NotificationManager nm = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
                     nm.cancel((Integer) payload.get("notificationId"));
+                }
+
+                final String COUPON_CODE_KEY = "coupon_code";
+
+                // 2. Check if the payload contains the coupon code
+                if (payload.containsKey(COUPON_CODE_KEY)) {
+
+                    // Retrieve the coupon code value
+                    String couponCode = (String) payload.get(COUPON_CODE_KEY);
+
+                    if (couponCode != null && !couponCode.isEmpty()) {
+
+                        Context context = getApplicationContext();
+                        // Get the ClipboardManager system service
+                        ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                        // Create a new clip (data object for the clipboard)
+                        // The first parameter is a user-visible label.
+                        ClipData clip = ClipData.newPlainText("Coupon Code", couponCode);
+                        // Set the clip to the system clipboard
+                        clipboard.setPrimaryClip(clip);
+                        // 3. Provide visual confirmation (Toast)
+                        Toast.makeText(
+                                context,
+                                "Code '" + couponCode + "' copied to clipboard!",
+                                Toast.LENGTH_LONG
+                        ).show();
+
+                    } else {
+                        // Handle case where key exists but value is null/empty
+                        Log.e("CleverTap", "Coupon code key found, but value is empty.");
+                    }
+                } else {
+                    // Handle case where notification was clicked but didn't contain the coupon_code key
+                    Log.d("CleverTap", "Notification clicked, but no coupon code key found in payload.");
                 }
 
             }
@@ -132,37 +171,37 @@ public class MyApplication extends Application implements Application.ActivityLi
             CleverTapAPI.createNotificationChannel(getApplicationContext(),
                     "silentChannel", "Silent Channel",
                     "Channel with no sound",
-                    NotificationManager.IMPORTANCE_MAX, true,"silent.mp3");
+                    NotificationManager.IMPORTANCE_MAX, true, "silent.mp3");
 
             CleverTapAPI.createNotificationChannel(getApplicationContext(),
                     "lowImportance", "Low Importance Channel",
                     "Channel with low importance",
                     NotificationManager.IMPORTANCE_LOW, true);
 
+            CleverTapAPI.createNotificationChannelGroup(getApplicationContext(),
+                    "GroupId1", "Group 1");
+
+            CleverTapAPI.createNotificationChannelGroup(getApplicationContext(),
+                    "GroupId2", "Group 2");
+
+
+            CleverTapAPI.createNotificationChannel(getApplicationContext(),
+                    "GroupChannel1", "Group Channel 1",
+                    "Group Channel 1 Description",
+                    NotificationManager.IMPORTANCE_MAX, "GroupId1", true);
+
+            CleverTapAPI.createNotificationChannel(getApplicationContext(),
+                    "GroupChannel2", "Group Channel 2",
+                    "Group Channel 2 Description",
+                    NotificationManager.IMPORTANCE_MAX, "GroupId2", true);
+
+
 //            NotificationChannel notificationChannel = new NotificationChannel("silentChannel","Silent Channel",NotificationManager.IMPORTANCE_HIGH);
 //            notificationChannel.setSound(null,null);
 
         }
 
-        /*CleverTapAPI cleverTapAPI = CleverTapAPI.getDefaultInstance(getApplicationContext());
-         */
-        /*CTGeofenceSettings ctGeofenceSettings = new CTGeofenceSettings.Builder()
-                .enableBackgroundLocationUpdates(true)//boolean to enable background location updates
-                .setLogLevel(Logger.VERBOSE)//Log Level
-                .setLocationAccuracy(CTGeofenceSettings.ACCURACY_HIGH)//byte value for Location Accuracy
-                .setLocationFetchMode(CTGeofenceSettings.FETCH_CURRENT_LOCATION_PERIODIC)//byte value for Fetch Mode
-                .setGeofenceMonitoringCount(CTGeofenceSettings.DEFAULT_GEO_MONITOR_COUNT)//int value for number of Geofences CleverTap can monitor
-//                .setInterval(interval)//long value for interval in milliseconds
-//                .setFastestInterval(fastestInterval)//long value for fastest interval in milliseconds
-//                .setSmallestDisplacement(displacement)//float value for smallest Displacement in meters
-//                .setGeofenceNotificationResponsiveness(geofenceNotificationResponsiveness)// int value for geofence notification responsiveness in milliseconds
-                .build();
-        CTGeofenceAPI.getInstance(getApplicationContext()).init(ctGeofenceSettings,clevertapDefaultInstance);
-        try {
-            CTGeofenceAPI.getInstance(getApplicationContext()).triggerLocation();
-        } catch (IllegalStateException e){
-            // thrown when this method is called before geofence SDK initialization
-        }*/
+
 
         if (clevertapDefaultInstance != null) {
 
@@ -188,39 +227,25 @@ public class MyApplication extends Application implements Application.ActivityLi
 
 //            getNotificationPermission();
 
-            /*cleverTapDefaultInstance.setInAppNotificationListener(new InAppNotificationListener() {
+            clevertapDefaultInstance.setInAppNotificationListener(new InAppNotificationListener() {
                 @Override
                 public boolean beforeShow(Map<String, Object> extras) {
-                    Log.d(TAG, "In App beforeShow() called with: extras = [" + extras + "]");
+                    Log.d(TAG, "In App beforeShow() called with: extras = [" + new Gson().toJson(extras) + "]");
                     return true;                    //return true to show the inApp notification, if false then inapp wont show
+                }
+
+                @Override
+                public void onShow(CTInAppNotification ctInAppNotification) {
+                    Log.d(TAG, "In App onShow(): "+ new Gson().toJson(ctInAppNotification));
                 }
 
                 @Override
                 public void onDismissed(Map<String, Object> extras, @Nullable Map<String, Object> actionExtras) {
                     Log.d(TAG, "In App onDismissed() called with: extras = [" + extras + "], actionExtras = [" + actionExtras + "]");
                 }
-            });*/
+            });
         }
 
-
-        SignedCallInitResponse signedCallInitListener = new SignedCallInitResponse() {
-            @Override
-            public void onSuccess() {
-                //App is notified on the main thread when the Signed Call SDK is initialized
-            }
-
-            @Override
-            public void onFailure(InitException initException) {
-                //App is notified on the main thread when the initialization is failed
-                Log.d("SignedCall: ", "error code: " + initException.getErrorCode()
-                        + "\n error message: " + initException.getMessage()
-                        + "\n error explanation: " + initException.getExplanation());
-
-                if (initException.getErrorCode() == InitException.SdkNotInitializedException.getErrorCode()) {
-                    //Handle this error here
-                }
-            }
-        };
 
       /*  JSONObject initOptions = new JSONObject();
         try {
@@ -237,6 +262,12 @@ public class MyApplication extends Application implements Application.ActivityLi
 
         SignedCallAPI.getInstance().init(getApplicationContext(), initConfiguration, clevertapDefaultInstance, signedCallInitListener);
         SignedCallAPI.setDebugLevel(SignedCallAPI.LogLevel.VERBOSE);*/
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        clevertapDefaultInstance.getCleverTapID(cleverTapID -> {
+            if (cleverTapID!=null){
+                mFirebaseAnalytics.setUserProperty("ct_objectId", cleverTapID);
+            }
+        });
     }
 
     public void onUserLogin(String identity, String email) {
@@ -345,8 +376,8 @@ public class MyApplication extends Application implements Application.ActivityLi
     }
 
     public void sendLiveEvent() {
-        Map<String,Object> data = new HashMap<>();
-        data.put("testKey","testValue");
+        Map<String, Object> data = new HashMap<>();
+        data.put("testKey", "testValue");
         clevertapDefaultInstance.pushEvent("iamlive", data);
     }
 

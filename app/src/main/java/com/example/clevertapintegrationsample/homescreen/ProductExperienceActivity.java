@@ -56,6 +56,7 @@ public class ProductExperienceActivity extends AppCompatActivity {
     private HorizontalItemsAdapter horizontalItemsAdapter;
     private ImageView greetingsImageView, thinBannerImageView;
     private ConstraintLayout main;
+    private CleverTapAPI cleverTapAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,28 +65,28 @@ public class ProductExperienceActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_product_experience);
 
-        CleverTapAPI cleverTapAPI = MyApplication.getInstance().getClevertapDefaultInstance();
+         cleverTapAPI = MyApplication.getInstance().getClevertapDefaultInstance();
 
 //        Var<String> PEColor =  cleverTapAPI.defineVariable("themeColor", "white");
 //        Var<String> PETheme = (Var<String>) cleverTapAPI.getVariableValue("festivalTheme");
 //        cleverTapAPI.syncVariables();
 
-        PETheme = cleverTapAPI.defineVariable("festivalTheme", "diwali");
-        PEColor = cleverTapAPI.defineVariable("themeColor", "black");
-
-        cleverTapAPI.fetchVariables(new FetchVariablesCallback() {
-            @Override
-            public void onVariablesFetched(boolean isSuccess) {
-                // isSuccess is true when server request is successful, false otherwise
-                Log.d(TAG, "onVariablesFetched: " + isSuccess);
-                if (isSuccess) {
-                    PETheme = cleverTapAPI.getVariable("festivalTheme");
-                    PEColor = cleverTapAPI.getVariable("black");
-                    Log.d(TAG, "onVariablesFetched() called with:  = [" + PEColor.stringValue + "]");
-
-                }
-            }
-        });
+//        PETheme = cleverTapAPI.defineVariable("festivalTheme", "diwali");
+//        PEColor = cleverTapAPI.defineVariable("themeColor", "black");
+//
+//        cleverTapAPI.fetchVariables(new FetchVariablesCallback() {
+//            @Override
+//            public void onVariablesFetched(boolean isSuccess) {
+//                // isSuccess is true when server request is successful, false otherwise
+//                Log.d(TAG, "onVariablesFetched: " + isSuccess);
+//                if (isSuccess) {
+//                    PETheme = cleverTapAPI.getVariable("festivalTheme");
+//                    PEColor = cleverTapAPI.getVariable("black");
+//                    Log.d(TAG, "onVariablesFetched() called with:  = [" + PEColor.stringValue + "]");
+//
+//                }
+//            }
+//        });
 
 //        // invoked on app start and whenever vars are fetched from the server
 //        cleverTapAPI.addVariablesChangedCallback(new VariablesChangedCallback() {
@@ -148,7 +149,7 @@ public class ProductExperienceActivity extends AppCompatActivity {
 //            return insets;
 //        });
 
-        assert PETheme != null;
+       /* assert PETheme != null;
         PETheme.addValueChangedCallback(new VariableCallback() {
             @Override
             public void onValueChanged(Var varInstance) {
@@ -174,7 +175,60 @@ public class ProductExperienceActivity extends AppCompatActivity {
                     Log.d(TAG, "onValueChanged() called with: varInstance = [" + varInstance.stringValue + "]");
                 });
             }
+        });*/
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        PETheme = cleverTapAPI.defineVariable("festivalTheme", "diwali");
+        PEColor = cleverTapAPI.defineVariable("themeColor", "black");
+
+        cleverTapAPI.fetchVariables(new FetchVariablesCallback() {
+            @Override
+            public void onVariablesFetched(boolean isSuccess) {
+                // isSuccess is true when server request is successful, false otherwise
+                Log.d(TAG, "onVariablesFetched: " + isSuccess);
+                if (isSuccess) {
+                    PETheme = cleverTapAPI.getVariable("festivalTheme");
+                    PEColor = cleverTapAPI.getVariable("black");
+                    Log.d(TAG, "onVariablesFetched() called with:  = [" + PEColor.stringValue + "]");
+
+                }
+            }
         });
+
+        if (PETheme!=null) {
+            PETheme.addValueChangedCallback(new VariableCallback() {
+                @Override
+                public void onValueChanged(Var varInstance) {
+                    // invoked on app start and whenever value is changed
+                    Log.d(TAG, "onValueChanged() called with: varInstance = [" + varInstance.stringValue() + "]");
+                    new Handler(getApplicationContext().getMainLooper()).post(() -> {
+                        PETheme = varInstance;
+                        // run code
+                        renderData();
+                    });
+                }
+            });
+        }
+
+        if (PEColor!=null) {
+            PEColor.addValueChangedCallback(new VariableCallback() {
+                @Override
+                public void onValueChanged(Var varInstance) {
+                    // invoked on app start and whenever value is changed
+                    Log.d(TAG, "onValueChanged() called with: varInstance = [" + varInstance.stringValue() + "]");
+                    new Handler(getApplicationContext().getMainLooper()).post(() -> {
+                        PEColor = varInstance;
+                        // run code
+                        Log.d(TAG, "onValueChanged() called with: varInstance = [" + varInstance.stringValue + "]");
+                    });
+                }
+            });
+        }
+
     }
 
     private void renderData() {

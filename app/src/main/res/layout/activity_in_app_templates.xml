@@ -141,6 +141,30 @@
                 android:layout_height="wrap_content"
                 android:text="FAB" />
 
+            <Button
+                android:id="@+id/inAppCopyCouponCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Copy Coupon" />
+
+            <Button
+                android:id="@+id/inAppFullCover"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Full Cover" />
+
+            <Button
+                android:id="@+id/inAppEmbedVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Video Portrait" />
+
+            <Button
+                android:id="@+id/inAppSimpleButtonHTML"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Simple HTML" />
+
         </LinearLayout>
 
     </ScrollView>

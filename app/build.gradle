@@ -17,7 +17,7 @@ allprojects {
 
 android {
     namespace 'com.example.clevertapintegrationsample'
-    compileSdk 34
+    compileSdk 35
 
     buildFeatures {
         buildConfig = true
@@ -62,15 +62,15 @@ dependencies {
 
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:29.3.0')
-    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
+    implementation platform('org.jetbrains.kotlin:kotlin-bom:1.8.0')
 
     // Declare the dependency for the Analytics library
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-messaging'
 
-    implementation "com.clevertap.android:push-templates:1.4.0"
-    implementation 'com.clevertap.android:clevertap-android-sdk:7.3.1'
+    implementation "com.clevertap.android:push-templates:2.2.0"
+    implementation 'com.clevertap.android:clevertap-android-sdk:7.7.1'
     implementation 'androidx.core:core:1.7.0'
     //Mandatory for CleverTap Android SDK v3.6.4 and above add the following -
     implementation 'com.android.installreferrer:installreferrer:2.2'
@@ -95,16 +95,17 @@ dependencies {
 
     implementation("org.greenrobot:eventbus:3.3.1")
 
-    implementation 'com.clevertap.android:clevertap-geofence-sdk:1.1.0'
-    implementation 'com.google.android.gms:play-services-location:21.0.1'
-    implementation 'androidx.work:work-runtime:2.8.1' // required for FETCH_LAST_LOCATION_PERIODIC
+    implementation 'com.clevertap.android:clevertap-geofence-sdk:1.4.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.0'
+    implementation 'androidx.work:work-runtime:2.7.1' // required for FETCH_LAST_LOCATION_PERIODIC
     implementation 'androidx.concurrent:concurrent-futures:1.1.0' // required for FETCH_LAST_LOCATION_PERIODIC
 
     //auto carousel https://www.geeksforgeeks.org/auto-image-slider-in-android-with-example/
     implementation 'com.github.smarteist:Android-Image-Slider:1.4.0'
 
+
 //    implementation 'com.clevertap.android:clevertap-rendermax-sdk:1.0.2'
-    implementation "com.clevertap.android:clevertap-signedcall-sdk:0.0.4"
+//    implementation "com.clevertap.android:clevertap-signedcall-sdk:0.0.4"
     implementation('io.socket:socket.io-client:2.1.0') {
         exclude group: 'org.json', module: 'json'
     }

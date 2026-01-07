@@ -2,13 +2,10 @@ package com.example.clevertapintegrationsample.notificationAPI;
 
 import static android.Manifest.permission.POST_NOTIFICATIONS;
 
-import static com.clevertap.android.sdk.PushPermissionManager.ANDROID_PERMISSION_STRING;
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -17,9 +14,6 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
-import com.clevertap.android.sdk.CleverTapAPI;
-import com.clevertap.android.sdk.Constants;
 import com.clevertap.android.sdk.PushPermissionResponseListener;
 import com.clevertap.android.sdk.inapp.CTLocalInApp;
 import com.example.clevertapintegrationsample.MyApplication;
